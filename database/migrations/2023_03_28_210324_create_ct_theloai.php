@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('theloai', function (Blueprint $table) {
-            $table->id();
-            $table->string('tenloai',50);
+        Schema::create('ct_theloai', function (Blueprint $table) {
+            $table->foreignId('ma_sp')->constrained('sanpham')->onDelete('cascade');
+            $table->foreignId('ma_theloai')->constrained('theloai')->onDelete('cascade');
             $table->timestamps();
+            $table->primary(['ma_sp','ma_theloai']);
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('theloai');
+        Schema::dropIfExists('ct_theloai');
     }
 };

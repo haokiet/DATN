@@ -1,0 +1,183 @@
+
+.ul-header1 li{
+    list-style-type: none;
+    display: inline-block;
+    width: 130px;
+    line-height: 40px;
+
+}
+.right{
+    float: right;
+}
+.nav{
+    background-color: #718096;
+    width: 100%;;
+}
+.header{
+    width: 90%;
+    margin: auto;
+}
+.header h1{
+    cursor: pointer;
+}
+.header a{
+    text-decoration: none;
+    color: aliceblue;
+}
+.header a:hover{
+    color: #4b5563;
+}
+.search{
+    display: inline-block;
+
+}
+h1{
+    color: aliceblue;
+    font-family: Emoji;
+    font-size: xx-large;
+    font-weight: unset;
+    cursor: default;
+}
+.s1{
+    margin-left: 15%;
+    width: 50%;
+    height: 7%;
+    border-radius: 5px;
+}
+.icon{
+    width: 7%;
+    height: 7%;
+    cursor: pointer;
+}
+
+.anh_sp{
+    width: 100%;
+    height: 60%;
+}
+.body-home{
+    width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+
+}
+.td-sp{
+    margin-top: 2%;
+    width: 15%;
+    height: 30%;
+    border: 1px solid black;
+    text-align: center;
+    display: inline-block;
+
+}
+.show_sp{
+    width: 90%;
+}
+.show_sp_left{
+    width: 30%;
+    float: left;
+}
+.khung_sp{
+    width: 100%;
+}
+.ct_anh{
+    width: 100%;
+    height: 50%;
+}
+.ct_photos{
+    width: 30%;
+    height: 20%;
+    margin-top: 2%;
+}
+
+.show_li{
+    display: inline-block;
+    width: 20%;
+}
+.show_sp{
+    width: 90%;
+    margin: auto;
+}
+table{
+    text-align: center;
+    width: 50%;
+}
+td{
+    width: 20%;
+}
+.show_sp_giohang{
+    margin-top: 5%;
+    margin-left: 10%;
+    height: 5%;
+    width: 20%;
+    border-radius: 10px;
+    text-decoration: none;
+    color: darkred;
+
+}
+.ten_bl{
+    display: inline-block;
+}
+.h2-cungloai{
+    padding-left: 10%;
+}
+.gia_show{
+    display: inline-block;
+    color: #718096;
+}
+.giaban_show{
+    font-size: 300%;
+    color: red;
+    margin-left: 2%;
+}
+.div-2{
+width: 90%;
+    margin: auto 5%;
+}
+.show_left2{
+    float: left;
+    width: 85%;
+}
+.show_right2{
+float: right;
+    width: 15%;
+}
+p{
+    font-size: 100%;
+}
+.icon-cart{
+    width: 30%;
+    height: 30%;
+}
+.cungloai{
+    width: 100%;
+}
+.main_register{
+
+    background-color: blanchedalmond;
+    width: 90%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.register_left{
+    width: 65%;
+    float: left;
+
+}
+.img_register{
+    width: 80%;
+    margin: auto;
+}
+.register_right{
+    width: 35%;
+    float: right;
+    background-color: blanchedalmond;
+}
+.register_table{
+    width: 90%;
+    margin: auto;
+}
+.regis_tr{
+    height: 20%;
+    width: 100%;
+}

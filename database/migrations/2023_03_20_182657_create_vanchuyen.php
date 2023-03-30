@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('c_t_theloai', function (Blueprint $table) {
+        Schema::create('vanchuyen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_theloai')->constrained('the_loai')->onDelete('cascade');
-            $table->string('ten',50);
+            $table->string('ten_vc',50);
+            $table->integer('don_gia');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('c_t_theloai');
+        Schema::dropIfExists('vanchuyen');
     }
 };

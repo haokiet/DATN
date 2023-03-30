@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('theloai', function (Blueprint $table) {
-            $table->id();
-            $table->string('tenloai',50);
+        Schema::create('ct_hoadon', function (Blueprint $table) {
+            $table->foreignId('ma_hoadon')->constrained('hoadon')->onDelete('cascade');
+            $table->foreignId('ma_sp')->constrained('sanpham')->onDelete('cascade');
+            $table->integer('so_luong');
+            $table->primary(['ma_hoadon','ma_sp']);
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('theloai');
+        Schema::dropIfExists('ct_hoadon');
     }
 };
