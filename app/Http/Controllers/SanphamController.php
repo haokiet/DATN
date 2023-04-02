@@ -12,27 +12,27 @@ class SanphamController extends Controller
     /**
      * Display a listing of the resource.
      */
-//    public function index()
-//    {
-//        $giaban=array();
-//        $i=0;
-//        $sp=Sanpham::all()->where('trang_thai','=',1);
-//        foreach ($sp as $item)
-//        {
-//
-//            $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
-//            $i++;
-//        }
-////            $gia_goc = DB::table('sanpham')->value('gia_goc');
-////            $khuyen_mai = DB::table('sanpham')->value('khuyen_mai');
-//
-////            dd($giaban);
-//
-//
-//
-//        return view('sanpham.home',compact('sp','giaban'));
-//
-//    }
+    public function index()
+    {
+        $giaban=array();
+        $i=0;
+        $sp=Sanpham::all()->where('trang_thai','=',1);
+        foreach ($sp as $item)
+        {
+
+            $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
+            $i++;
+        }
+//            $gia_goc = DB::table('sanpham')->value('gia_goc');
+//            $khuyen_mai = DB::table('sanpham')->value('khuyen_mai');
+
+//            dd($giaban);
+
+
+
+        return view('sanpham.home',compact('sp','giaban'));
+
+    }
 
     /**
      * Show the form for creating a new resource.

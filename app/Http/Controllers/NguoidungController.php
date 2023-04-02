@@ -130,21 +130,17 @@ class NguoidungController extends Controller
 
        if (Auth::check())
        {
-           $user=Auth::user();
-           if($user->role===0)
-           {
-               return \view('nguoidung.nguoiban_regis',compact('user'));
-           }
-           else
-           {
-               return \view('nguoiban.index',compact('user'));
-           }
+
+
+               return
+                   \view('nguoiban.index',);
 
        }
        else{
-           return \view('nguoidung.nguoiban_regis_all');
+           return \view('nguoidung.create');
        }
     }
+
     public function logout(Request $request)
     {
         Auth::logout();

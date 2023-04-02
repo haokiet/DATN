@@ -1,1 +1,63 @@
-<h1>bạn đã là người bán</h1>
+{{--@include('layout.header_sell')--}}
+@extends('layout.header_sell')
+@section('sell-index')
+
+
+            <h3>b</h3>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            v
+            v
+            v
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+            <h3>a</h3>
+            <h2>hshs</h2>
+            <br>
+
+
+@endsection

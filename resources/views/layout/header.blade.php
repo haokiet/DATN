@@ -19,7 +19,6 @@
                <li class="right">
                    <a href="{{route('logout')}}">logout</a>
                </li>
-
            </ul>
        </div>
        <div class="div-search">
