@@ -9,4 +9,8 @@ class Photos extends Model
 {
     use HasFactory;
     protected $table='photos';
+    protected $fillable=[
+        'ma_sp',
+        'url'
+    ];
 }

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class C_T_Theloai extends Model
 {
     use HasFactory;
-    protected $table='c_t_loai';
+    protected $table='ct_theloai';
+    protected $fillable=[
+        'ma_sp',
+        'ma_theloai'
+    ];
 }

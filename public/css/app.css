@@ -6,6 +6,9 @@
     line-height: 2%;
 
 }
+.home_a{
+    height: 2%;
+}
 .right{
     float: right;
 }
@@ -19,6 +22,7 @@
 .header{
     width: 90%;
     margin: auto;
+
 }
 .header h1{
     cursor: pointer;
@@ -29,6 +33,9 @@
 }
 .header a:hover{
     color: #4b5563;
+}
+a{
+    text-decoration: none;
 }
 .search{
     display: inline-block;
@@ -66,6 +73,9 @@ h1{
     width: 90%;
     border-collapse: collapse;
     margin: auto;
+    margin-top: 7%;
+    display: block;
+
 
 }
 .td-sp{
@@ -79,6 +89,8 @@ h1{
 }
 .show_sp{
     width: 90%;
+    margin: auto;
+    padding-top: 10%;
 }
 .show_sp_left{
     width: 30%;
@@ -194,7 +206,7 @@ p{
     margin: auto;
 }
 .sell-col{
-    margin-top: 4.75%;
+    margin-top: 4.7%;
 }
 .scroll-left{
     width: 20%;
@@ -202,11 +214,10 @@ p{
     position: fixed;
     top: 0;
     left: 2%;
-    background-color: #9ca3af;
     padding-top: 2%;
     height: 100%;
-
-
+    /*box-sizing: border-box;*/
+    box-shadow: 1px 0 rgba(0, 0, 0, 0.12);
 }
 .scroll-right{
     float: right;
@@ -224,7 +235,8 @@ p{
     width: 3%;
     height: 3%;
     border-radius: 40%;
-    margin-left: 70%;
+    margin-left: 60%;
+    margin-bottom: -1%;
 }
 ul{
     list-style: none;
@@ -234,4 +246,85 @@ ul{
 }
 .li_header{
     line-height: 200%;
+}
+.sell_header_main{
+    height: 7%;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+
+
+}
+.sell-y{
+    margin-top: 5%;
+}
+
+.sell_all_ul li{
+
+    display: inline;
+    margin-left: 10%;
+}
+.sell_table{
+    width: 100%;
+    margin-top: 1%;
+}
+.sell_table tr{
+    height: 7vh;
+}
+.sell_table td{
+    padding-left: 3%;
+}
+.sell_div1{
+    display: flex;
+
+}
+.create_sell{
+   padding-top: 2%;
+    margin-left: 30%;
+    height: 100%;
+
+}
+.create_sell button{
+    background-color: aqua;
+    height: 30%;
+    border-radius: 8px;
+    font-size: 120%;
+}
+.creat_sp ul li{
+    display: inline-block;
+
+}
+.create_right{
+    margin-left: 10%;
+}
+.text{
+    width: 200%;
+    height: 5%;
+}
+.aria{
+    width: 200%;
+    height: 20%;
+}
+.num{
+    width:90%;
+    height: 5%;
+    margin-left: 40%;
+}
+.dvt{
+    display: flex;
+    width: 80%;
+}
+.select_theloai{
+    width: 200%;
+    height: 15%;
+    line-height: 20%;
+}
+.select_theloai option{
+    display: flex;
+}
+.page{
+    width: 100%;
+    height: 4%;
+}
+.im{
+    width: 30%;
+    height: 30%;
 }

@@ -11,7 +11,8 @@ class HomeController extends Controller
     {
         $giaban=array();
         $i=0;
-        $sp=Sanpham::all()->where('trang_thai','=',1);
+        $sp=Sanpham::all()->where('trang_thai','=',1)
+            ->where('so_luong','>',0);
         foreach ($sp as $item)
         {
 

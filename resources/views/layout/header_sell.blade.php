@@ -8,8 +8,18 @@
         <div class="div-search search">
             <a href="{{route('home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">kênh người bán</span></h1> </a>
 
-                <?php $user=\Illuminate\Support\Facades\Auth::user();?>
-                <img class="img-header" src="{{asset('images/'.$user->image)}}">
+                <?php $user=\Illuminate\Support\Facades\Auth::user();
+                    if ($user->image!==null)
+                    {
+                        ?><img class="img-header" src="{{asset('images/'.$user->image)}}"> <p class="search"><?php echo $user->username;?></p>
+            <?php   }
+
+                else
+                {
+                ?>
+
+                <img class="img-header" src="{{asset('images/user.png')}}"> <p class="search"><?php echo $user->username;?></p>
+            <?php }?>
         </div>
 
     </div>
@@ -24,13 +34,13 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="#">tất cả sản phẩm</a>
+                        <a href="{{route('sell-index-all')}}">tất cả sản phẩm</a>
                     </li>
                     <li class="li_header">
-                        <a href="#">thêm sản phẩm</a>
+                        <a href="{{route('sell_create_sp')}}">thêm sản phẩm</a>
                     </li>
                     <li class="li_header">
-                        <a href="#">cài đặt sản phẩm sản phẩm</a>
+                        <a href="{{route('sell-index-delete')}}">sản phẩm vi phạm</a>
                     </li>
                 </ul>
             </li>
@@ -40,7 +50,7 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="#">tất cả đơn hàng</a>
+                        <a href="{{route('order_sell_all')}}">tất cả đơn hàng</a>
                     </li>
                     <li class="li_header">
                         <a href="#">đơn hủy</a>
@@ -82,7 +92,11 @@
         </ul>
     </div>
     <div class="sell-col scroll-right">
+        @yield('sell-home')
         @yield('sell-index')
+        @yield('them_sp')
+        @yield('header_sell_order')
+        @yield('edit_sp')
     </div>
 </div>
 

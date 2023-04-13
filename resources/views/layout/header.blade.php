@@ -8,7 +8,7 @@
        <div>
            <ul class="ul-header1">
                <li>
-                   <a href="{{route('sell_regis')}}">trở thành người bán</a>
+                   <a href="{{route('sell_home')}}">trở thành người bán</a>
                </li>
                    <li class="right">
                        <a href="{{route('login')}}">đăng nhập</a>

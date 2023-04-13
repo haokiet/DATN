@@ -3,18 +3,17 @@
 <link rel="stylesheet" href="../../css/app.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="show_sp">
-    <h2>
 
-        {{$sp->ten_sp}}
-    </h2>
     <div class="show_sp_left">
 
         <div class="khung_sp" >
             <img class="ct_anh" src="{{asset('images/'.$sp->anh_sp)}}">
             <div class="khung_sp" >
-                <?php  $giaban=$sp->gia_goc - $sp->khuyen_mai; foreach ($anh as $item):?>
+                <?php  $giaban=$sp->gia_goc - $sp->khuyen_mai;?>
+
+                @foreach ($anh as $item)
                 <img class="ct_photos" src="{{asset('images/'.$item->url)}}">
-                <?php endforeach;?>
+                @endforeach
 
             </div>
 
@@ -23,11 +22,18 @@
     </div>
     <div class="show_sp_right">
         <div class="right-show">
+
             <table align="center">
                 <tr>
-                    <td>
+                    <td colspan="3"><h2>
+
+                            {{$sp->ten_sp}}
+                        </h2></td>
+                </tr>
+                <tr>
+                    <th>
                         thời trang:
-                    </td>
+                    </th>
                     <td>
 
                     </td>
@@ -38,9 +44,9 @@
 
                     </td>
                     <td>
-                        <?php foreach ($c_t_theloai as $item):?>
+                        @foreach ($c_t_theloai as $item)
                             {{$item->tenloai}},
-                        <?php endforeach;?>
+                        @endforeach
                     </td>
                     <td></td>
                 </tr>
@@ -65,6 +71,9 @@
 
                         <p class="giaban_show">{{$giaban}} đ</p>
                     </td>
+                </tr>
+                <tr>
+                    <td>số lượng</td>
                 </tr>
 
             </table>

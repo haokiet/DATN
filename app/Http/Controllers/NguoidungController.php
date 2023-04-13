@@ -115,9 +115,9 @@ class NguoidungController extends Controller
     }
     public function check_login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+       // $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1])) {
             // Authentication passed...
             return redirect()->route('home');
         }
@@ -127,18 +127,8 @@ class NguoidungController extends Controller
 
     }
     public function sell_regis (){
-
-       if (Auth::check())
-       {
-
-
-               return
-                   \view('nguoiban.index',);
-
-       }
-       else{
-           return \view('nguoidung.create');
-       }
+        return
+            \view('nguoiban.index',);
     }
 
     public function logout(Request $request)
