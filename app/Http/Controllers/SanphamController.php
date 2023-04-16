@@ -23,11 +23,13 @@ class SanphamController extends Controller
             ->where('trang_thai','=','1')
             ->where('so_luong','>','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_all2 = DB::table('sanpham')
             ->where('trang_thai','=','1')
             ->where('so_luong','>','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->get();
         return view('sanpham.sell_index',compact('sp_all','sp_all2'));
     }
@@ -39,10 +41,12 @@ class SanphamController extends Controller
         $sp_zero = DB::table('sanpham')
             ->where('trang_thai','=','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_zero2 = DB::table('sanpham')
             ->where('trang_thai','=','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->get();
         return view('sanpham.sell_notduyet',compact('sp_zero','sp_zero2'));
     }
@@ -54,10 +58,12 @@ class SanphamController extends Controller
         $sp_no = DB::table('sanpham')
             ->where('so_luong','=','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_no2 = DB::table('sanpham')
             ->where('so_luong','=','0')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->get();
         return view('sanpham.sell_hethang',compact('sp_no','sp_no2'));
     }
@@ -69,10 +75,12 @@ class SanphamController extends Controller
         $sp_dele = DB::table('sanpham')
             ->where('is_delete','=','1')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_dele2 = DB::table('sanpham')
             ->where('is_delete','=','1')
             ->where('ma_nguoidung','=',$user->id)
+            ->orderByDesc('created_at')
             ->get();
         return view('sanpham.sell_delete',compact('sp_dele','sp_dele2'));
     }

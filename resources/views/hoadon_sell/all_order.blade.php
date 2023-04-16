@@ -1,6 +1,7 @@
 @extends('layout.header_order')
 @section('sell-order-all')
     <div>
+        <h2>tat ca hoa don: {{$count}}</h2>
         <table class="sell_table">
             <tr>
 
@@ -36,4 +37,5 @@
 
         </table>
     </div>
+    <div class="page">{{ $sp->links()}}</div>
 @endsection

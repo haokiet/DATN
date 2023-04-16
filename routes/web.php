@@ -49,7 +49,17 @@ Route::middleware([
     Route::get('/sell/create-sp',[SanphamController::class,'create'])->name('sell_create_sp');
     Route::post('/luusp',[SanphamController::class,'store'])->name('store');
     Route::get('/sell/order-all',[HoadonController::class,'order_sell_all'])->name('order_sell_all');
+    Route::get('/sell/order-wait',[HoadonController::class,'order_sell_wait'])->name('order_sell_wait');
+    Route::get('/sell/order-giving',[HoadonController::class,'order_sell_giving'])->name('order_sell_giving');
+    Route::get('/sell/order-gave',[HoadonController::class,'order_sell_gave'])->name('order_sell_gave');
+    Route::get('/sell/order-delete',[HoadonController::class,'order_sell_delete'])->name('order_sell_delete');
+    Route::get('/sell/order-money_away',[HoadonController::class,'order_sell_moneyaway'])->name('order_sell_money_away');
     Route::get('/sell/edit/{id}',[SanphamController::class,'edit'])->name('edit_sell_sp');
     Route::post('/sell/update/{id}',[SanphamController::class,'update'])->name('update');
     Route::get('/sell/delete/{id}',[SanphamController::class,'destroy'])->name('delet');
+    Route::get('/sell/up_shop',[NguoidungController::class,'up_shop'])->name('up');
 });
+
+Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
+Route::get('/admin/chitiet/{id}',[\App\Http\Controllers\AdminController::class,'duyetSP'])->name('duyet_sp');
+Route::get('/admin/duyet/{id}',[\App\Http\Controllers\AdminController::class,'confimDuyet'])->name('duyet_confim');

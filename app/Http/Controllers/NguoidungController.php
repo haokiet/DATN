@@ -62,7 +62,24 @@ class NguoidungController extends Controller
     {
         //
     }
+    public function up_shop()
+    {
+        $user=Auth::user();
+        return view('nguoiban.profile_shop',compact('user'));
+    }
+    public function update_shop(Request $request)
+    {
+        $user=Auth::user();
+        $shop = User::find($user->id);
+        $shop->username=$request->username;
+        $shop->image=$request->image;
+        $shop->dia_chi=$request->dia_chi;
+        $shop->so_dt=$request->so_dt;
+        //$shop->mo_ta=$request->mo_ta;
 
+        $shop->save();
+        return redirect('/sell/up_shop');
+    }
     /**
      * Update the specified resource in storage.
      */

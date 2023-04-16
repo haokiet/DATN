@@ -53,10 +53,10 @@
                         <a href="{{route('order_sell_all')}}">tất cả đơn hàng</a>
                     </li>
                     <li class="li_header">
-                        <a href="#">đơn hủy</a>
+                        <a href="{{route('order_sell_delete')}}">đơn hủy</a>
                     </li>
                     <li class="li_header">
-                        <a href="#">trả hàng/hoàn tiền</a>
+                        <a href="{{route('order_sell_money_away')}}">trả hàng/hoàn tiền</a>
                     </li>
                 </ul>
             </li>
@@ -66,7 +66,7 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="#">hồ sơ shop</a>
+                        <a href="{{route('up')}}">hồ sơ shop</a>
                     </li>
                     <li class="li_header">
                         <a href="#">địa chỉ</a>
@@ -97,6 +97,9 @@
         @yield('them_sp')
         @yield('header_sell_order')
         @yield('edit_sp')
+        @yield('sell-order-delete')
+        @yield('sell-order-money_away')
+        @yield('up_shop')
     </div>
 </div>
 
