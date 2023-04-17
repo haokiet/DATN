@@ -22,7 +22,8 @@
     </div>
     <div class="show_sp_right">
         <div class="right-show">
-
+            <form action="{{route('giohang',$sp->id)}}" method="post">
+                @csrf
             <table align="center">
                 <tr>
                     <td colspan="3"><h2>
@@ -72,15 +73,19 @@
                         <p class="giaban_show">{{$giaban}} đ</p>
                     </td>
                 </tr>
+
                 <tr>
                     <td>số lượng</td>
+                    <td><p><input name="so_luong" type="text" value="1"> tổng số {{$sp->so_luong}}</p></td>
+
                 </tr>
 
             </table>
             <div >
-                <button class="show_sp_giohang"><a class="show_sp_giohang" href="#">Thêm vào giỏ hàng</a><i class="fa fa-shopping-cart icon-cart"></i></button>
+                <p><input type="submit" class="show_sp_giohang"><i class="fa fa-shopping-cart icon-cart"></i></p>
+{{--                <button class="show_sp_giohang"><a class="show_sp_giohang" href="#">Thêm vào giỏ hàng</a><i class="fa fa-shopping-cart icon-cart"></i></button>--}}
             </div>
-
+            </form>
 
 
         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\SanphamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NguoidungController;
 use App\Http\Controllers\HoadonController;
+use App\Http\Controllers\CTHoadonController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +59,7 @@ Route::middleware([
     Route::post('/sell/update/{id}',[SanphamController::class,'update'])->name('update');
     Route::get('/sell/delete/{id}',[SanphamController::class,'destroy'])->name('delet');
     Route::get('/sell/up_shop',[NguoidungController::class,'up_shop'])->name('up');
+    Route::post('/giohang/{id}',[CTHoadonController::class,'gioHang'])->name('giohang');
 });
 
 Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
