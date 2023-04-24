@@ -1,23 +1,35 @@
-
-.ul-header1 li{
-    list-style-type: none;
-    display: inline-block;
-    width: 130px;
-    line-height: 2%;
+:root{
+    --mau--tim: #e710e7;
+}
+.ul-header1{
+    width: 100%;
 
 }
+.header-content-1{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+.header-content-2{
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+}
+
 .home_a{
-    height: 2%;
+    width: 100%;
 }
 .right{
     float: right;
+
 }
 .nav{
     position: fixed;
-    background-color: #718096;
+    /*background-color: #718096;*/
+    background-color: var(--mau--tim);
     width: 100%;
+    height: 80px;
     top:0;
     left: 0;
+
 }
 .header{
     width: 90%;
@@ -38,8 +50,12 @@ a{
     text-decoration: none;
 }
 .search{
-    display: inline-block;
-    line-height: 20%;
+width: 100%;
+}
+
+.icon-search{
+    height: 26px;
+    margin-left: -5px;
 }
 h1{
     color: aliceblue;
@@ -50,10 +66,14 @@ h1{
 }
 
 .s1{
-    margin-left: 15%;
-    width: 50%;
+    margin-top: 25px;
+    width: 70%;
     border-radius: 5px;
     height: 30px;
+}
+.giohang{
+    padding-top: 20px;
+    text-align: center;
 }
 .icon{
     width: 7%;
@@ -73,19 +93,19 @@ h1{
     width: 90%;
     border-collapse: collapse;
     margin: auto;
-    margin-top: 7%;
+    margin-top: 70px;
     display: block;
-
 
 }
 .td-sp{
-    margin-top: 2%;
-    width: 15%;
-    height: 30%;
+    margin-top: 2.5%;
+    margin-left: 2%;
+    width: 170px;
+    height: 190px;
     border: 1px solid black;
     text-align: center;
+    float: left;
     display: inline-block;
-
 }
 .show_sp{
     width: 90%;
@@ -232,11 +252,15 @@ p{
     margin-top: 6%;
 }
 .img-header{
-    width: 3%;
-    height: 3%;
+    width: 35px;
+    height: 35px;
     border-radius: 40%;
     margin-left: 60%;
-    margin-bottom: -1%;
+    padding-top: 5px;
+}
+.sell-img{
+    display: grid;
+    grid-template-columns: 30% 70%;
 }
 ul{
     list-style: none;
@@ -313,8 +337,8 @@ ul{
     width: 80%;
 }
 .select_theloai{
-    width: 200%;
-    height: 15%;
+    width: 150%;
+    height: 5%;
     line-height: 20%;
 }
 .select_theloai option{
@@ -327,4 +351,65 @@ ul{
 .im{
     width: 30%;
     height: 30%;
+}
+.cart {
+    display: grid;
+    grid-template-columns: 5% 40% 15% 20% 15% 5%;
+    margin-top: 100px;
+}
+.cart-img{
+    width: 80px;
+    height: 80px;
+}
+.bottom-cart{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background-color: white;
+}
+.bottom-thanhtoan{
+
+    text-align: center;
+}
+.button-cart{
+    width: 100px;
+    height: 30px;
+    background-color: #fabc03;
+}
+.div-tong{
+    display: flex;
+    float: right;
+}
+.session-status{
+color: red;
+}
+
+.tien-item{
+    width: 50%;
+}
+.div-thanhtoan{
+    display: grid;
+    grid-template-columns: 55% 15% 15% 15%;
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+.content-thanhtoan{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-top: 100px;
+}
+.right-thanhtoan{
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: 30%;
+}
+.table-thanhtoan{
+    width: 100%;
+}
+.img-l{
+    float: left;
+    width: 30%;
 }

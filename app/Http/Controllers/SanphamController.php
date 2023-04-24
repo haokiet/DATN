@@ -120,7 +120,7 @@ class SanphamController extends Controller
 
         $photo=$request->file('url');
         foreach($photo as $value){
-                $urlmm = 'image'.'.'.$value->extension();
+                $urlmm = 'image'.time().'.'.$value->extension();
                 $value->move(public_path('images'),$urlmm);
             Photos::create([
                 'ma_sp' => $sp->id,
@@ -128,12 +128,11 @@ class SanphamController extends Controller
             ]);
         }
         $theloais = $request->input('theloai');
-        foreach($theloais as $value){
+
             C_T_Theloai::create([
                 'ma_sp' => $sp->id,
-                'ma_theloai' => $value
+                'ma_theloai' => $theloais
             ]);
-        }
 
         return redirect('/sell/all-sp');
     }
@@ -183,6 +182,7 @@ class SanphamController extends Controller
     public function update(Request $request, $id)
     {
         $sp=Sanpham::find($id);
+        dd($sp);
         $sp->ten_sp=$request->ten_sp;
         $sp->mo_ta=$request->mo_ta;
         $sp->so_luong=$request->so_luong;

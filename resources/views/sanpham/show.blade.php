@@ -3,7 +3,11 @@
 <link rel="stylesheet" href="../../css/app.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="show_sp">
-
+    @if (session('thongbao'))
+        <div class="session-status">
+            {{ session('thongbao') }}
+        </div>
+    @endif
     <div class="show_sp_left">
 
         <div class="khung_sp" >
@@ -82,8 +86,8 @@
 
             </table>
             <div >
-                <p><input type="submit" class="show_sp_giohang"><i class="fa fa-shopping-cart icon-cart"></i></p>
-{{--                <button class="show_sp_giohang"><a class="show_sp_giohang" href="#">Thêm vào giỏ hàng</a><i class="fa fa-shopping-cart icon-cart"></i></button>--}}
+                <p><input type="submit" class="show_sp_giohang" value="thêm vào giỏ hàng"><i class="fa fa-shopping-cart icon-cart"></i></p>
+
             </div>
             </form>
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vanchuyen', function (Blueprint $table) {
             $table->id();
             $table->string('ten_vc',50);
-            $table->integer('don_gia');
+            $table->integer('don_gia_vc');
             $table->timestamps();
         });
     }

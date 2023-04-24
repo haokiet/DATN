@@ -33,14 +33,15 @@ class HoadonController extends Controller
            $count=0;
            foreach ($sp as $item)
            {
-               $hoadon = DB::table('ct_hoadon')
-                   ->select('ma_hoadon')->where('ma_sp','=',$item->id)->get();
-               foreach ($hoadon as $value)
-               {
-                   $dem ++;
-               }
-               $num[$i]=$dem;
-               $dem=0;
+               $hd = DB::table('hoadon')
+                   ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                   ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                   ->join('users','users.id','=','sanpham.ma_nguoidung')
+                   ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                   ->where('users.id','=',$user->id)
+                   ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+               $num[$i]=count($hd);
                $count++;
                $i++;
            }
@@ -66,15 +67,16 @@ class HoadonController extends Controller
         $i=0;
         foreach ($sp as $item)
         {
-            $hoadon = DB::table('ct_hoadon')
-                ->select('ma_hoadon')
-                ->where('ma_sp','=',$item->id)->get();
-            foreach ($hoadon as $value)
-            {
-                $dem ++;
-            }
-            $num[$i]=$dem;
-            $dem=0;
+            $hd = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('users.id','=',$user->id)
+                ->where('hoadon.trang_thai','=',1)
+                ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+            $num[$i]=count($hd);
             $count++;
             $i++;
 
@@ -101,15 +103,16 @@ class HoadonController extends Controller
         $i=0;
         foreach ($sp as $item)
         {
-            $hoadon = DB::table('ct_hoadon')
-                ->select('ma_hoadon')
-                ->where('ma_sp','=',$item->id)->get();
-            foreach ($hoadon as $value)
-            {
-                $dem ++;
-            }
-            $num[$i]=$dem;
-            $dem=0;
+            $hd = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('users.id','=',$user->id)
+                ->where('hoadon.trang_thai','=',2)
+                ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+            $num[$i]=count($hd);
             $count++;
             $i++;
 
@@ -135,20 +138,22 @@ class HoadonController extends Controller
         $i=0;
         foreach ($sp as $item)
         {
-            $hoadon = DB::table('ct_hoadon')
-                ->select('ma_hoadon')
-                ->where('ma_sp','=',$item->id)->get();
-            foreach ($hoadon as $value)
-            {
-                $dem ++;
-            }
-            $num[$i]=$dem;
-            $dem=0;
+
+
+            $hd = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('users.id','=',$user->id)
+                ->where('hoadon.trang_thai','=',3)
+                ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+            $num[$i]=count($hd);
             $count++;
             $i++;
 
         }
-
 
         return view('hoadon_sell.gave_order',compact('num','sp','count'));
     }
@@ -170,15 +175,16 @@ class HoadonController extends Controller
         $i=0;
         foreach ($sp as $item)
         {
-            $hoadon = DB::table('ct_hoadon')
-                ->select('ma_hoadon')
-                ->where('ma_sp','=',$item->id)->get();
-            foreach ($hoadon as $value)
-            {
-                $dem ++;
-            }
-            $num[$i]=$dem;
-            $dem=0;
+            $hd = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('users.id','=',$user->id)
+                ->where('hoadon.trang_thai','=',4)
+                ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+            $num[$i]=count($hd);
             $count++;
             $i++;
 
@@ -206,15 +212,16 @@ class HoadonController extends Controller
         $i=0;
         foreach ($sp as $item)
         {
-            $hoadon = DB::table('ct_hoadon')
-                ->select('ma_hoadon')
-                ->where('ma_sp','=',$item->id)->get();
-            foreach ($hoadon as $value)
-            {
-                $dem ++;
-            }
-            $num[$i]=$dem;
-            $dem=0;
+            $hd = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('users.id','=',$user->id)
+                ->where('hoadon.is_delete','=',1)
+                ->where('ct_hoadon.ma_sp','=',$item->id)->get();
+
+            $num[$i]=count($hd);
             $count++;
             $i++;
 
@@ -222,6 +229,75 @@ class HoadonController extends Controller
 
 
         return view('hoadon_sell.delete_oder',compact('num','sp','count'));
+    }
+    public function showWait($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=',1)
+            ->where('ct_hoadon.ma_sp','=',$id)->get();
+        return view('hoadon_sell.order_detail_wait',compact('user','hd'));
+    }
+    public function showGiving($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=',2)
+            ->where('ct_hoadon.ma_sp','=',$id)->get();
+        return view('hoadon_sell.order_detail_wait',compact('user','hd'));
+    }
+    public function buyshowWait()
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('hoadon.ma_nguoidung','=',$user->id)
+            ->where('hoadon.trang_thai','=',1)
+            ->get();
+        $hh = array();
+        $i=0;
+        $hd2 = DB::table('hoadon')
+            ->where('hoadon.ma_nguoidung','=',$user->id)
+            ->where('hoadon.trang_thai','=',1)
+            ->get();
+
+        foreach ($hd2 as $item)
+        {
+            $hh[$i] = DB::table('hoadon')
+                ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->where('hoadon.ma_nguoidung','=',$user->id)
+                ->where('hoadon.id','=',$item->id)
+                ->where('hoadon.trang_thai','=',1)
+                ->get();
+            $i++;
+        }
+        return view('nguoimua.order',compact('user','hd','hd2','hh'));
+    }
+    public  function confimWait($id)
+    {
+        $user = Auth::user();
+        $hd = DB::table('hoadon')->where('id','=',$id)->update([
+            'trang_thai'=>2
+        ]);
+
+        return redirect('/');
     }
 
     /**

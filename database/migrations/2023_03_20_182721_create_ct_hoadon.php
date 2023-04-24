@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ct_hoadon', function (Blueprint $table) {
             $table->foreignId('ma_hoadon')->constrained('hoadon')->onDelete('cascade');
             $table->foreignId('ma_sp')->constrained('sanpham')->onDelete('cascade');
-            $table->integer('so_luong');
+            $table->integer('so_luong_mua');
             $table->primary(['ma_hoadon','ma_sp']);
             $table->timestamps();
         });

@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NguoidungController;
 use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\CTHoadonController;
+use App\Http\Controllers\ThanhtoanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +61,15 @@ Route::middleware([
     Route::get('/sell/delete/{id}',[SanphamController::class,'destroy'])->name('delet');
     Route::get('/sell/up_shop',[NguoidungController::class,'up_shop'])->name('up');
     Route::post('/giohang/{id}',[CTHoadonController::class,'gioHang'])->name('giohang');
+    Route::get('/giohang',[CTHoadonController::class,'index'])->name('index_giohang');
+    Route::get('/delete/{id}',[CTHoadonController::class,'delete_giohang'])->name('delete-giohang');
+    Route::post('/thanhtoan/view',[ThanhtoanController::class,'view'])->name('thanhtoan-index');
+    Route::post('/thanhtoan/saukhinhanhang',[ThanhtoanController::class,'sauKhiNhanHang'])->name('thanhtoan-sknh');
+    Route::get('/order/deatil_wait/{id}',[HoadonController::class,'showWait'])->name('show-wait');
+    Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
+    Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
+    Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
+
 });
 
 Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');

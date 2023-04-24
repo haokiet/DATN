@@ -9,4 +9,10 @@ class Thanhtoan extends Model
 {
     use HasFactory;
     protected $table='thanhtoan';
+    protected $fillable=[
+        'ma_hoadon',
+        'ma_phuongthuc',
+        'tong_tien',
+        'trang_thai'
+    ];
 }

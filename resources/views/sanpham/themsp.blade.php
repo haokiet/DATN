@@ -73,7 +73,7 @@
                         <p>loại sản phẩm</p>
                     </li>
                     <li class="create_right">
-                        <select id="multiple-selected" name="theloai[]"  class="select_theloai" multiple="multiple" required>
+                        <select id="multiple-selected" name="theloai"  class="select_theloai" required>
                             @foreach ($theloai as $item)
                                 <option  value="{{ $item->id }}">{{ $item->tenloai }}</option>
                             @endforeach

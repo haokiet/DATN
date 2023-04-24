@@ -5,22 +5,26 @@
 
 <nav class="nav">
     <div class="header">
-        <div class="div-search search">
-            <a href="{{route('home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">kênh admin</span></h1> </a>
-
-            <?php $user=\Illuminate\Support\Facades\Auth::user();
-            if ($user->image!==null)
-            {
-                ?><img class="img-header" src="{{asset('images/'.$user->image)}}"> <p class="search"><?php echo $user->username;?></p>
-            <?php   }
-
-            else
-            {
-                ?>
-
-            <img class="img-header" src="{{asset('images/user.png')}}"> <p class="search"><?php echo $user->username;?></p>
-            <?php }?>
-        </div>
+        <div class="header-content-1">
+            <div>
+                <a href="{{route('home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">Admin</span></h1> </a>
+            </div>
+            <div class="sell-img">
+                <div>
+                    <?php $user=\Illuminate\Support\Facades\Auth::user();
+                    if ($user->image!==null)
+                    {
+                        ?><img class="img-header" src="{{asset('images/'.$user->image)}}"> <?php
+                    }
+                           else
+                           {
+                               ?> <img class="img-header" src="{{asset('images/user.png')}}"> <?php
+                           }
+                              ?>
+                </div>
+                <div>
+                    <p class="search"><?php echo $user->username;?></p>
+                </div>
 
     </div>
 

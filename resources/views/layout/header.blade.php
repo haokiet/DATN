@@ -5,26 +5,30 @@
 
 <nav class="nav">
    <div class="header">
-       <div>
-           <ul class="ul-header1">
-               <li>
-                   <a href="{{route('sell_home')}}">trở thành người bán</a>
-               </li>
-                   <li class="right">
-                       <a href="{{route('login')}}">đăng nhập</a>
-                   </li>
-                   <li class="right">
+       <div class="header-content-1">
+           <div>
+               <a href="{{route('sell_home')}}">trở thành người bán</a>
+           </div>
+           <div>
+               @if(\Illuminate\Support\Facades\Auth::check())
+                       <a href="{{route('logout')}}">logout</a>
+               @else
+                       <a href="{{route('login')}}">đăng nhập</a>|
                        <a href="{{route('nguoidung.create')}}">đăng ký</a>
-                   </li>
-               <li class="right">
-                   <a href="{{route('logout')}}">logout</a>
-               </li>
-           </ul>
+               @endif
+           </div>
        </div>
-       <div class="div-search">
-          <a href="{{route('home')}}"> <h1 class="search" >Rap may</h1></a>
-           <input class="search s1" type="text" placeholder="tim kiem">
-           <button class="search icon"><i class="fa fa-search"></i></button>
+       <div class="header-content-2">
+           <div>
+               <a href="{{route('home')}}"> <h1>Rap may</h1></a>
+           </div>
+           <div>
+               <input class="s1" type="text" placeholder="tim kiem">
+               <button type="button" class="icon-search"><i class="fa fa-search"></i></button>
+           </div>
+           <div class="giohang">
+               <a href="{{route('index_giohang')}}">gio hang</a>| <a href="{{route('buy_show-wait')}}">hóa đơn</a>
+           </div>
        </div>
 
    </div>

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -132,11 +133,10 @@ class NguoidungController extends Controller
     }
     public function check_login(Request $request)
     {
-       // $credentials = $request->only('email', 'password');
 
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1])) {
-            // Authentication passed...
-            return redirect()->route('home');
+
+           return redirect()->intended();
         }
         else{
             return \view('nguoidung.index');

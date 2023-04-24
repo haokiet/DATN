@@ -12,6 +12,6 @@ class CT_Hoadon extends Model
     protected $fillable=[
         'ma_hoadon',
         'ma_sp',
-        'so_luong'
+        'so_luong_mua'
     ];
 }

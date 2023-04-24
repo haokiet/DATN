@@ -6,8 +6,10 @@ use App\Models\CT_Hoadon;
 use App\Models\Hoadon;
 use App\Models\Sanpham;
 use App\Models\User;
+use App\Models\Vanchuyen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CTHoadonController extends Controller
 {
@@ -16,7 +18,28 @@ class CTHoadonController extends Controller
      */
     public function index()
     {
-        //
+        $user=Auth::user();
+        $ct_hd= DB::table('ct_hoadon')
+            ->join('hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->where('hoadon.ma_nguoidung','=',$user->id)
+            ->where('hoadon.trang_thai','=',0)
+            ->get();
+        $vanchuyen = Vanchuyen::all();
+//        $hd = DB::table('hoadon')
+//            ->where('ma_nguoidung','=',$user->id)
+//            ->where('trang_thai','=','0')
+//            ->select('id')->get();
+//        $hd = $hd[0];
+//        $money=array();
+//        $i=0;
+//        if ()
+//        foreach ($ct_hd as $value)
+//        {
+//            $money[$i]=($value->gia_goc - $value->khuyen_mai)* $value->so_luong_mua;
+//            $i++;
+//        }
+        return view('order.index',compact('ct_hd','vanchuyen'));
     }
 
     /**
@@ -33,40 +56,77 @@ class CTHoadonController extends Controller
    public function gioHang(Request $request,$id)
     {
         $user=Auth::user();
-        $hd=Hoadon::all();
+        $hd=DB::table('hoadon')
+            ->where('trang_thai','=',0)
+            ->where('ma_nguoidung','=',$user->id)->get();
         $sp=Sanpham::find($id);
-        $dem=0;
+        $dem=count($hd);
 
-            foreach ($hd as $value)
-            {
-                if($value->trang_thai ===0 & $value->ma_nguoidung === $user->id)
-                {
-                    $dem++;
-                }
-            }
+
             if ($dem ===0)
             {
-                $hoadon=Hoadon::create([
+                Hoadon::create([
                     'ma_nguoidung'=>$user->id,
                     'dia_chi_nhan'=>$user->dia_chi,
                     'ten_nhan'=>$user->username,
-                    'so_dt_nhan'=>$user->so_dt
+                    'so_dt_nhan'=>$user->so_dt,
+                    'ma_van_chuyen'=>1
                 ]);
             }
-        $hd2=Hoadon::all();
-        foreach ($hd2 as $item)
-        {
-            if($item->trang_thai ===0 & $item->ma_nguoidung ===$user->id)
+
+
+        $hd2 = DB::table('hoadon')
+            ->where('trang_thai','=',0)
+            ->where('ma_nguoidung','=',$user->id)->select('id')->get();
+        $count_hd = count($hd2);
+
+            $ct_hd = DB::table('ct_hoadon')
+                ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                ->where('ma_hoadon','=',$hd2[0]->id)->get();
+            $count_ct_hd = count($ct_hd);
+
+            if($count_hd ===1)
             {
-                CT_Hoadon::create([
-                    'ma_hoadon'=>$item->id,
-                    'ma_sp'=>$sp->id,
-                    'so_luong'=>$request->so_luong
-                ]);
+                if ($count_ct_hd===0)
+                {
+                    CT_Hoadon::create([
+                        'ma_hoadon' => $hd2[0]->id,
+                        'ma_sp' => $sp->id,
+                        'so_luong_mua' => $request->so_luong
+                    ]);
+                    return back()->with('thongbao', 'đã thêm vào giỏ hàng');
+                }
+                else
+                {
+                    foreach ($ct_hd as $n) {
+                        if ($n->ma_hoadon ===$hd2[0]->id)
+                        {
+                            if($n->ma_sp === $sp->id )
+                            {
+
+                                DB::table('ct_hoadon')
+                                    ->where('ma_hoadon','=',$hd2[0]->id)
+                                    ->where('ma_sp','=',$sp->id)
+                                    ->update(['so_luong_mua'=>($n->so_luong_mua + $request->so_luong)]);
+                                return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                            }
+                            else
+                            {
+                                CT_Hoadon::create([
+                                    'ma_hoadon' => $hd2[0]->id,
+                                    'ma_sp' => $sp->id,
+                                    'so_luong_mua' => $request->so_luong
+                                ]);
+                                return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                            }
+                        }
+
+                    }
+                }
+
             }
-        }
-        return redirect('/');
     }
+
 
     /**
      * Display the specified resource.
@@ -95,8 +155,11 @@ class CTHoadonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CT_Hoadon $cT_Hoadon)
+    public function delete_giohang($id)
     {
-        //
+
+        $ct_d = DB::table('ct_hoadon')->where('ma_sp','=',$id);
+        $ct_d->delete();
+        return redirect('/giohang');
     }
 }
