@@ -119,14 +119,18 @@ class SanphamController extends Controller
         ]);
 
         $photo=$request->file('url');
-        foreach($photo as $value){
+        if ($photo)
+        {
+            foreach($photo as $value){
                 $urlmm = 'image'.time().'.'.$value->extension();
                 $value->move(public_path('images'),$urlmm);
-            Photos::create([
-                'ma_sp' => $sp->id,
-                'url' => $urlmm
-            ]);
+                Photos::create([
+                    'ma_sp' => $sp->id,
+                    'url' => $urlmm
+                ]);
+            }
         }
+
         $theloais = $request->input('theloai');
 
             C_T_Theloai::create([

@@ -1,7 +1,7 @@
 <div>
        @include('layout.header')
 
-    <link rel="stylesheet" href="../../css/app.css">
+
     <div class="body-home" align="center">
 
            <?php $i=0; foreach ($sp as $item ) :{?>

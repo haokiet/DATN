@@ -68,6 +68,18 @@ class NguoidungController extends Controller
         $user=Auth::user();
         return view('nguoiban.profile_shop',compact('user'));
     }
+    public function updateUser(Request $request)
+    {
+
+        $user = Auth::user();
+        $profile = User::find($user->id);
+        $profile->username = $request->username;
+        $profile->so_dt_nd = $request->so_dt_nd;
+        $profile->gioi_tinh = $request->gioi_tinh;
+        $profile->ngay_sinh = $request->ngay_sinh;
+        $profile->save();
+        return redirect('/profile');
+    }
     public function update_shop(Request $request)
     {
         $user=Auth::user();
@@ -135,8 +147,15 @@ class NguoidungController extends Controller
     {
 
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1])) {
-
-           return redirect()->intended();
+           $user = Auth::user();
+            if ($user->role ===1)
+            {
+                return redirect('/shipper');
+            }
+           else
+           {
+               return redirect()->intended();
+           }
         }
         else{
             return \view('nguoidung.index');

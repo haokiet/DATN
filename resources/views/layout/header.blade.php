@@ -11,7 +11,22 @@
            </div>
            <div>
                @if(\Illuminate\Support\Facades\Auth::check())
-                       <a href="{{route('logout')}}">logout</a>
+                       <?php $user=\Illuminate\Support\Facades\Auth::user();?>
+
+
+                   <div class="dropdown">
+                       @if ($user->image!==null)
+                       <a  href="#"><img class="img-header2" src="{{asset('images/'.$user->image)}}">{{$user->username}}</a>
+                       @else
+                           <a class="dropbtn" href="#"><img class="img-header2" src="{{asset('images/user.png')}}">{{$user->username}}</a>
+                       @endif
+                       <div class="dropdown-content">
+                           <a href="{{route('logout')}}">đăng xuất</a>
+                           <a href="{{route('profile_user')}}">hồ sơ</a>
+                           <a href="{{route('buy_show-wait')}}">hóa đơn</a>
+                       </div>
+                   </div>
+
                @else
                        <a href="{{route('login')}}">đăng nhập</a>|
                        <a href="{{route('nguoidung.create')}}">đăng ký</a>
@@ -22,17 +37,21 @@
            <div>
                <a href="{{route('home')}}"> <h1>Rap may</h1></a>
            </div>
-           <div>
+
+           <div id="search">
                <input class="s1" type="text" placeholder="tim kiem">
                <button type="button" class="icon-search"><i class="fa fa-search"></i></button>
            </div>
+
+
+
            <div class="giohang">
-               <a href="{{route('index_giohang')}}">gio hang</a>| <a href="{{route('buy_show-wait')}}">hóa đơn</a>
+               <a href="{{route('index_giohang')}}">gio hang</a>
            </div>
        </div>
 
    </div>
 
 </nav>
-
+@yield('header_profile_user')
 </html>

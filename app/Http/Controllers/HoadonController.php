@@ -270,6 +270,7 @@ class HoadonController extends Controller
             ->where('hoadon.trang_thai','=',1)
             ->get();
         $hh = array();
+
         $i=0;
         $hd2 = DB::table('hoadon')
             ->where('hoadon.ma_nguoidung','=',$user->id)
@@ -288,7 +289,19 @@ class HoadonController extends Controller
                 ->get();
             $i++;
         }
-        return view('nguoimua.order',compact('user','hd','hd2','hh'));
+        $m = 0; $n = 1; $k =0; $s=array(); $s[0]=0; $tong=array();
+        foreach ($hh as $t)
+        {
+            foreach ($t as $v)
+            {
+                $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                $m++; $n++;
+            }
+            $tong[$k]=$s[$n-1];
+            $k++;
+            $m = 0; $n = 1; $s[0]=0;
+        }
+        return view('nguoimua.order',compact('user','hd','hd2','hh','tong'));
     }
     public  function confimWait($id)
     {

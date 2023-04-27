@@ -69,7 +69,9 @@ Route::middleware([
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
     Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
     Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
-
+    Route::get('/shipper',[\App\Http\Controllers\ShipperController::class,'allOrder'])->name('all-order');
+    Route::view('profile','nguoidung.profile')->name('profile_user');
+    Route::post('/up_user',[NguoidungController::class,'updateUser'])->name('up_user');
 });
 
 Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');

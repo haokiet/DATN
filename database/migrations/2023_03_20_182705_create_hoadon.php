@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('ma_vanchuyen')->constrained('vanchuyen')->onDelete('cascade');
             $table->string('dia_chi_nhan',100);
             $table->string('ten_nhan',30);
-            $table->integer('trang_thai')->nullable();
+            $table->integer('trang_thai')->default(0);
             $table->string('so_dt_nhan',11);
             $table->boolean('is_delete')->default(0);
             $table->timestamps();

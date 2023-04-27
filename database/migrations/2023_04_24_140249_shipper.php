@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('thanhtoan', function (Blueprint $table) {
+        Schema::create('shipper', function (Blueprint $table) {
+            $table->foreignId('ma_nguoidung')->constrained('users')->onDelete('cascade');
             $table->foreignId('ma_hoadon')->constrained('hoadon')->onDelete('cascade');
-            $table->foreignId('ma_phuongthuc')->constrained('phuongthuc')->onDelete('cascade');
-            $table->integer('tong_tien');
-            $table->boolean('trang_thai')->default(0);
-            $table->primary(['ma_hoadon','ma_phuongthuc']);
+            $table->primary(['ma_hoadon','ma_nguoidung']);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('thanhtoan');
+        Schema::dropIfExists('shipper');
     }
 };

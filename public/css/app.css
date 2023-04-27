@@ -1,5 +1,6 @@
 :root{
-    --mau--tim: #e710e7;
+    --mau--tim: #AAC8A7;
+    --mau-nen:#f6ffde;
 }
 .ul-header1{
     width: 100%;
@@ -50,12 +51,15 @@ a{
     text-decoration: none;
 }
 .search{
+
 width: 100%;
 }
 
 .icon-search{
     height: 26px;
     margin-left: -5px;
+    border: none;
+    background-color: white;
 }
 h1{
     color: aliceblue;
@@ -66,10 +70,12 @@ h1{
 }
 
 .s1{
-    margin-top: 25px;
-    width: 70%;
+    /*margin-top: 25px;*/
+    width: 93%;
     border-radius: 5px;
     height: 30px;
+    border: none;
+    outline: none;
 }
 .giohang{
     padding-top: 20px;
@@ -95,7 +101,14 @@ h1{
     margin: auto;
     margin-top: 70px;
     display: block;
+    background-color: var(--mau-nen) ;
 
+}
+#search{
+    background-color: white;
+    height: 30px;
+    width: 449px;
+    margin-top: 20px;
 }
 .td-sp{
     margin-top: 2.5%;
@@ -288,12 +301,34 @@ ul{
 }
 .sell_table{
     width: 100%;
+
     margin-top: 1%;
 }
 .sell_table tr{
     height: 7vh;
 }
-.sell_table td{
+.sell_table td:nth-child(1){
+   width: 30%;
+    padding-left: 3%;
+}
+.sell_table td:nth-child(2){
+    width: 10%;
+    padding-left: 3%;
+}
+.sell_table td:nth-child(3){
+    width: 10%;
+    padding-left: 3%;
+}
+.sell_table td:nth-child(4){
+    width: 10%;
+    padding-left: 3%;
+}
+.sell_table td:nth-child(5){
+    width: 20%;
+    padding-left: 3%;
+}
+.sell_table td:nth-child(6){
+    width: 20%;
     padding-left: 3%;
 }
 .sell_div1{
@@ -304,7 +339,6 @@ ul{
    padding-top: 2%;
     margin-left: 30%;
     height: 100%;
-
 }
 .create_sell button{
     background-color: aqua;
@@ -412,4 +446,75 @@ color: red;
 .img-l{
     float: left;
     width: 30%;
+}
+.img-header2{
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    margin-top: 1px;
+}
+.dropdown{
+    width: 200px;
+    text-align: center;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    background-color: white;
+}
+.dropdown-content a{
+    display: block;
+    color: black;
+    padding: 3px 16px;
+
+}
+.dropdown-content a:hover{background-color: white}
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+.img-avata{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    padding-top: 15px;
+}
+.div-user{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+#username{
+    padding-top: 15px;
+}
+.div-content-user{
+    display: grid;
+    grid-template-columns: 20% 50% 30%;
+}
+.ul-user li {
+    line-height: 50px;
+    height: 80px;
+
+}
+.input-user{
+    height: 50%;
+    width: 80%;
+}
+#gt{
+    margin-top: -10px;
+
+}
+.gioitinh{
+    margin-left: 30px;
+}
+.div-left{
+    margin-top: 50px;
+}
+.ul-user-left li{
+    line-height: 50px;
+}
+.div-order{
+    display: grid;
+    grid-template-columns: 30% 10% 10% 20% 10% 20%;
 }

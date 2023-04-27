@@ -74,12 +74,11 @@ class CTHoadonController extends Controller
                 ]);
             }
 
-
         $hd2 = DB::table('hoadon')
             ->where('trang_thai','=',0)
             ->where('ma_nguoidung','=',$user->id)->select('id')->get();
-        $count_hd = count($hd2);
 
+            $count_hd = count($hd2);
             $ct_hd = DB::table('ct_hoadon')
                 ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
                 ->where('ma_hoadon','=',$hd2[0]->id)->get();
