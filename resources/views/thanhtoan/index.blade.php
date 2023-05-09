@@ -23,12 +23,17 @@
                @csrf
            @foreach($ct_hdd as $item)
                @foreach($item as $value)
+
                    <div class="div-thanhtoan">
                        <div>
                            <input type="hidden" name="idsp[]" value="{{$value->ma_sp}}">
                            <?php $idhd =$value->ma_hoadon;?>
                           <div class="img-l">
-                              <img class="cart-img" src="{{asset('images/'.$value->anh_sp)}}">
+                              @if($value->anh_sp !==null)
+                                  <img class="cart-img" src="{{$value->anh_sp}}">
+                              @else
+                                  <img class="cart-img" src="{{asset('images/user.png')}}">
+                              @endif
                           </div>
                            <p>{{$value->ten_sp}}</p>
                            vận chuyển: {{$vanchuyen->ten_vc}} - {{$vanchuyen->don_gia_vc}}

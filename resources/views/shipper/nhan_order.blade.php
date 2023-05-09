@@ -1,19 +1,20 @@
 @include('layout.header_shipper')
-<div class="body-home">
     <div class="body-home">
-        @if (session('ketqua'))
+        @if (session('thongbao'))
             <div class="session-status">
-                {{ session('ketqua') }}
+                {{ session('thongbao') }}
             </div>
         @endif
         <table class="sell_table">
             <tr>
 
                 <td>thông tin hóa đơn</td>
-                <td>thông tin người nhận</td>
+
                 <td>số lượng</td>
                 <td>đơn giá</td>
+                <td>thông tin người nhận</td>
                 <td></td>
+
 
             </tr>
         </table>
@@ -28,16 +29,12 @@
                         <tr>
                             <td>
                                 @if($item->anh_sp !==null)
-                                    <img class="cart-img" src="{{$item->anh_sp}}"></img>
+                                    <img class="cart-img" src="{{$item->anh_sp}}">
                                 @else
                                     <img class="cart-img" src="{{asset('images/user.png')}}">
                                 @endif
                             </td>
-                            <td>
-                                <p>tên: {{$item->ten_nhan}}</p>
-                                <p>số dt: {{$item->so_dt_nhan}}</p>
-                                <p>địa chỉ: {{$item->dia_chi_nhan}}</p>
-                            </td>
+
                             <td>
                                 {{$item->so_luong_mua}}
                             </td>
@@ -45,19 +42,25 @@
                                 {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua + $item->don_gia_vc}}
                             </td>
                             @endforeach
+                            <td>
+                                <p>tên: {{$item->ten_nhan}}</p>
+                                <p>số dt: {{$item->so_dt_nhan}}</p>
+                                <p>địa chỉ: {{$item->dia_chi_nhan}}</p>
+                            </td>
                             @if($item !== 0)
                                 <td>
-                                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('shipper-confim-order',$value[0]->ma_hoadon)}}">nhận đơn</a></button>
+                                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('shipper-confimresive-order',$value[0]->ma_hoadon)}}">đã gửi</a></button>
+                                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('shipper-confimresive-order',$value[0]->ma_hoadon)}}"></a>hủy/trả hàng</button>
+
                                 </td>
                         </tr>
 
                         @endif
                             <?php $i++; ?>
                     @endforeach
-            @endif
+                    @endif
         </table>
     </div>
     {{--    <div class="page">{{ $sp->links()}}</div>--}}
 
-</div>
 

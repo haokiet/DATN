@@ -94,7 +94,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=','2')
+            ->where('hoadon.trang_thai','=','3')
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')->groupBy('ct_hoadon.ma_sp')
             ->paginate(9);
         $dem=0;
@@ -109,7 +109,7 @@ class HoadonController extends Controller
                 ->join('users','users.id','=','sanpham.ma_nguoidung')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->where('users.id','=',$user->id)
-                ->where('hoadon.trang_thai','=',2)
+                ->where('hoadon.trang_thai','=',3)
                 ->where('ct_hoadon.ma_sp','=',$item->id)->get();
 
             $num[$i]=count($hd);
@@ -129,7 +129,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=','3')
+            ->where('hoadon.trang_thai','=','4')
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')->groupBy('ct_hoadon.ma_sp')
             ->paginate(9);
         $dem=0;
@@ -146,7 +146,7 @@ class HoadonController extends Controller
                 ->join('users','users.id','=','sanpham.ma_nguoidung')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->where('users.id','=',$user->id)
-                ->where('hoadon.trang_thai','=',3)
+                ->where('hoadon.trang_thai','=',4)
                 ->where('ct_hoadon.ma_sp','=',$item->id)->get();
 
             $num[$i]=count($hd);
@@ -166,7 +166,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=','4')
+            ->where('hoadon.trang_thai','=','5')
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')->groupBy('ct_hoadon.ma_sp')
             ->paginate(10);
         $dem=0;
@@ -181,7 +181,7 @@ class HoadonController extends Controller
                 ->join('users','users.id','=','sanpham.ma_nguoidung')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->where('users.id','=',$user->id)
-                ->where('hoadon.trang_thai','=',4)
+                ->where('hoadon.trang_thai','=',5)
                 ->where('ct_hoadon.ma_sp','=',$item->id)->get();
 
             $num[$i]=count($hd);

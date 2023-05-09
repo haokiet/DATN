@@ -69,7 +69,10 @@ Route::middleware([
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
     Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
     Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
-    Route::get('/shipper',[\App\Http\Controllers\ShipperController::class,'allOrder'])->name('all-order');
+    Route::get('/shipper',[\App\Http\Controllers\ShipperController::class,'allOrder'])->name('shipper-all-order');
+    Route::get('/shipper/danhan',[\App\Http\Controllers\ShipperController::class,'recivedOrder'])->name('shipper-resive-order');
+    Route::get('/shipper/dagui/{id}',[\App\Http\Controllers\ShipperController::class,'cofimRecive'])->name('shipper-confimresive-order');
+    Route::get('/shipper/{id}',[\App\Http\Controllers\ShipperController::class,'comFimOrder'])->name('shipper-confim-order');
     Route::view('profile','nguoidung.profile')->name('profile_user');
     Route::post('/up_user',[NguoidungController::class,'updateUser'])->name('up_user');
 });
@@ -77,3 +80,18 @@ Route::middleware([
 Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
 Route::get('/admin/chitiet/{id}',[\App\Http\Controllers\AdminController::class,'duyetSP'])->name('duyet_sp');
 Route::get('/admin/duyet/{id}',[\App\Http\Controllers\AdminController::class,'confimDuyet'])->name('duyet_confim');
+
+// xóa file trong gg drive
+Route::get('list', function() {
+    $dir = '/';
+    $recursive = true; // Có lấy file trong các thư mục con không?
+    $contents = collect(Storage::disk('google')->listContents($dir, $recursive));
+    $r = $contents->where('path','=','image1683311809.jpg')->first();
+
+//    Storage::disk('google')->delete($r['path']);
+    dd($r);
+});
+
+Route::view('/kkk','kkk');
+
+Route::get('/Timkiem',[SanphamController::class,'timKiem'])->name('timkiem');

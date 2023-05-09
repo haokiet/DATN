@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sanpham;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -11,11 +12,25 @@ class HomeController extends Controller
     {
         $giaban=array();
         $i=0;
-        $sp=Sanpham::all()->where('trang_thai','=',1)
-            ->where('so_luong','>',0);
+        $sp=DB::table('sanpham')
+            ->where('trang_thai','=',1)
+            ->where('so_luong','>',0)
+            ->get();
+        $j = 0;
+        $sp2 ="";
+
         foreach ($sp as $item)
         {
-
+            $u = DB::table('users')
+                ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
+                ->where('users.is_delete','=',1)
+                ->where('users.id','=',$item->ma_nguoidung)
+                ->get();
+            $sp2= $u;
+            $j++;
+        }
+        foreach ($sp2 as $item)
+        {
             $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
             $i++;
         }
@@ -25,8 +40,7 @@ class HomeController extends Controller
 //            dd($giaban);
 
 
-
-        return view('sanpham.index',compact('sp','giaban'));
+        return view('sanpham.index',compact('sp2','giaban'));
 
     }
     public function create()

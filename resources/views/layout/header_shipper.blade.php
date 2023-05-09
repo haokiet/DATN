@@ -14,10 +14,13 @@
         </div>
         <div class="header-content-2">
             <div>
-                <a href="{{route('home')}}"> <h1>Rap may</h1></a>
+                <a href="{{route('shipper-all-order')}}"><h1>Rap may <span style="font-size: 60%">shipper</span></h1></a>
             </div>
             <div class="giohang">
-                <a href="{{route('index_giohang')}}">gio hang</a>| <a href="{{route('buy_show-wait')}}">hóa đơn</a>
+                <a href="{{route('shipper-all-order')}}">Tất cả hóa đơn</a>
+            </div>
+            <div class="giohang">
+                <a href="{{route('shipper-resive-order')}}">Hóa đơn đã nhận</a>
             </div>
         </div>
 

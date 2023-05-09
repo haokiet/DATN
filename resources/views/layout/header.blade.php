@@ -16,7 +16,7 @@
 
                    <div class="dropdown">
                        @if ($user->image!==null)
-                       <a  href="#"><img class="img-header2" src="{{asset('images/'.$user->image)}}">{{$user->username}}</a>
+                       <a  href="#"><img class="img-header2" src="{{$user->image}}">{{$user->username}}</a>
                        @else
                            <a class="dropbtn" href="#"><img class="img-header2" src="{{asset('images/user.png')}}">{{$user->username}}</a>
                        @endif
@@ -39,8 +39,13 @@
            </div>
 
            <div id="search">
-               <input class="s1" type="text" placeholder="tim kiem">
-               <button type="button" class="icon-search"><i class="fa fa-search"></i></button>
+               <form method="get" action="{{route('timkiem')}}">
+                   @csrf
+                   <input class="s1" type="text" name="value" placeholder="tim kiem">
+
+                   <button type="button" class="icon-search"><i class="fa fa-search"></i></button>
+               </form>
+
            </div>
 
 

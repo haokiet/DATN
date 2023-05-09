@@ -92,8 +92,8 @@ h1{
 }
 
 .anh_sp{
-    width: 100%;
     height: 60%;
+    object-fit: contain;
 }
 .body-home{
     width: 90%;
@@ -101,8 +101,11 @@ h1{
     margin: auto;
     margin-top: 70px;
     display: block;
-    background-color: var(--mau-nen) ;
+    /*background-color: var(--mau-nen) ;*/
 
+}
+.kttk{
+    padding-top: 5%;
 }
 #search{
     background-color: white;
@@ -115,10 +118,37 @@ h1{
     margin-left: 2%;
     width: 170px;
     height: 190px;
-    border: 1px solid black;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12),
+    0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12),
+    0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
     text-align: center;
     float: left;
     display: inline-block;
+}
+.tk_1{
+    width: 100%;
+   height: auto;
+}
+.tk_1:after{
+    content:"";
+    clear: both;
+    display: table;
+}
+.td-sp2{
+    margin-left: 2%;
+    width: 170px;
+    height: 190px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12),
+    0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12),
+    0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    float: left;
 }
 .show_sp{
     width: 90%;
@@ -517,4 +547,7 @@ color: red;
 .div-order{
     display: grid;
     grid-template-columns: 30% 10% 10% 20% 10% 20%;
+}
+.center{
+    text-align: center;
 }

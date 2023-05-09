@@ -7,7 +7,7 @@
             <div class="div-user">
                 <div>
                     @if ($user->image!==null)
-                        <img class="img-avata" src="{{asset('images/'.$user->image)}}">
+                        <img class="img-avata" src="{{$user->images}}">
                     @else
                         <img class="img-avata" src="{{asset('images/user.png')}}">
                     @endif

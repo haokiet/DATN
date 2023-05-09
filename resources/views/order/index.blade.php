@@ -27,13 +27,18 @@
 <form action="{{route('thanhtoan-index')}}" method="post">
     @csrf
 @foreach($ct_hd as $value)
+
     <div class="cart body-home">
         <div class="cart-item">
             <input type="checkbox" class="checkbox" name="checkbox[]" onclick="checbox()"
                    value="{{$value->id}}">
         </div>
         <div class="cart-item">
-            <img class="cart-img" src="{{asset('images/'.$value->anh_sp)}}">
+            @if($value->anh_sp !==null)
+            <img class="cart-img" src="{{$value->anh_sp}}">
+            @else
+            <img class="cart-img" src="{{asset('images/user.png')}}">
+            @endif
             {{$value->ten_sp}}
         </div>
         <div class="cart-item">

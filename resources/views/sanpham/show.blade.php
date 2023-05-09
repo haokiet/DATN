@@ -11,12 +11,21 @@
     <div class="show_sp_left">
 
         <div class="khung_sp" >
-            <img class="ct_anh" src="{{asset('images/'.$sp->anh_sp)}}">
+            @if($sp->anh_sp !==null)
+                <img class="ct_anh" src="{{$sp->anh_sp}}">
+            @else
+                <img class="ct_anh" src="{{asset('images/user.png')}}">
+            @endif
+
+
             <div class="khung_sp" >
                 <?php  $giaban=$sp->gia_goc - $sp->khuyen_mai;?>
 
                 @foreach ($anh as $item)
-                <img class="ct_photos" src="{{asset('images/'.$item->url)}}">
+
+                     @if($item->url !==null)
+                        <img class="ct_photos" src="{{$item->url}}">
+                    @endif
                 @endforeach
 
             </div>
@@ -30,24 +39,17 @@
                 @csrf
             <table align="center">
                 <tr>
-                    <td colspan="3"><h2>
+                    <td colspan="3">
+                        <h2>
 
                             {{$sp->ten_sp}}
-                        </h2></td>
+                        </h2>
+                    </td>
                 </tr>
                 <tr>
                     <th>
-                        thời trang:
+                       <p> thời trang:</p>
                     </th>
-                    <td>
-
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
                     <td>
                         @foreach ($c_t_theloai as $item)
                             {{$item->tenloai}},
@@ -55,6 +57,7 @@
                     </td>
                     <td></td>
                 </tr>
+
                 <tr>
                     <td>
                         đánh giá:
@@ -62,7 +65,9 @@
                     <td>
 
                     </td>
-                    <td></td>
+                    <td>
+
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -80,7 +85,10 @@
 
                 <tr>
                     <td>số lượng</td>
-                    <td><p><input name="so_luong" type="text" value="1"> tổng số {{$sp->so_luong}}</p></td>
+                    <td>
+                        <p><input name="so_luong" type="text" value="1"></p>
+                    </td>
+                    <td> tổng số {{$sp->so_luong}}</td>
 
                 </tr>
 
@@ -146,20 +154,26 @@
 
 
             <?php foreach ($sp2 as $item ) : foreach ($c_t_theloai as $k): ?>
+            <a href="{{route('sanpham.show',$item->id)}}">
                 <?php if(($item->id !==$sp->id) & ($item->ma_theloai === $k->id)){?>
             <div class="td-sp cungloai">
                     <?php $giaban = $item->gia_goc - $item->khuyen_mai;?>
-                <img class="anh_sp" src="{{asset('images/'.$item->anh_sp)}}">
+                @if($item->anh_sp !==null)
+                  <img class="anh_sp" src="{{$item->anh_sp}}">
+                @else
+                    <img class="anh_sp" src="{{asset('images/user.png')}}">
+                @endif
                 <br>
                 <a href="{{route('sanpham.show',$item->id)}}"><?php echo $item->ten_sp;?></a>
                 <br>
                 <p>giá bán: <?php echo $giaban ; ?> đ</p>
             </div>
             <?php }?>
+
             <?php endforeach; endforeach;?>
 
 
-
+            </a>
         </div>
     </div>
 </div>

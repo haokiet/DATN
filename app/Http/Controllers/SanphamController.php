@@ -6,9 +6,13 @@ use App\Models\C_T_Theloai;
 use App\Models\Photos;
 use App\Models\Sanpham;
 use App\Models\Theloai;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use JD\Cloudder\Facades\Cloudder;
 
 class SanphamController extends Controller
 {
@@ -98,39 +102,41 @@ class SanphamController extends Controller
      */
     public function store(Request $request)
     {
-        $idND = Auth::id();
 
+        $idND = Auth::id();
         if($request->file('anh_sp') != null){
 
-            $urlImage = 'image'.time().'.'.$request->anh_sp->extension();
-            $request->anh_sp->move(public_path('images'), $urlImage);
+//            $data =\Illuminate\Support\Facades\File::get($request->file('anh_sp'));
+//           Storage::disk('google')
+//            ->put($urlImage,$data,'public');
+//            Cloudder::upload($urlImage, 'DATN/' . $request->anh_sp);
+
+            $uploadedFileUrl = cloudinary()->upload($request->file('anh_sp')->getRealPath())->getSecurePath();
+
+
         }
         else{
-            $urlImage='null.png';
+            $uploadedFileUrl='null.png';
         }
-
         $sp = Sanpham::create([
             'ten_sp' => $request->input('ten_sp'),
-            'anh_sp' => $urlImage,
+            'anh_sp' => $uploadedFileUrl,
             'mo_ta' => $request->input('mo_ta'),
             'ma_nguoidung' => $idND,
             'so_luong'=>$request->input('so_luong'),
             'gia_goc'=>$request->input('gia_goc'),
         ]);
 
-        $photo=$request->file('url');
-        if ($photo)
-        {
-            foreach($photo as $value){
-                $urlmm = 'image'.time().'.'.$value->extension();
-                $value->move(public_path('images'),$urlmm);
-                Photos::create([
-                    'ma_sp' => $sp->id,
-                    'url' => $urlmm
-                ]);
+            if ($request->file('url') !==null)
+            {
+                foreach($request->file('url') as $value){
+                    $uploadedFileUrl2 = cloudinary()->upload($request->file('anh_sp')->getRealPath())->getSecurePath();
+                    Photos::create([
+                        'ma_sp' => $sp->id,
+                        'url' => $uploadedFileUrl2
+                    ]);
+                }
             }
-        }
-
         $theloais = $request->input('theloai');
 
             C_T_Theloai::create([
@@ -208,4 +214,82 @@ class SanphamController extends Controller
         $sp->delete();
         return redirect('/sell/all-sp');
     }
+
+    public function timKiem(Request $request)
+    {
+
+        $i = 0;
+        $sp1=DB::table('sanpham')
+            ->where('trang_thai','=',1)
+            ->where('so_luong','>',0)
+            ->where('ten_sp','like',$request->value."%")
+            ->orWhere('ten_sp','like',"%".$request->value)
+            ->orWhere('ten_sp','like',"%".$request->value."%")
+            ->get();
+
+        $sp3 =null;
+        $users2 = null;
+        $v=0;
+        foreach ($sp1 as $item)
+        {
+            $sp3[$v] = DB::table('users')
+                ->join('sanpham','users.id','=','sanpham.ma_nguoidung')
+                ->where('users.is_delete','=',1)
+                ->where('users.id','=',$item->ma_nguoidung)
+                ->where('sanpham.id','=',$item->id)
+                ->get();
+            $v++;
+        }
+        $user = DB::table('users')
+            ->where('username','like',$request->value."%")
+            ->orWhere('username','like',"%".$request->value)
+            ->orWhere('username','like',"%".$request->value."%")
+            ->get();
+        $v = 0;
+        foreach ($user as $u)
+        {
+            $users2[$v] = DB::table('users')
+                ->where('is_delete','=',1)
+                ->where('users.id','=',$u->id)
+                ->get();
+            $v++;
+        }
+
+        if($sp3 !==null)
+        {
+            foreach ($sp3 as $item)
+            {
+                foreach ($item as $value)
+                $giaban[$i] = $value->gia_goc - $value->khuyen_mai;
+                $i++;
+            }
+        }
+
+        $giaban=array();
+        $i=0;
+        $sp=DB::table('sanpham')
+            ->where('trang_thai','=',1)
+            ->where('so_luong','>',0)
+            ->get();
+        $j = 0;
+        $sp2 =null;
+
+        foreach ($sp as $item)
+        {
+            $u = DB::table('users')
+                ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
+                ->where('users.is_delete','=',1)
+                ->where('users.id','=',$item->ma_nguoidung)
+                ->get();
+            $sp2= $u;
+
+        }
+        foreach ($sp2 as $item)
+        {
+            $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
+            $i++;
+        }
+     return view('sanpham.timkiem',compact('sp3','sp2','users2','giaban'));
+    }
 }
+

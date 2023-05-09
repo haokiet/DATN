@@ -21,7 +21,12 @@
 
                         <tr>
                             <td>
-                                <img class="cart-img"  src="{{asset('images/'.$item->anh_sp)}}">
+                                @if($item->anh_sp !==null)
+                                    <img class="cart-img" src="{{$item->anh_sp}}">
+                                @else
+                                    <img class="cart-img" src="{{asset('images/user.png')}}">
+                                @endif
+
                             </td>
                             <td>
                                 {{$item->so_luong_mua}}

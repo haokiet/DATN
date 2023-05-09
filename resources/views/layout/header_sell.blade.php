@@ -14,7 +14,7 @@
                     <?php $user=\Illuminate\Support\Facades\Auth::user();
                     if ($user->image!==null)
                     {
-                        ?><img class="img-header" src="{{asset('images/'.$user->image)}}"> <?php
+                        ?><img class="img-header" src="{{$user->image}}"> <?php
                     }
                     else
                     {
