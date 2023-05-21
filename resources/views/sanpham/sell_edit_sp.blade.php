@@ -59,7 +59,7 @@
         <div class="creat_sp">
             <ul>
                 <li class="create_left">
-                    <p>số lượng</p>
+                    <p>Ngày Khuyến mãi</p>
                 </li>
                 <li class="create_right">
                     <input type="date"  value="{{$sp->ngay_km}}" class="num" name="ngay_km">

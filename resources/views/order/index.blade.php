@@ -48,7 +48,7 @@
             {{$value->so_luong_mua}}
         </div>
         <div class="cart-item">
-            <input class="tien-item" name="tien-item[]" type="text" readonly value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}"> vnd
+            <input class="tien-item tong_so" name="tien-item[]" type="text" readonly value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}"> vnd
         </div>
         <div class="cart-item">
             <a href="{{route('delete-giohang',$value->ma_sp)}}">xóa</a>

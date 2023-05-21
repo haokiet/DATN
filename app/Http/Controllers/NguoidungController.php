@@ -78,7 +78,7 @@ class NguoidungController extends Controller
         $profile->gioi_tinh = $request->gioi_tinh;
         $profile->ngay_sinh = $request->ngay_sinh;
         $profile->save();
-        return redirect('/profile');
+        return back();
     }
     public function update_shop(Request $request)
     {
@@ -122,13 +122,12 @@ class NguoidungController extends Controller
                     $email->subject('xac nhan tai khoan');
                     $email->to($user->email,$user->username);
                 });
-                return redirect()->route('home');
+                return back()->with('thongbao','đã đăng ký. Bạn hãy kiểm tra gmail của bạn để xác nhận tài khoản');
             }
         }
         else{
-            return redirect()->back();
+            return back()->with('thongbao','mật khẩu nhập lại không khớp');
         }
-        return redirect()->back();
     }
     public function active (User $user, $token){
         if ($user->token === $token ){
@@ -152,13 +151,17 @@ class NguoidungController extends Controller
             {
                 return redirect('/shipper');
             }
+            if ($user->is_admin===1)
+            {
+                return redirect('/admin');
+            }
            else
            {
                return redirect()->intended();
            }
         }
         else{
-            return \view('nguoidung.index');
+            return redirect('/login')->with('thongbao','tên đăng nhập hoặc mật khẩu không đúng');
         }
 
     }

@@ -74,12 +74,6 @@
                     <li class="li_header">
                         <a href="{{route('up')}}">hồ sơ shop</a>
                     </li>
-                    <li class="li_header">
-                        <a href="#">địa chỉ</a>
-                    </li>
-                    <li class="li_header">
-                        <a href="#">cài đặt sản phẩm sản phẩm</a>
-                    </li>
                 </ul>
             </li>
             <li class="li_h">

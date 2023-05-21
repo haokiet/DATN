@@ -100,7 +100,7 @@ class CTHoadonController extends Controller
                     foreach ($ct_hd as $n) {
                         if ($n->ma_hoadon ===$hd2[0]->id)
                         {
-                            if($n->ma_sp === $sp->id )
+                            if($n->ma_sp == $sp->id )
                             {
 
                                 DB::table('ct_hoadon')
@@ -118,6 +118,10 @@ class CTHoadonController extends Controller
                                 ]);
                                 return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
                             }
+                        }
+                        else
+                        {
+                            return back();
                         }
 
                     }

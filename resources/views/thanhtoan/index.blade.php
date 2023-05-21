@@ -42,7 +42,7 @@
                            {{$value->gia_goc - $value->khuyen_mai}}
                        </div>
                        <div>
-                           <input name="slm[]" value="{{$value->so_luong_mua}}">
+                           <input class="tong_so" name="slm[]" value="{{$value->so_luong_mua}}">
                        </div>
                        <div>
                            {{($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua + $vanchuyen->don_gia_vc}} vnd
@@ -57,22 +57,22 @@
            <table class="table-thanhtoan">
                <tr>
                    <td>nơi nhận hàng:</td>
-                   <td><input class="input-diachi" name="dia_chi_nhan" value="{{$user->dia_chi}}"></td>
+                   <td><input class="input-diachi" required name="dia_chi_nhan" value="{{$user->dia_chi}}"></td>
                </tr>
                <tr>
                    <td>người nhận:</td>
-                   <td><input class="input-diachi" name="ten_nhan" value="{{$user->username}}"></td>
+                   <td><input class="input-diachi" required name="ten_nhan" value="{{$user->username}}"></td>
                </tr>
                <tr>
                    <td>số điện thoại:</td>
-                   <td><input class="input-diachi" name="so_dt_nhan" value="{{$user->so_dt_nd}}"></td>
+                   <td><input class="input-diachi" required name="so_dt_nhan" value="{{$user->so_dt_nd}}"></td>
                </tr>
                <tr>
                    <td colspan="2"><h4>phương thức thanh toán</h4></td>
                </tr>
                <tr>
                    <td colspan="2"> @foreach($phuongthuc as $t)
-                           <input type="radio" name="pt" value="{{$t->id}}">{{$t->ten_pt}}
+                           <input required type="radio" name="pt" value="{{$t->id}}">{{$t->ten_pt}}
                    @endforeach
                </tr>
            </table>

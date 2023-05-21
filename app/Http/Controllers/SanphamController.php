@@ -24,13 +24,13 @@ class SanphamController extends Controller
     {
         $user = Auth::user();
         $sp_all = DB::table('sanpham')
-            ->where('trang_thai','=','1')
+            ->where('trang_thai','>','0')
             ->where('so_luong','>','0')
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_all2 = DB::table('sanpham')
-            ->where('trang_thai','=','1')
+            ->where('trang_thai','>','0')
             ->where('so_luong','>','0')
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
@@ -130,7 +130,7 @@ class SanphamController extends Controller
             if ($request->file('url') !==null)
             {
                 foreach($request->file('url') as $value){
-                    $uploadedFileUrl2 = cloudinary()->upload($request->file('anh_sp')->getRealPath())->getSecurePath();
+                    $uploadedFileUrl2 = cloudinary()->upload($value->getRealPath())->getSecurePath();
                     Photos::create([
                         'ma_sp' => $sp->id,
                         'url' => $uploadedFileUrl2
@@ -152,6 +152,8 @@ class SanphamController extends Controller
      */
     public function show($id)
     {
+       // $user = Auth::user();
+       // $isVa = password_verify('123456', $user->password);
         $sp=DB::table('sanpham')->find($id);
 
         $c_t_theloai = DB::table('ct_theloai')
@@ -163,16 +165,21 @@ class SanphamController extends Controller
             ->where('sanpham.id','=',$id)
         ->select('url')->get();
 
-        $bl=DB::table('binhluan')->join('sanpham','sanpham.id','=','binhluan.ma_sp')
+        $bl=DB::table('sanpham')
+            ->join('binhluan','sanpham.id','=','binhluan.ma_sp')
             ->join('users','users.id','=','binhluan.ma_nguoidung')
             ->where('sanpham.id','=',$id)
-            ->select('*')->get();
+            ->where('binhluan.is_delete','=',0)
+            ->select(['*','binhluan.updated_at'])->get();
 
         $giaban=$sp->gia_goc - $sp->khuyen_mai;
 
         $sp2=DB::table('sanpham')
             ->join('ct_theloai','sanpham.id','=','ct_theloai.ma_sp')
         ->where('sanpham.trang_thai','=',1)->get() ;
+
+
+
 
         return view('sanpham.show',compact('sp','c_t_theloai','anh','bl','sp2','giaban'));
     }
@@ -192,7 +199,6 @@ class SanphamController extends Controller
     public function update(Request $request, $id)
     {
         $sp=Sanpham::find($id);
-        dd($sp);
         $sp->ten_sp=$request->ten_sp;
         $sp->mo_ta=$request->mo_ta;
         $sp->so_luong=$request->so_luong;

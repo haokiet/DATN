@@ -3,7 +3,7 @@
 @section('header_profile_user')
     <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
     <div class="body-home">
-        <div class="sell-col scroll-left">
+        <div class="sell-col scroll-left  ">
             <div class="div-user">
                 <div>
                     @if ($user->image!==null)
@@ -26,7 +26,7 @@
                         <a href="{{route('buy_show-wait')}}">đơn mua hàng</a>
                     </li>
                     <li>
-                        <a>Thông báo</a>
+                        <a>đổi mật khẩu</a>
                     </li>
                 </ul>
             </div>

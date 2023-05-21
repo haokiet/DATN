@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hoadon;
 use App\Models\Shipper;
+use App\Models\Thanhtoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -89,8 +90,16 @@ class ShipperController extends Controller
 
     public function cofimRecive($id){
         $hd = Hoadon::find($id);
+
         $hd->trang_thai=4;
         $hd->save();
+
+        $tt = DB::table('thanhtoan')
+            ->where('ma_hoadon','=',$id)->select('*');
+
+        $tt->update(['trang_thai'=>1]);
+
+
         return back()->with('thongbao','đã gửi hàng');
     }
     public function moneyAway($id){

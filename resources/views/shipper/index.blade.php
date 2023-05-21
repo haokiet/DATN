@@ -1,6 +1,6 @@
 @include('layout.header_shipper')
 <div class="body-home">
-    <div class="body-home">
+    <div class="margin-top">
         @if (session('ketqua'))
             <div class="session-status">
                 {{ session('ketqua') }}

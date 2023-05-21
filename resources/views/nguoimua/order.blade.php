@@ -26,7 +26,7 @@
                                 @else
                                     <img class="cart-img" src="{{asset('images/user.png')}}">
                                 @endif
-
+                                {{$item->ten_sp}}
                             </td>
                             <td>
                                 {{$item->so_luong_mua}}
@@ -48,6 +48,7 @@
 
                             <td>
                                 <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">xác nhận</a></button>
+                                <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">hủy</a></button>
                              </td>
                         </tr>
                     <?php $i++; ?>

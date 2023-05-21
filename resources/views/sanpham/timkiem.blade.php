@@ -46,8 +46,8 @@
 
                     <div class="td-sp2">
                         <div>
-                            @if($value->anh_sp !==null)
-                                <img  class="anh_sp" src="{{$value->anh_sp}}">
+                            @if($value->image !==null)
+                                <img  class="anh_sp" src="{{$value->image}}">
                             @else
                                 <img class="anh_sp" src="{{asset('images/user.png')}}">
                             @endif

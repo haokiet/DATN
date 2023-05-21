@@ -25,9 +25,10 @@ class HomeController extends Controller
                 ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
                 ->where('users.is_delete','=',1)
                 ->where('users.id','=',$item->ma_nguoidung)
+                ->where('trang_thai','=',1)
+                ->where('so_luong','>',0)
                 ->get();
             $sp2= $u;
-            $j++;
         }
         foreach ($sp2 as $item)
         {

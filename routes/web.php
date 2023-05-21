@@ -41,7 +41,8 @@ Route::resource('nguoidung',\App\Http\Controllers\NguoidungController::class);
 
 
 Route::middleware([
-    'auth'
+    'auth',
+    'user'
 ])->group(function (){
     Route::get('/sell',[NguoidungController::class,'sell_regis'])->name('sell_home');
     Route::get('/sell/all-sp',[SanphamController::class,'index'])->name('sell-index-all');
@@ -69,17 +70,31 @@ Route::middleware([
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
     Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
     Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
-    Route::get('/shipper',[\App\Http\Controllers\ShipperController::class,'allOrder'])->name('shipper-all-order');
-    Route::get('/shipper/danhan',[\App\Http\Controllers\ShipperController::class,'recivedOrder'])->name('shipper-resive-order');
-    Route::get('/shipper/dagui/{id}',[\App\Http\Controllers\ShipperController::class,'cofimRecive'])->name('shipper-confimresive-order');
-    Route::get('/shipper/{id}',[\App\Http\Controllers\ShipperController::class,'comFimOrder'])->name('shipper-confim-order');
+
     Route::view('profile','nguoidung.profile')->name('profile_user');
     Route::post('/up_user',[NguoidungController::class,'updateUser'])->name('up_user');
+
+    Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
 });
 
-Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
-Route::get('/admin/chitiet/{id}',[\App\Http\Controllers\AdminController::class,'duyetSP'])->name('duyet_sp');
-Route::get('/admin/duyet/{id}',[\App\Http\Controllers\AdminController::class,'confimDuyet'])->name('duyet_confim');
+
+Route::middleware([
+    'shipper'
+])->group(function () {
+    Route::get('/shipper', [\App\Http\Controllers\ShipperController::class, 'allOrder'])->name('shipper-all-order');
+    Route::get('/shipper/danhan', [\App\Http\Controllers\ShipperController::class, 'recivedOrder'])->name('shipper-resive-order');
+    Route::get('/shipper/dagui/{id}', [\App\Http\Controllers\ShipperController::class, 'cofimRecive'])->name('shipper-confimresive-order');
+    Route::get('/shipper/{id}', [\App\Http\Controllers\ShipperController::class, 'comFimOrder'])->name('shipper-confim-order');
+});
+Route::middleware([
+    'admin'
+])->group(function (){
+    Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
+    Route::get('/admin/chitiet/{id}',[\App\Http\Controllers\AdminController::class,'duyetSP'])->name('duyet_sp');
+    Route::get('/admin/duyet/{id}',[\App\Http\Controllers\AdminController::class,'confimDuyet'])->name('duyet_confim');
+});
+
+
 
 // xóa file trong gg drive
 Route::get('list', function() {
@@ -92,6 +107,11 @@ Route::get('list', function() {
     dd($r);
 });
 
-Route::view('/kkk','kkk');
+
 
 Route::get('/Timkiem',[SanphamController::class,'timKiem'])->name('timkiem');
+
+
+
+
+Route::view('/kkkk','kkk');

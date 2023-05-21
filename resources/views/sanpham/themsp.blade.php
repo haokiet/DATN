@@ -4,93 +4,56 @@
     <form action="{{route('store')}}" method="post" enctype="multipart/form-data">
     @csrf
         <div>
-            <h2>them san pham</h2>
+            <h2>Thêm sản phẩm</h2>
         </div>
-        <div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>ảnh đại diện </p>
-                    </li>
-                    <li class="create_right">
-                        <input type="file" class="file" name="anh_sp">
-                    </li>
+        <div class="aaa">
+            <?php $user = \Illuminate\Support\Facades\Auth::user() ?>
+            <div>
+                <ul class="ul-user">
+                    <li>Ảnh sản phẩm</li>
+                    <li>Ảnh chi tiết</li>
+                    <li>Tên sản phẩm</li>
+                    <li>Thông tin sản phẩm</li>
+                    <li>số lượng</li>
+                    <li>đơn giá</li>
+                    <li>loại sản phẩm</li>
                 </ul>
             </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>ảnh chi tiết</p>
-                    </li>
-                    <li class="create_right">
-                        <input type="file" class="file" name="url[]" multiple="multiple">
-                    </li>
-                </ul>
+            <div>
+                    @csrf
+                    <ul  class="ul-user">
+                        <li>
+                            <input type="file" class="file" name="anh_sp">
+                        </li>
+                        <li>
+                            <input type="file" class="file" name="url[]" multiple="multiple">
+                        </li>
+                        <li>
+                            <input type="text" class="text input-user" REQUIRED name="ten_sp">
+                        </li>
+                        <li>
+                            <textarea name="mo_ta" id="aria"></textarea>
+
+                        </li>
+                        <li>
+                            <input type="number" id="so_luong" name="so_luong" required> rập
+
+                        </li>
+                        <li>
+                            <input type="number" id="so_luong" name="gia_goc" required> vnd
+                        </li>
+                        <li>
+                            <select id="so_luong" name="theloai"  required>
+                                @foreach ($theloai as $item)
+                                    <option  value="{{ $item->id }}">{{ $item->tenloai }}</option>
+                                @endforeach
+                            </select>
+                        </li>
+                        </ul>
+                        <div>
+                            <input type="submit" value="thêm sản phẩm">
+                        </div>
+                </div>
             </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>tên sản phẩm sản phẩm</p>
-                    </li>
-                    <li class="create_right">
-                        <input type="text" class="text" name="ten_sp">
-                    </li>
-                </ul>
-            </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>thông tin sản phẩm</p>
-                    </li>
-                    <li class="create_right">
-                        <textarea name="mo_ta" class="aria"></textarea>
-                    </li>
-                </ul>
-            </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>số lượng</p>
-                    </li>
-                    <li class="create_right">
-                        <input type="number" class="num" name="so_luong">
-                    </li>
-                </ul>
-            </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>đơn giá</p>
-                    </li>
-                    <li class="create_right">
-                        <input type="number" class="num" name="gia_goc">
-                    </li>
-                </ul>
-            </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <p>loại sản phẩm</p>
-                    </li>
-                    <li class="create_right">
-                        <select id="multiple-selected" name="theloai"  class="select_theloai" required>
-                            @foreach ($theloai as $item)
-                                <option  value="{{ $item->id }}">{{ $item->tenloai }}</option>
-                            @endforeach
-                        </select>
-                    </li>
-                </ul>
-            </div>
-            <div class="creat_sp">
-                <ul>
-                    <li class="create_left">
-                        <input type="submit" value="thêm">
-                    </li>
-                    <li class="create_right">
-                        <a href="javascript:window.history.back(-1);">Trở về</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </form>
-@endsection
+        </form>
+    @endsection

@@ -2,13 +2,15 @@
 
 <link rel="stylesheet" href="../../css/app.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+{{--<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>--}}
+
 <div class="show_sp">
     @if (session('thongbao'))
         <div class="session-status">
             {{ session('thongbao') }}
         </div>
     @endif
-    <div class="show_sp_left">
+    <div class="show-lr">
 
         <div class="khung_sp" >
             @if($sp->anh_sp !==null)
@@ -32,12 +34,10 @@
 
         </div>
 
-    </div>
-    <div class="show_sp_right">
-        <div class="right-show">
+        <div>
             <form action="{{route('giohang',$sp->id)}}" method="post">
                 @csrf
-            <table align="center">
+            <table class="table_show" align="center">
                 <tr>
                     <td colspan="3">
                         <h2>
@@ -52,7 +52,7 @@
                     </th>
                     <td>
                         @foreach ($c_t_theloai as $item)
-                            {{$item->tenloai}},
+                            {{$item->tenloai}}
                         @endforeach
                     </td>
                     <td></td>
@@ -86,23 +86,30 @@
                 <tr>
                     <td>số lượng</td>
                     <td>
-                        <p><input name="so_luong" type="text" value="1"></p>
+                        <ul class="ul-show">
+                            <li>
+                                <input id="tru" class="btn-show" type="button" value="-">
+                            </li>
+                            <li>
+                                <input  id="s_l" name="so_luong" type="number" required min="0" value="1">
+                            </li>
+                            <li>
+                                <input id="cong" class="btn-show" type="button" value="+">
+                            </li>
+                        </ul>
                     </td>
-                    <td> tổng số {{$sp->so_luong}}</td>
-
+                    <td> Tổng số: <input class="tong_so" value="{{$sp->so_luong}}" id="tong_so" readonly></td>
                 </tr>
+                <tr>
+                    <td colspan="1">
 
+                    </td>
+                </tr>
             </table>
-            <div >
-                <p><input type="submit" class="show_sp_giohang" value="thêm vào giỏ hàng"><i class="fa fa-shopping-cart icon-cart"></i></p>
-
-            </div>
+                <button type="submit" class="show_sp_giohang">thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
             </form>
-
-
         </div>
     </div>
-
 </div>
 <div class="div-2">
     <div class="show_left2">
@@ -111,19 +118,60 @@
             {{$sp->mo_ta}}
 
         </div>
+
         <div class="show_binhluan">
             <h2>Đánh giá</h2>
+            <div class="nd_bl">
+                <?php $ur = \Illuminate\Support\Facades\Auth::user();  ?>
+               @if(\Illuminate\Support\Facades\Auth::check())
+                    <div>
+                        @if($ur->image !=null)
+                            <img class="img_bl" src="{{$ur->image}}">
+                        @else
+                            <img class="img_bl" src="{{asset('images/user.png')}}">
+                        @endif
+                        <p class="ten_bl">{{$ur->username}}</p>
+
+                    </div>
+
+                <div class="stars">
+                    <form action="{{route('danhgia')}}">
+                        <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
+                        <label class="star star-5" for="star-5"></label>
+                        <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
+                        <label class="star star-4" for="star-4"></label>
+                        <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
+                        <label class="star star-3" for="star-3"></label>
+                        <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
+                        <label class="star star-2" for="star-2"></label>
+                        <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
+                        <label class="star star-1" for="star-1"></label>
+                        <textarea class="text_bl" name="nd_bl"></textarea>
+                        <br>
+                        <input type="submit" value="đánh giá">
+                    </form>
+                </div>
+            </div>
+            @endif
             <?php foreach ($bl as $item):?>
 
-            <div>
-                <img src="{{asset('images/'.$item->image)}}">
-                <p class="ten_bl">{{$item->ho}}</p>
-                <p class="ten_bl">{{$item->ten}}</p>
+            <div class="nd_bl">
+                <div>
+                    @if($item->image !=null)
+                        <img class="img_bl" src="{{$item->image}}">
+                    @else
+                        <img class="img_bl" src="{{asset('images/user.png')}}">
+                    @endif
+                    <p class="ten_bl">{{$item->username}}</p>
+                </div>
+
+                <div>
+                    <p>đánh giá: {{$item->danh_gia}}</p>
+                    <p>{{$item->updated_at}}</p>
+                    <p class=""> {{$item->noi_dung}}</p>
+                </div>
             </div>
-            đánh giá: {{$item->danh_gia}}
-            <div>
-                {{$item->noi_dung}}
-            </div>
+
             <?php endforeach;?>
 
 
@@ -132,25 +180,6 @@
     <div class="show_right2">
         <div class="sp_cungloai">
             <h2 class="h2-cungloai">sản phẩm cùng thời trang</h2>
-{{--            <?php  for ($i=0;$i<count($sp2);$i++){--}}
-{{--                for ($j=$i+1;$j<count($sp2)-1;$j++){--}}
-{{--                    if (($sp2[$i]->id !== $sp2[$j]->id) & ($sp2[$i]->id !== $sp->id) & ($sp2[$i]->ma_theloai === $c_t_theloai[$i]->id)){--}}
-
-{{--                        ?>--}}
-{{--                        <div class="td-sp cungloai">--}}
-{{--                            <?php $giaban = $sp2[$i]->gia_goc - $sp2[$i]->khuyen_mai; ?>--}}
-{{--                            <img class="anh_sp" src="{{asset('images/'.$sp2[$i]->anh_sp)}}">--}}
-
-{{--                            <br>--}}
-{{--                            <a href="{{route('show',$sp2[$i]->id)}}"><?php echo $sp2[$i]->ten_sp;?></a>--}}
-
-{{--                            <br>--}}
-{{--                            <p>giá bán: <?php echo $giaban ; ?> đ</p>--}}
-
-{{--                        </div>--}}
-
-
-{{--                     <?php }}}  ?>--}}
 
 
             <?php foreach ($sp2 as $item ) : foreach ($c_t_theloai as $k): ?>
@@ -177,3 +206,25 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+           $("#tru").click(function(){
+               if(document.getElementById('s_l').value >1)
+               {
+                document.getElementById('s_l').value = document.getElementById('s_l').value -1;
+               }
+           });
+
+
+        $("#cong").click(function(){
+            if(parseInt(document.getElementById('s_l').value) < document.getElementById('tong_so').value  )
+            {
+                document.getElementById('s_l').value = parseInt(document.getElementById('s_l').value) +1;
+
+            }
+        });
+    });
+</script>
