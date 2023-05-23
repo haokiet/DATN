@@ -26,7 +26,7 @@
                         {{$num[$i]}}
                     </td>
                     <td>
-                        <a>chi tiết</a>
+                        <a href="{{route('show-away',$item->id)}}">chi tiết</a>
                     </td>
 
                 </tr>

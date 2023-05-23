@@ -56,7 +56,8 @@
                 </tr>
                 <tr>
                     <td>Cửa hàng:</td>
-                    <td><a href="#">{{$nguoidung->username}}</a></td>
+                    <td><a href="{{route('show_user',$nguoidung->id)}}">{{$nguoidung->username}}</a></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -114,11 +115,6 @@
                         <div class="display_flex">
                             <p>sẵn có:</p><p><input class="tong_so" value="{{$sp[0]->so_luong}}" id="tong_so" readonly>sản phẩm</p>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-
                     </td>
                 </tr>
             </table>

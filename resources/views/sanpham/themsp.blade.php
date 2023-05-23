@@ -23,7 +23,10 @@
                     @csrf
                     <ul  class="ul-user">
                         <li>
-                            <input required type="file" class="file" name="anh_sp">
+                            <div class="display_flex">
+                                <img src="" class="preview preview-img2" id="preview">
+                                <input type="file" class="input" name="anh_sp" >
+                            </div>
                         </li>
                         <li>
                             <input type="file" class="file" name="url[]" multiple="multiple">
@@ -51,9 +54,11 @@
                         </li>
                         </ul>
                         <div>
-                            <input type="submit" value="thêm sản phẩm">
+                            <input class="btn-sell" type="submit" value="thêm sản phẩm">
+                            <button class="btn-sell"><a href="javascript:window.history.back(-1);">Trở về</a></button>
                         </div>
                 </div>
             </div>
         </form>
+    <script src="../../script/script.js"></script>
     @endsection

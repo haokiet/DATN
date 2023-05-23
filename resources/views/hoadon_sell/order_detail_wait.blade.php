@@ -30,10 +30,14 @@
                 {{$item->so_luong_mua}}
             </div>
             <div class="text-giua">
-                {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua + $item->don_gia_vc}} vnd
+                {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}} vnd
             </div>
         </div>
         @endforeach
+
+    </div>
+    <div class="margin-top">
+        <button class="btn-sell"><a href="javascript:window.history.back(-1);">Trở về</a></button>
     </div>
 {{--    <div class="page">{{ $sp->links()}}</div>--}}
 @endsection

@@ -126,6 +126,7 @@ class SanphamController extends Controller
             'ma_nguoidung' => $idND,
             'so_luong'=>$request->input('so_luong'),
             'gia_goc'=>$request->input('gia_goc'),
+            'ma_theloai'=>$request->input('theloai'),
         ]);
 
             if ($request->file('url') !==null)
@@ -138,12 +139,6 @@ class SanphamController extends Controller
                     ]);
                 }
             }
-        $theloais = $request->input('theloai');
-
-            C_T_Theloai::create([
-                'ma_sp' => $sp->id,
-                'ma_theloai' => $theloais
-            ]);
 
         return redirect('/sell/all-sp');
     }

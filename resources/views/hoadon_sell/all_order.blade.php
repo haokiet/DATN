@@ -1,4 +1,5 @@
 @extends('layout.header_order')
+
 @section('sell-order-all')
     <div>
         <h2>tat ca hoa don: {{$count}}</h2>
@@ -27,7 +28,7 @@
                             </td>
 
                             <td>
-                                <a href="{{route('show-wait',$item->id)}}">chi tiết</a>
+                                <a href="{{route('show-all',$item->id)}}">chi tiết</a>
                             </td>
 
                         </tr>

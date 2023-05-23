@@ -28,29 +28,33 @@
     @csrf
 @foreach($ct_hd as $value)
 
-    <div class="cart body-home">
+    <div class="cart body-home bor">
         <div class="cart-item">
             <input type="checkbox" class="checkbox" name="checkbox[]" onclick="checbox()"
                    value="{{$value->id}}">
         </div>
-        <div class="cart-item">
-            @if($value->anh_sp !==null)
-            <img class="cart-img" src="{{$value->anh_sp}}">
-            @else
-            <img class="cart-img" src="{{asset('images/user.png')}}">
-            @endif
-            {{$value->ten_sp}}
+        <div class="cart-item chia_cot_table">
+            <div>
+                @if($value->anh_sp !==null)
+                    <img class="cart-img" src="{{$value->anh_sp}}">
+                @else
+                    <img class="cart-img" src="{{asset('images/user.png')}}">
+                @endif
+            </div>
+           <div>
+               <a href="{{route('sanpham.show',$value->id)}}">{{$value->ten_sp}}</a>
+           </div>
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             {{$value->gia_goc - $value->khuyen_mai}}
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             {{$value->so_luong_mua}}
         </div>
-        <div class="cart-item">
-            <input class="tien-item tong_so" name="tien-item[]" type="text" readonly value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}"> vnd
+        <div class="cart-item text-giua">
+            <input class="tien-item tong_so" name="tien-item[]" type="text" readonly value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}">vnd
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             <a href="{{route('delete-giohang',$value->ma_sp)}}">xóa</a>
         </div>
         <?php $tong = $tong + $tien;?>

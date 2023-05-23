@@ -26,7 +26,7 @@
                             <div class="text-giua">
                                 <a href="{{route('sanpham.show',$item->ma_sp)}}">{{$item->ten_sp}}</a>
                                 <br>
-                                <a href="#">shop: {{$item->username}}</a>
+                                <a href="{{route('show_user',$item->ma_nguoidung)}}">shop: {{$item->username}}</a>
                             </div>
                         </div>
                         <div class="text-giua">
@@ -66,7 +66,7 @@
                 @foreach($value as $item)
                     <div class="div-xacnhan3">
                         <div class="chia_cot_table">
-                            <div >
+                            <div>
                                 @if($item->anh_sp !==null)
                                     <img class="cart-img" src="{{$item->anh_sp}}">
                                 @else
@@ -76,7 +76,7 @@
                             <div class="text-giua">
                                 <a href="{{route('sanpham.show',$item->ma_sp)}}">{{$item->ten_sp}}</a>
                                 <br>
-                                <a href="#">shop: {{$item->username}}</a>
+                                <a href="{{route('show_user',$item->ma_nguoidung)}}">shop: {{$item->username}}</a>
                             </div>
                         </div>
                         <div class="text-giua">

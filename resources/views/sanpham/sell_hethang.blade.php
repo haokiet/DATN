@@ -36,7 +36,7 @@
                         {{$item->created_at}}
                     </td>
                     <td>
-                        <a href="{{route('edit_sell_sp',$item->id)}}">sửa</a> | <a href="{{route('delet',$item->id)}}">xóa</a>
+                        <a href="{{route('edit_sell_sp',$item->id)}}"><i class='fa fa-edit'></i></a> | <a href="{{route('delet',$item->id)}}"><i class="fa fa-trash-o"></i></a>
                     </td>
 
                 </tr>

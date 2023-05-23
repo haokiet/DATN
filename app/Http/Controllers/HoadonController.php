@@ -58,7 +58,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=','1')
+            ->where('hoadon.trang_thai','=','2')
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')->groupBy('ct_hoadon.ma_sp')
             ->paginate(9);
         $dem=0;
@@ -73,7 +73,7 @@ class HoadonController extends Controller
                 ->join('users','users.id','=','sanpham.ma_nguoidung')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->where('users.id','=',$user->id)
-                ->where('hoadon.trang_thai','=',1)
+                ->where('hoadon.trang_thai','=',2)
                 ->where('ct_hoadon.ma_sp','=',$item->id)
                 ->get();
 
@@ -230,6 +230,23 @@ class HoadonController extends Controller
 
         return view('hoadon_sell.delete_oder',compact('num','sp','count'));
     }
+//show hóa đơn
+    public function showall($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('ct_hoadon.ma_sp','=',$id)
+            ->get();
+        $check = 1;
+        return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
+    }
+
     public function showWait($id)
     {
         $user = Auth::user();
@@ -240,11 +257,11 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=',1)
+            ->where('hoadon.trang_thai','=',2)
             ->where('ct_hoadon.ma_sp','=',$id)
-            ->orderByDesc('hoadon.created_at')
             ->get();
-        return view('hoadon_sell.order_detail_wait',compact('user','hd'));
+        $check = 0;
+        return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
     }
     public function showGiving($id)
     {
@@ -258,8 +275,45 @@ class HoadonController extends Controller
             ->where('users.id','=',$user->id)
             ->where('hoadon.trang_thai','=',3)
             ->where('ct_hoadon.ma_sp','=',$id)->get();
-        return view('hoadon_sell.order_detail_wait',compact('user','hd'));
+        $check = 0;
+        return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
     }
+
+    public function showGave($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=',4)
+            ->where('ct_hoadon.ma_sp','=',$id)
+            ->get();
+        $check = 0;
+        return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
+    }
+
+    public function showAway($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=',5)
+            ->where('ct_hoadon.ma_sp','=',$id)
+            ->get();
+        $check  =0;
+        return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
+    }
+
+    // show xác nhận hóa đơn người dùng
     public function buyshowWait()
     {
         $user = Auth::user();

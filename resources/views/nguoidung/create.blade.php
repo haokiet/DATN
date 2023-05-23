@@ -8,7 +8,7 @@
     <div class="register_right body-home">
         <form action="{{route('register')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <h2>Đăng ký</h2>
+            <h2>ĐĂNG KÝ</h2>
             @if (session('thongbao'))
                 <div class="session-status">
                     {{ session('thongbao') }}

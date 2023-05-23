@@ -365,9 +365,12 @@ p{
 .img-header{
     width: 35px;
     height: 35px;
-    border-radius: 40%;
-    margin-left: 60%;
-    padding-top: 5px;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+
+    padding-top: 17px;
 }
 .sell-img{
     display: grid;
@@ -399,38 +402,44 @@ ul{
 }
 .sell_table{
     width: 100%;
-
     margin-top: 1%;
+    border-collapse: collapse;
 }
+.sell_table th,td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #DDD;
+}
+
 .tr{
     height: 7vh;
     border-bottom: 1px solid black;
 
 }
-.sell_table td:nth-child(1){
-   width: 30%;
-    padding-left: 3%;
-}
-.sell_table td:nth-child(2){
-    width: 10%;
-    padding-left: 3%;
-}
-.sell_table td:nth-child(3){
-    width: 10%;
-    padding-left: 3%;
-}
-.sell_table td:nth-child(4){
-    width: 10%;
-    padding-left: 3%;
-}
-.sell_table td:nth-child(5){
-    width: 20%;
-    padding-left: 3%;
-}
-.sell_table td:nth-child(6){
-    width: 20%;
-    padding-left: 3%;
-}
+/*.sell_table td:nth-child(1){*/
+/*   width: 30%;*/
+/*    padding-left: 3%;*/
+/*}*/
+/*.sell_table td:nth-child(2){*/
+/*    width: 10%;*/
+/*    padding-left: 3%;*/
+/*}*/
+/*.sell_table td:nth-child(3){*/
+/*    width: 10%;*/
+/*    padding-left: 3%;*/
+/*}*/
+/*.sell_table td:nth-child(4){*/
+/*    width: 10%;*/
+/*    padding-left: 3%;*/
+/*}*/
+/*.sell_table td:nth-child(5){*/
+/*    width: 20%;*/
+/*    padding-left: 3%;*/
+/*}*/
+/*.sell_table td:nth-child(6){*/
+/*    width: 20%;*/
+/*    padding-left: 3%;*/
+/*}*/
 .sell_div1{
     display: flex;
 
@@ -721,7 +730,7 @@ label.star2:before {
 
 .chia_cot_table{
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 38% 62%;
 }
 
 .chudam{
@@ -755,4 +764,18 @@ label.star2:before {
     display: grid;
     grid-template-columns: 10% 30% 30% 15% 15%;
     border-bottom: solid #718096 0.2px;
+}
+.bor{
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px rgba(1, 0, 0, 0.12),
+    2px 2px 2px rgba(0, 0, 0, 0.12),
+    4px 4px 4px rgba(0, 0, 0, 0.12),
+    8px 8px 8px rgba(0, 0, 0, 0.12),
+    16px 16px 16px rgba(0, 0, 0, 0.12);
+}
+.btn-sell{
+    width: 105px;
+}
+.float-right{
+    float: right;
 }

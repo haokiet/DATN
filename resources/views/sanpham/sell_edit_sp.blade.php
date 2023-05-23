@@ -56,7 +56,8 @@
                     </li>
                 </ul>
                 <div>
-                    <input type="submit" value="cập nhật">
+                    <input class="btn-sell" type="submit" value="cập nhật">
+                    <button class="btn-sell"><a href="javascript:window.history.back(-1);">Trở về</a></button>
                 </div>
             </div>
         </div>

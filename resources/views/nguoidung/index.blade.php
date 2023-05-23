@@ -1,14 +1,14 @@
 @include('layout.header2')
 
 <div class=" main_register">
-    <div class="register_left">
+    <div class="register_left body-home">
         <?php $img = 'img_register.png'; ?>
         <img class="img_register" src="{{asset('images/'.$img)}}">
     </div>
-    <div class="register_right">
+    <div class="register_right body-home">
         <form action="{{route('check_login')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <h2>DANG NHAP</h2>
+            <h2>ĐĂNG NHẬP</h2>
             @if (session('thongbao'))
                 <div class="session-status">
                     {{ session('thongbao') }}

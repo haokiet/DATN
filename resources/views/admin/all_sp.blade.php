@@ -3,19 +3,19 @@
     <table class="sell_table">
         <tr>
             <td>
-                <p>tên sản phẩm</p>
+                <p class="chudam">Tên sản phẩm</p>
             </td>
             <td>
-                <p>giá gốc</p>
+                <p class="chudam">Giá gốc</p>
             </td>
             <td>
-                <p>số lượng</p>
+                <p class="chudam">Số lượng</p>
             </td>
             <td>
-                <p>ngày đăng</p>
+                <p class="chudam">Ngày đăng</p>
             </td>
             <td>
-                <p>thao tác</p>
+                <p class="chudam">Thao tác</p>
             </td>
         </tr>
             @foreach($sp as $item)
@@ -33,7 +33,7 @@
                         {{$item->created_at}}
                     </td>
                     <td>
-                        <a href="{{route('duyet_sp',$item->id)}}">duyệt</a> | <a href="{{route('delet',$item->id)}}">xóa</a>
+                        <a href="{{route('duyet_sp',$item->id)}}">Duyệt</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
                     </td>
                 </tr>
             @endforeach

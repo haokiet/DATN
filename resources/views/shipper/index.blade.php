@@ -33,7 +33,7 @@
                                             <div class="text-giua">
                                                 <a href="{{route('sanpham.show',$item->ma_sp)}}">{{$item->ten_sp}}</a>
                                                 <br>
-                                                <a href="#">shop: {{$item->username}}</a>
+                                                <a href="{{route('show_user',$item->ma_nguoidung)}}">shop: {{$item->username}}</a>
                                             </div>
                                         </div>
                                         <div class="text-giua">

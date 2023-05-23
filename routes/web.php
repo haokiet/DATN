@@ -68,6 +68,9 @@ Route::middleware([
     Route::post('/thanhtoan/saukhinhanhang',[ThanhtoanController::class,'sauKhiNhanHang'])->name('thanhtoan-sknh');
     Route::get('/order/deatil_wait/{id}',[HoadonController::class,'showWait'])->name('show-wait');
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
+    Route::get('/order/deatil_all/{id}',[HoadonController::class,'showall'])->name('show-all');
+    Route::get('/order/deatil_gave/{id}',[HoadonController::class,'showGave'])->name('show-gave');
+    Route::get('/order/deatil_away/{id}',[HoadonController::class,'showAway'])->name('show-away');
     Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
     Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
     Route::get('/order/delete/{id}',[HoadonController::class,'deleteWait'])->name('huy_xacnhan');
@@ -77,6 +80,7 @@ Route::middleware([
 
     Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
 
+    Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');
 });
 
 

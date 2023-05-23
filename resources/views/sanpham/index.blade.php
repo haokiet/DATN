@@ -1,6 +1,8 @@
 <div>
        @include('layout.header')
-
+@if(session('yes'))
+    <script>window.alert('Đã xác nhận tài khoản thành công')</script>
+    @endif
     <div class="body-home" align="center">
            <?php $i=0;   foreach ($sp2 as $item ) :{  ?>
         <a href="{{route('sanpham.show',$item->id)}}">
