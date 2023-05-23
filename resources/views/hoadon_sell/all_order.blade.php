@@ -4,10 +4,10 @@
         <h2>tat ca hoa don: {{$count}}</h2>
         <table class="sell_table">
             <tr>
+                <td><p class="chudam">Tên sản phẩm</p></td>
+                <td><p class="chudam">Tổng đơn hàng</p></td>
+                <td><p class="chudam">Thao tác</p></td>
 
-                <th>tên sản phẩm</th>
-                <th>Tổng đơn hàng</th>
-                <th>thao tác</th>
 
 
             </tr>
@@ -25,8 +25,9 @@
                             <td>
                                 {{$num[$i]}}
                             </td>
+
                             <td>
-                               <a>chi tiết</a>
+                                <a href="{{route('show-wait',$item->id)}}">chi tiết</a>
                             </td>
 
                         </tr>

@@ -10,11 +10,11 @@
         <table class="sell_table">
             <tr>
 
-                <th>tên sản phẩm</th>
-                <th>giá gốc</th>
-                <th>khuyến mãi</th>
-                <th>ngày đăng</th>
-                <th>thao tác</th>
+                <td><p class="chudam">Tên sản phẩm</p></td>
+                <td><p class="chudam">Giá gốc</p></td>
+                <td><p class="chudam">Khuyến mãi</p></td>
+                <td><p class="chudam">Ngày đăng</p></td>
+                <td ><p class="chudam">Thao tác</p></td>
 
             </tr>
         </table>

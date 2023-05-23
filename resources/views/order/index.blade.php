@@ -60,13 +60,10 @@
 
     <div id="divtongtien" class="bottom-cart">
         <div id="x" class="bottom-thanhtoan">
-           <div  class="div-tong"> vận chuyển: <select name="vc">
-                   @foreach($vanchuyen as $item)
-                       <option value="{{$item->id}}">{{$item->ten_vc}} - {{$item->don_gia_vc}}</option>
-                   @endforeach
-               </select>
-                Tổng tiền: <input id="tong-tien" name="tong_tien" readonly> vnd
-                <button class="button-cart" type="submit" name="submit" >mua hàng</button>
+           <div  class="div-tong2">
+               <div></div>
+               <div> Tổng tiền: <input id="tong-tien" name="tong_tien" readonly> vnd</div>
+                <div><button class="button-cart" type="submit" name="submit" >mua hàng</button></div>
             </div>
 
         </div>

@@ -51,7 +51,7 @@
 
 
            <div class="giohang">
-               <a href="{{route('index_giohang')}}">gio hang</a>
+               <a href="{{route('index_giohang')}}"><i class="icon-cart fa fa-shopping-cart"></i></a>
            </div>
        </div>
 

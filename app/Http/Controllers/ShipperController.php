@@ -22,7 +22,7 @@ class ShipperController extends Controller
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('hoadon.trang_thai','=',2)
             ->get();
-        $hh = null;
+        $hh = null; $tong = 0;
         $i=0;
         $hd2 = DB::table('hoadon')
             ->where('hoadon.trang_thai','=',2)
@@ -34,12 +34,50 @@ class ShipperController extends Controller
                 ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->join('users','sanpham.ma_nguoidung','=','users.id')
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',2)
+                ->select([
+                    'ten_vc',
+                    'don_gia_vc',
+                    'ma_vanchuyen',
+                    'dia_chi_nhan',
+                    'ten_nhan',
+                    'so_dt_nhan',
+                    'ma_hoadon',
+                    'sanpham.ma_nguoidung',
+                    'hoadon.trang_thai',
+                    'so_luong_mua',
+                    'anh_sp',
+                    'ten_sp',
+                    'so_luong',
+                    'gia_goc',
+                    'khuyen_mai',
+                    'ma_sp',
+                    'username'
+
+                ])
                 ->get();
             $i++;
         }
-        return view('shipper.index',compact('user','hd','hd2','hh'));
+
+        if ($hh !==null)
+        {
+            $m = 0; $n = 1; $k =0; $s=array(); $s[0]=0; $tong=array();
+            foreach ($hh as $t)
+            {
+                foreach ($t as $v)
+                {
+                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                    $m++; $n++;
+                }
+                $tong[$k]=$s[$n-1];
+                $k++;
+                $m = 0; $n = 1; $s[0]=0;
+            }
+        }
+
+        return view('shipper.index',compact('user','hd','hd2','hh','tong'));
     }
 
     public function comFimOrder($id)
@@ -60,32 +98,68 @@ class ShipperController extends Controller
     public function recivedOrder()
     {
         $user = Auth::user();
-
         $hd = DB::table('hoadon')
             ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
             ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('hoadon.trang_thai','=',3)
             ->get();
-        $hh = null;
+        $hh = null; $tong = 0;
         $i=0;
         $hd2 = DB::table('hoadon')
+            ->join('shipper','shipper.ma_hoadon','=','hoadon.id')
             ->where('hoadon.trang_thai','=',3)
+            ->where('shipper.ma_nguoidung','=',$user->id)
             ->get();
-
         foreach ($hd2 as $item)
         {
             $hh[$i] = DB::table('hoadon')
                 ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->join('users','sanpham.ma_nguoidung','=','users.id')
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',3)
+                ->select([
+                    'ten_vc',
+                    'don_gia_vc',
+                    'ma_vanchuyen',
+                    'dia_chi_nhan',
+                    'ten_nhan',
+                    'so_dt_nhan',
+                    'ma_hoadon',
+                    'sanpham.ma_nguoidung',
+                    'hoadon.trang_thai',
+                    'so_luong_mua',
+                    'anh_sp',
+                    'ten_sp',
+                    'so_luong',
+                    'gia_goc',
+                    'khuyen_mai',
+                    'ma_sp',
+                    'username'
+
+                ])
                 ->get();
             $i++;
         }
+        if ($hh !==null)
+        {
+            $m = 0; $n = 1; $k =0; $s=array(); $s[0]=0; $tong=array();
+            foreach ($hh as $t)
+            {
+                foreach ($t as $v)
+                {
+                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                    $m++; $n++;
+                }
+                $tong[$k]=$s[$n-1];
+                $k++;
+                $m = 0; $n = 1; $s[0]=0;
+            }
+        }
 
-        return view('shipper.nhan_order',compact('user','hd','hd2','hh'));
+        return view('shipper.nhan_order',compact('user','hd','hd2','hh','tong'));
     }
 
     public function cofimRecive($id){

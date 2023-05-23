@@ -16,7 +16,7 @@
                         <div class="td-sp2">
                             <div>
                                 @if($value->anh_sp !==null)
-                                    <iframe  class="anh_sp" src="{{$value->anh_sp}}"></iframe>
+                                    <img  class="anh_sp" src="{{$value->anh_sp}}"></img>
                                 @else
                                     <img class="anh_sp" src="{{asset('images/user.png')}}">
                                 @endif

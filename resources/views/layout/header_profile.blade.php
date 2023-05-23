@@ -3,11 +3,11 @@
 @section('header_profile_user')
     <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
     <div class="body-home">
-        <div class="sell-col scroll-left  ">
+        <div class="sell-col scroll-left2  ">
             <div class="div-user">
                 <div>
                     @if ($user->image!==null)
-                        <img class="img-avata" src="{{$user->images}}">
+                        <img class="img-avata" src="{{$user->image}}">
                     @else
                         <img class="img-avata" src="{{asset('images/user.png')}}">
                     @endif

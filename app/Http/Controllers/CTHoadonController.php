@@ -130,7 +130,6 @@ class CTHoadonController extends Controller
             }
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -160,8 +159,15 @@ class CTHoadonController extends Controller
      */
     public function delete_giohang($id)
     {
+        $user = Auth::user();
+        $hdd = DB::table('hoadon')
+            ->where('ma_nguoidung','=',$user->id)
+            ->where('trang_thai','=','0')
+            ->get();
 
-        $ct_d = DB::table('ct_hoadon')->where('ma_sp','=',$id);
+        $ct_d = DB::table('ct_hoadon')
+            ->where('ma_sp','=',$id)
+            ->where('ma_hoadon','=',$hdd[0]->id);
         $ct_d->delete();
         return redirect('/giohang');
     }

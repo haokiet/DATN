@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image',100)->nullable();
+            $table->text('image')->nullable();
             $table->boolean('gioi_tinh')->nullable();
             $table->string('dia_chi',100);
-            $table->boolean('is_admin')->default(0);
             $table->date('ngay_sinh')->nullable();
             $table->string('so_dt_nd',11)->nullable();
             $table->boolean('role')->default(0);

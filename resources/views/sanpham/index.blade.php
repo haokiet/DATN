@@ -16,7 +16,7 @@
                <div class="home_a">
                    <a href="{{route('sanpham.show',$item->id)}}"><?php echo $item->ten_sp;?></a>
                </div>
-               <div>
+               <div  class="gb">
                    <p>giá bán: <?php echo $giaban[$i]." "."đ"; }?></p>
                </div>
 

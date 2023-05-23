@@ -19,33 +19,95 @@ class ThanhtoanController extends Controller
      */
     public function view(Request $request)
     {
+
         $user = Auth::user();
-        $hd = DB::table('hoadon')
-            ->where('ma_nguoidung','=',$user->id)
-            ->where('trang_thai','=','0')
-            ->select('id')->get();
-       $ct_hdd = array();
-       $i = 0;
-       foreach ($request->checkbox as $item)
-       {
-           $ct_hdd[$i] = DB::table('ct_hoadon')
-               ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
-               ->join('users','users.id','=','sanpham.ma_nguoidung')
-               ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
-               ->where('ct_hoadon.ma_sp','=',$item)
-               ->where('hoadon.trang_thai','=',0)
-               ->get();
-           $i++;
-       }
+        $ct_hdd = array();
+        $i = 0;
+
+        if ($request->id_sp !==null)
+        {
+            $hdd2 = DB::table('hoadon')
+                ->where('ma_nguoidung','=',$user->id)
+                ->where('trang_thai','=','0')
+                ->get();
+
+            $dem=count($hdd2);
+
+            if ($dem ===0)
+            {
+                Hoadon::create([
+                    'ma_nguoidung'=>$user->id,
+                    'dia_chi_nhan'=>$user->dia_chi,
+                    'ten_nhan'=>$user->username,
+                    'so_dt_nhan'=>$user->so_dt,
+                    'ma_van_chuyen'=>1
+                ]);
+            }
+
+            $hdd = DB::table('hoadon')
+                ->where('ma_nguoidung','=',$user->id)
+                ->where('trang_thai','=','0')
+                ->get();
+
+            $k = $request->id_sp + 0;
+            $ct = DB::table('ct_hoadon')
+                ->where('ma_hoadon','=',$hdd[0]->id)
+                ->where('ma_sp','=',$k)->get();
+               if(!isset($ct[0]))
+               {
+                   CT_Hoadon::create([
+                       'ma_hoadon'=>$hdd[0]->id,
+                       'ma_sp'=>$k,
+                       'so_luong_mua'=>$request->so_luong
+                   ]);
+               }
+
+            $ct_hdd[$i] = DB::table('ct_hoadon')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                ->where('ct_hoadon.ma_sp','=',$k)
+                ->where('ct_hoadon.ma_hoadon','=',$hdd[0]->id)
+                ->where('hoadon.trang_thai','=',0)
+                ->get();
+
+
+        }
+        else
+        {
+            $hd = DB::table('hoadon')
+                ->where('ma_nguoidung','=',$user->id)
+                ->where('trang_thai','=',0)
+                ->get();
+
+            foreach ($request->checkbox as $item)
+            {
+                $ct_hdd[$i] = DB::table('ct_hoadon')
+                    ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                    ->join('users','users.id','=','sanpham.ma_nguoidung')
+                    ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                    ->where('ct_hoadon.ma_sp','=',$item)
+                    ->where('ct_hoadon.ma_hoadon','=',$hd[0]->id)
+                    ->where('hoadon.trang_thai','=',0)
+                    ->get();
+                $i++;
+            }
+        }
+
+
+
+
+
+
         $tong = 0;
-        $vanchuyen = Vanchuyen::find($request->vc);
+        $vanchuyen = Vanchuyen::all();
         $phuongthuc = Phuongthuc::all();
 //        foreach ($ct_hdd as $value)
 //        {
 //            $tong = $tong + (($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua);
 //        }
 //        $tong_all = $tong + $vanchuyen->don_gia_vc;
-        return view('thanhtoan.index',compact('hd','ct_hdd','vanchuyen','phuongthuc','user'));
+        return view('thanhtoan.index',compact('ct_hdd','vanchuyen','phuongthuc','user'));
     }
 
     /**

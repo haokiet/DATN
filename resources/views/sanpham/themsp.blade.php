@@ -23,7 +23,7 @@
                     @csrf
                     <ul  class="ul-user">
                         <li>
-                            <input type="file" class="file" name="anh_sp">
+                            <input required type="file" class="file" name="anh_sp">
                         </li>
                         <li>
                             <input type="file" class="file" name="url[]" multiple="multiple">

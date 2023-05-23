@@ -19,12 +19,12 @@ class HomeController extends Controller
         $j = 0;
         $sp2 ="";
 
+
         foreach ($sp as $item)
         {
             $u = DB::table('users')
                 ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
                 ->where('users.is_delete','=',1)
-                ->where('users.id','=',$item->ma_nguoidung)
                 ->where('trang_thai','=',1)
                 ->where('so_luong','>',0)
                 ->get();

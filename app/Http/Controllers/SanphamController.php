@@ -6,6 +6,7 @@ use App\Models\C_T_Theloai;
 use App\Models\Photos;
 use App\Models\Sanpham;
 use App\Models\Theloai;
+use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Faker\Core\File;
 use Illuminate\Http\Request;
@@ -116,7 +117,7 @@ class SanphamController extends Controller
 
         }
         else{
-            $uploadedFileUrl='null.png';
+            $uploadedFileUrl=null;
         }
         $sp = Sanpham::create([
             'ten_sp' => $request->input('ten_sp'),
@@ -154,12 +155,12 @@ class SanphamController extends Controller
     {
        // $user = Auth::user();
        // $isVa = password_verify('123456', $user->password);
-        $sp=DB::table('sanpham')->find($id);
+        $sp=DB::table('theloai')
+            ->join('sanpham','sanpham.ma_theloai','=','theloai.id')
+            ->where('sanpham.id','=',$id)
+            ->get();
+        $nguoidung = User::find($sp[0]->ma_nguoidung);
 
-        $c_t_theloai = DB::table('ct_theloai')
-            ->join('theloai','theloai.id','=','ct_theloai.ma_theloai','inner')
-            ->join('sanpham','sanpham.id','=','ct_theloai.ma_sp','inner')
-        ->where('sanpham.id','=',$id)->select(['theloai.tenloai','theloai.id'])->get();
 
         $anh=DB::table('photos')->join('sanpham','sanpham.id','=','photos.ma_sp','inner')
             ->where('sanpham.id','=',$id)
@@ -172,16 +173,29 @@ class SanphamController extends Controller
             ->where('binhluan.is_delete','=',0)
             ->select(['*','binhluan.updated_at'])->get();
 
-        $giaban=$sp->gia_goc - $sp->khuyen_mai;
+        $giaban=$sp[0]->gia_goc - $sp[0]->khuyen_mai;
 
-        $sp2=DB::table('sanpham')
-            ->join('ct_theloai','sanpham.id','=','ct_theloai.ma_sp')
+        $sp2=DB::table('theloai')
+            ->join('sanpham','sanpham.ma_theloai','=','theloai.id')
         ->where('sanpham.trang_thai','=',1)->get() ;
 
 
+        $dg = DB::table('binhluan')->where('ma_sp','=',$id)->get();
+        $tb = count($dg);
+        $d_g=0;
+        if ($tb !==0)
+        {
+            foreach ($dg as $item)
+            {
+                $d_g =$d_g + $item->danh_gia;
+            }
+            $kq = round($d_g/$tb,1);
+        }
+        else{
+            $kq = 0;
+        }
 
-
-        return view('sanpham.show',compact('sp','c_t_theloai','anh','bl','sp2','giaban'));
+        return view('sanpham.show',compact('sp','anh','bl','sp2','giaban','kq','nguoidung'));
     }
 
     /**
@@ -190,7 +204,8 @@ class SanphamController extends Controller
     public function edit($id)
     {
         $sp = DB::table('sanpham')->find($id);
-        return view('sanpham.sell_edit_sp',compact('sp'));
+        $theloai = Theloai::all();
+        return view('sanpham.sell_edit_sp',compact('sp','theloai'));
     }
 
     /**
@@ -199,6 +214,12 @@ class SanphamController extends Controller
     public function update(Request $request, $id)
     {
         $sp=Sanpham::find($id);
+        if ($request->file('anh_sp') !==null)
+        {
+            $uploadedFileUrl = cloudinary()->upload($request->file('anh_sp')->getRealPath())->getSecurePath();
+            $sp->anh_sp = $uploadedFileUrl;
+
+        }
         $sp->ten_sp=$request->ten_sp;
         $sp->mo_ta=$request->mo_ta;
         $sp->so_luong=$request->so_luong;
@@ -278,17 +299,18 @@ class SanphamController extends Controller
             ->where('so_luong','>',0)
             ->get();
         $j = 0;
-        $sp2 =null;
+        $sp2 ="";
+
 
         foreach ($sp as $item)
         {
             $u = DB::table('users')
                 ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
                 ->where('users.is_delete','=',1)
-                ->where('users.id','=',$item->ma_nguoidung)
+                ->where('trang_thai','=',1)
+                ->where('so_luong','>',0)
                 ->get();
             $sp2= $u;
-
         }
         foreach ($sp2 as $item)
         {

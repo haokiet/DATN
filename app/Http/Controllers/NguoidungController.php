@@ -71,12 +71,25 @@ class NguoidungController extends Controller
     public function updateUser(Request $request)
     {
 
+        if($request->file('anh_nd') != null){
+
+
+            $uploadedFileUrl = cloudinary()->upload($request->file('anh_nd')->getRealPath())->getSecurePath();
+
+
+        }
+        else{
+            $uploadedFileUrl=null;
+        }
+
         $user = Auth::user();
         $profile = User::find($user->id);
         $profile->username = $request->username;
         $profile->so_dt_nd = $request->so_dt_nd;
         $profile->gioi_tinh = $request->gioi_tinh;
         $profile->ngay_sinh = $request->ngay_sinh;
+        $profile->image = $uploadedFileUrl;
+        $profile->dia_chi = $request->dia_chi;
         $profile->save();
         return back();
     }
@@ -151,7 +164,7 @@ class NguoidungController extends Controller
             {
                 return redirect('/shipper');
             }
-            if ($user->is_admin===1)
+            else if ($user->role===2)
             {
                 return redirect('/admin');
             }

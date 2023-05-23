@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ma_sp')->constrained('sanpham')->onDelete('cascade');
-            $table->string('url',50)->nullable();
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }

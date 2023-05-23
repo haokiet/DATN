@@ -18,7 +18,7 @@
                </div>
 
            </div>
-           <?php $idhd = 0; $tong = 0 ?>
+           <?php $idhd = 0; $tong = 0; $tong2=0 ?>
            <form action="{{route('thanhtoan-sknh')}}" method="post">
                @csrf
            @foreach($ct_hdd as $item)
@@ -36,7 +36,7 @@
                               @endif
                           </div>
                            <p>{{$value->ten_sp}}</p>
-                           vận chuyển: {{$vanchuyen->ten_vc}} - {{$vanchuyen->don_gia_vc}}
+{{--                           vận chuyển: {{$vanchuyen->ten_vc}} - {{$vanchuyen->don_gia_vc}}--}}
                        </div>
                        <div>
                            {{$value->gia_goc - $value->khuyen_mai}}
@@ -45,11 +45,12 @@
                            <input class="tong_so" name="slm[]" value="{{$value->so_luong_mua}}">
                        </div>
                        <div>
-                           {{($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua + $vanchuyen->don_gia_vc}} vnd
+                           {{($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua}} vnd
                        </div>
                    </div>
-                   <?php $tong = $tong + ($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua + $vanchuyen->don_gia_vc; ?>
+                   <?php $tong = $tong + ($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua; ?>
                @endforeach
+
            @endforeach
        </div>
        <div class="right-thanhtoan">
@@ -75,24 +76,57 @@
                            <input required type="radio" name="pt" value="{{$t->id}}">{{$t->ten_pt}}
                    @endforeach
                </tr>
+               <tr>
+                   <td colspan="2"> <div>vận chuyển: <select id="vc" name="vc">
+                               @foreach($vanchuyen as $item)
+                                   <option value="{{$item->id}}">{{$item->ten_vc}} + {{$item->don_gia_vc}}</option>
+                               @endforeach
+                           </select></div></td>
+               </tr>
            </table>
            <input type="hidden" name="idhd" value="{{$idhd}}">
-           <input type="hidden" name="idvc" value="{{$vanchuyen->id}}">
+           <input  name="idvc" hidden id="idvc" value="">
+           <input  name="gtvc" hidden id="gtvc" value="">
+           <input  name="tong" hidden id="tong" value="{{$tong}}">
        </div>
    </div>
 
 </div>
 <div id="divtongtien" class="bottom-cart">
+
     <div id="x" class="bottom-thanhtoan">
-        <div  class="div-tong"> Tổng tiền: <input id="tong-tien" name="tong_tien" value="{{$tong}}" readonly> vnd
-            <button class="button-cart" type="submit" name="submit" >đặt hàng</button>
+        <div  class="div-tong">
+           <div> Tổng tiền: <input id="tong-tien" name="tong_tien" value="{{$tong}}" readonly> vnd</div>
+            <div><button class="button-cart" type="submit" name="submit" >đặt hàng</button></div>
+
 {{--            <button class="button-cart" type="submit" name="submit" >đặt hàng</button>--}}
         </div>
 
     </div>
 </div>
 </form>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+    $(document).ready(function(){
+        let e = document.getElementById('vc');
+        let gt = e.options[e.selectedIndex].text;
+        const regex = /\d/g; // tìm các kí tự số
+        const mang  = gt.match(regex)
+        const gtvc =  parseInt(mang.join(""))
+        document.getElementById('idvc').value = document.getElementById('vc').value
+        document.getElementById('gtvc').value = gtvc ;
+       document.getElementById('tong-tien').value = parseInt(document.getElementById('tong').value) + gtvc ;
 
+
+
+        $("#vc").click(function(){
+            let gt = e.options[e.selectedIndex].text;
+                document.getElementById('idvc').value = document.getElementById('vc').value;
+            const mang  = gt.match(regex)
+            const gtvc =  parseInt(mang.join(""))
+            document.getElementById('gtvc').value = gtvc ;
+            document.getElementById('tong-tien').value = parseInt(document.getElementById('tong').value) + gtvc ;
+        });
+
+    });
 </script>

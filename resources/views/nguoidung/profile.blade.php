@@ -1,23 +1,24 @@
 @extends('layout.header_profile')
-
 @section('profile_user')
     <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
             <div>
-                <p>Hồ sơ của tôi</p>
-                <p>Quản lý thông tin cá nhân</p>
+
+                <h3>Quản lý thông tin cá nhân</h3>
             </div>
+    <form action="{{route('up_user')}}" method="post" enctype="multipart/form-data">
             <div class="div-content-user">
                 <div>
                     <ul class="ul-user">
                         <li>Tên</li>
                         <li>email</li>
                         <li>số điện thoại</li>
+                        <li>địa chỉ</li>
                         <li>giới tính</li>
                         <li>ngày sinh</li>
                     </ul>
                 </div>
                 <div>
-                    <form action="{{route('up_user')}}" method="post">
+
                         @csrf
                     <ul  class="ul-user">
                         <li>
@@ -28,6 +29,9 @@
                         </li>
                         <li>
                             <input name="so_dt_nd" class="input-user" type="text" value="{{$user->so_dt_nd}}">
+                        </li>
+                        <li>
+                            <input name="dia_chi" class="input-user" type="text" value="{{$user->dia_chi}}">
                         </li>
                         <li>
                             <div class="sell_div1">
@@ -48,11 +52,52 @@
                         <div>
                             <input type="submit" value="Lưu">
                         </div>
-                    </form>
+
                 </div>
                 <div>
-                    <img src="{{asset('images/'.$user->image)}}">
+
+                    @if($user->image !==null)
+                        <img src="{{$user->image}}" class="preview preview-img" id="preview">
+                    @else
+                        <img src="{{asset('images/user.png')}}" class="preview preview-img" id="preview">
+                    @endif
+                    <input  name="anh_nd" type="file" class="input" />
+
                 </div>
             </div>
+    </form>
         </div>
+
+{{--    <script>--}}
+{{--        // const src  = document.querySelector('.preview')--}}
+{{--        // const ipnFileElement = document.querySelector('.input')--}}
+{{--        // const resultElement = document.querySelector('.preview')--}}
+{{--        // const validImageTypes = ['image/gif', 'image/jpeg', 'image/png']--}}
+{{--        //--}}
+{{--        // ipnFileElement.addEventListener('change', function(e) {--}}
+{{--        //     const files = e.target.files--}}
+{{--        //     const file = files[0]--}}
+{{--        //     const fileType = file['type']--}}
+{{--        //--}}
+{{--        //     if (!validImageTypes.includes(fileType)) {--}}
+{{--        //         resultElement.insertAdjacentHTML(--}}
+{{--        //             'beforeend',--}}
+{{--        //             '<span class="preview-img">Chọn ảnh đi :3</span>'--}}
+{{--        //         )--}}
+{{--        //         return--}}
+{{--        //     }--}}
+{{--        //--}}
+{{--        //     const fileReader = new FileReader()--}}
+{{--        //     fileReader.readAsDataURL(file)--}}
+{{--        //--}}
+{{--        //     fileReader.onload = function() {--}}
+{{--        //         const url = fileReader.result--}}
+{{--        //--}}
+{{--        //         src.setAttribute("src",url)--}}
+{{--        //--}}
+{{--        //     }--}}
+{{--        // })--}}
+{{--    </script>--}}
+    <script src="../../script/script.js"></script>
 @endsection
+

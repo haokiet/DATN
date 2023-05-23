@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('sanpham', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ma_nguoidung')->constrained('users')->onDelete('cascade');
-            $table->string('anh_sp',50);
+            $table->foreignId('ma_theloai')->constrained('theloai')->onDelete('cascade');
+            $table->text('anh_sp');
             $table->string('ten_sp',50);
             $table->longText('mo_ta');
             $table->integer('so_luong');

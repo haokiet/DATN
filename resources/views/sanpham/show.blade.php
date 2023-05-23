@@ -13,15 +13,15 @@
     <div class="show-lr">
 
         <div class="khung_sp" >
-            @if($sp->anh_sp !==null)
-                <img class="ct_anh" src="{{$sp->anh_sp}}">
+            @if($sp[0]->anh_sp !==null)
+                <img class="ct_anh" src="{{$sp[0]->anh_sp}}">
             @else
                 <img class="ct_anh" src="{{asset('images/user.png')}}">
             @endif
 
 
             <div class="khung_sp" >
-                <?php  $giaban=$sp->gia_goc - $sp->khuyen_mai;?>
+                <?php  $giaban=$sp[0]->gia_goc - $sp[0]->khuyen_mai;?>
 
                 @foreach ($anh as $item)
 
@@ -35,35 +35,47 @@
         </div>
 
         <div>
-            <form action="{{route('giohang',$sp->id)}}" method="post">
+            <form action="{{route('giohang',$sp[0]->id)}}" method="post">
                 @csrf
             <table class="table_show" align="center">
                 <tr>
                     <td colspan="3">
                         <h2>
-
-                            {{$sp->ten_sp}}
+                            {{$sp[0]->ten_sp}}
                         </h2>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                       <p> thời trang:</p>
+                       <p> Thời trang:</p>
                     </th>
                     <td>
-                        @foreach ($c_t_theloai as $item)
-                            {{$item->tenloai}}
-                        @endforeach
+                       {{$sp[0]->tenloai}}
                     </td>
                     <td></td>
                 </tr>
-
+                <tr>
+                    <td>Cửa hàng:</td>
+                    <td><a href="#">{{$nguoidung->username}}</a></td>
+                </tr>
                 <tr>
                     <td>
-                        đánh giá:
+                        Đánh giá:
                     </td>
                     <td>
+                       @if($kq !==0)
+                            <div class="kq">
+                               <p id="kq"> {{$kq}}</p>
+                                <div class="stars">
+                                        <?php for ($i = 0; $i< round($kq);$i++){?>
+                                    <label class="star2 star-show" for="star-show"></label>
 
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        @else
+                        chưa có đánh giá
+                        @endif
                     </td>
                     <td>
 
@@ -74,8 +86,8 @@
                         giá:
                     </td>
                     <td>
-                        <p class="gia_show">{{$sp->gia_goc}} đ</p> -
-                        <p class="gia_show"> {{$sp->khuyen_mai}} đ</p>
+                        <p class="gia_show">{{$sp[0]->gia_goc}} đ</p> -
+                        <p class="gia_show"> {{$sp[0]->khuyen_mai}} đ</p>
                     </td>
                     <td>
 
@@ -98,7 +110,11 @@
                             </li>
                         </ul>
                     </td>
-                    <td> Tổng số: <input class="tong_so" value="{{$sp->so_luong}}" id="tong_so" readonly></td>
+                    <td>
+                        <div class="display_flex">
+                            <p>sẵn có:</p><p><input class="tong_so" value="{{$sp[0]->so_luong}}" id="tong_so" readonly>sản phẩm</p>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="1">
@@ -106,8 +122,16 @@
                     </td>
                 </tr>
             </table>
-                <button type="submit" class="show_sp_giohang">thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
+                <button type="submit" class="show_sp_giohang">Thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
             </form>
+           <div class="pading-am">
+               <form method="post" action="{{route('thanhtoan-index')}}" >
+                   @csrf
+                   <input hidden id="s_l2" name="so_luong" type="number" value="1">
+                   <input hidden name="id_sp" type="number" value="{{$sp[0]->id}}">
+                   <button type="submit" class="show_sp_giohang">Mua ngay</button>
+               </form>
+           </div>
         </div>
     </div>
 </div>
@@ -115,7 +139,7 @@
     <div class="show_left2">
         <div class="show_mota">
             <h2>Mô tả sản phẩm</h2>
-            {{$sp->mo_ta}}
+            {{$sp[0]->mo_ta}}
 
         </div>
 
@@ -148,11 +172,13 @@
                         <label class="star star-1" for="star-1"></label>
                         <textarea class="text_bl" name="nd_bl"></textarea>
                         <br>
+                        <input hidden value="{{$sp[0]->id}}" name="id_sp">
                         <input type="submit" value="đánh giá">
                     </form>
                 </div>
+                @endif
             </div>
-            @endif
+
             <?php foreach ($bl as $item):?>
 
             <div class="nd_bl">
@@ -166,7 +192,13 @@
                 </div>
 
                 <div>
-                    <p>đánh giá: {{$item->danh_gia}}</p>
+                    <div class="stars">
+                        <?php for ($i = 0; $i< $item->danh_gia;$i++){?>
+                        <label class="star2 star-show" for="star-show"></label>
+
+                        <?php } ?>
+                    </div>
+
                     <p>{{$item->updated_at}}</p>
                     <p class=""> {{$item->noi_dung}}</p>
                 </div>
@@ -181,10 +213,9 @@
         <div class="sp_cungloai">
             <h2 class="h2-cungloai">sản phẩm cùng thời trang</h2>
 
-
-            <?php foreach ($sp2 as $item ) : foreach ($c_t_theloai as $k): ?>
+            <?php foreach ($sp2 as $item ): ?>
             <a href="{{route('sanpham.show',$item->id)}}">
-                <?php if(($item->id !==$sp->id) & ($item->ma_theloai === $k->id)){?>
+                <?php if(($item->id !==$sp[0]->id) & ($item->ma_theloai === $sp[0]->ma_theloai)){?>
             <div class="td-sp cungloai">
                     <?php $giaban = $item->gia_goc - $item->khuyen_mai;?>
                 @if($item->anh_sp !==null)
@@ -199,7 +230,7 @@
             </div>
             <?php }?>
 
-            <?php endforeach; endforeach;?>
+            <?php endforeach;?>
 
 
             </a>
@@ -215,15 +246,15 @@
                if(document.getElementById('s_l').value >1)
                {
                 document.getElementById('s_l').value = document.getElementById('s_l').value -1;
+                   document.getElementById('s_l2').value = document.getElementById('s_l').value ;
                }
            });
-
 
         $("#cong").click(function(){
             if(parseInt(document.getElementById('s_l').value) < document.getElementById('tong_so').value  )
             {
                 document.getElementById('s_l').value = parseInt(document.getElementById('s_l').value) +1;
-
+                document.getElementById('s_l2').value = document.getElementById('s_l').value ;
             }
         });
     });

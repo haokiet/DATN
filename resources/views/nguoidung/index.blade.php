@@ -17,20 +17,20 @@
             <table class="register_table">
                 <tr class="regis_tr">
                     <td>
-                        <span style="font-size: 20px">email</span>
+                        <span style="font-size: 20px">Email</span>
                     </td>
                     <td>
-                        <input class="form-control" type="text" required name="email" placeholder="">
+                        <input class="form-control" type="text" required name="email" placeholder="email">
                     </td>
 
                 </tr>
 
                 <tr class="regis_tr">
                     <td>
-                        <span style="font-size: 20px">Password</span>
+                        <span style="font-size: 20px">Mật khẩu</span>
                     </td>
                     <td>
-                        <input class="form-control" id="password" type="password" required name="password" placeholder="">
+                        <input class="form-control" id="password" type="password" required name="password" placeholder="mật khẩu">
                     </td>
 
                 </tr >

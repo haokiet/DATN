@@ -70,11 +70,13 @@ Route::middleware([
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
     Route::get('/order/deatil_wait_buy',[HoadonController::class,'buyshowWait'])->name('buy_show-wait');
     Route::get('/order/confim_wait/{id}',[HoadonController::class,'confimWait'])->name('confim-wait');
+    Route::get('/order/delete/{id}',[HoadonController::class,'deleteWait'])->name('huy_xacnhan');
 
     Route::view('profile','nguoidung.profile')->name('profile_user');
     Route::post('/up_user',[NguoidungController::class,'updateUser'])->name('up_user');
 
     Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
+
 });
 
 
@@ -85,6 +87,7 @@ Route::middleware([
     Route::get('/shipper/danhan', [\App\Http\Controllers\ShipperController::class, 'recivedOrder'])->name('shipper-resive-order');
     Route::get('/shipper/dagui/{id}', [\App\Http\Controllers\ShipperController::class, 'cofimRecive'])->name('shipper-confimresive-order');
     Route::get('/shipper/{id}', [\App\Http\Controllers\ShipperController::class, 'comFimOrder'])->name('shipper-confim-order');
+    Route::get('/shipper/trahang/{id}', [\App\Http\Controllers\ShipperController::class, 'moneyAway'])->name('trahang');
 });
 Route::middleware([
     'admin'
