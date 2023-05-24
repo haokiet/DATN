@@ -33,7 +33,11 @@
                         {{$item->created_at}}
                     </td>
                     <td>
-                        <a href="{{route('duyet_sp',$item->id)}}">Duyệt</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
+                        @if($item->trang_thai ===0)
+                            <a href="{{route('duyet_sp',$item->id)}}">Duyệt</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
+                        @else
+                            <a href="{{route('duyet_sp',$item->id)}}">Chi tiết</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

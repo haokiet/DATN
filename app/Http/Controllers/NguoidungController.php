@@ -155,32 +155,40 @@ class NguoidungController extends Controller
     {
         $user = Auth::user();
         $us = User::find($id);
-        $giaban=array();
         $i=0;
+
         $sp=DB::table('sanpham')
             ->where('trang_thai','=',1)
             ->where('so_luong','>',0)
             ->where('ma_nguoidung','=',$id)
             ->get();
-        $j = 0;
-        $sp2 ="";
 
+$sp2 = null;
+$giaban=array();
+$giaban[0]=0;
+       if (count($sp) >0)
+       {
+           foreach ($sp as $item)
+           {
+               $u = DB::table('users')
+                   ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
+                   ->where('users.id','=',$id)
+                   ->where('trang_thai','=',1)
+                   ->where('so_luong','>',0)
+                   ->get();
+               $sp2= $u;
+           }
 
-        foreach ($sp as $item)
-        {
-            $u = DB::table('users')
-                ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
-                ->where('users.id','=',$id)
-                ->where('trang_thai','=',1)
-                ->where('so_luong','>',0)
-                ->get();
-            $sp2= $u;
-        }
-        foreach ($sp2 as $item)
-        {
-            $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
-            $i++;
-        }
+           if ($sp2 !==null)
+           {
+               foreach ($sp2 as $item)
+               {
+                   $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
+                   $i++;
+               }
+           }
+       }
+
 //            $gia_goc = DB::table('sanpham')->value('gia_goc');
 //            $khuyen_mai = DB::table('sanpham')->value('khuyen_mai');
 

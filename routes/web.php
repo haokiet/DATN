@@ -80,9 +80,9 @@ Route::middleware([
 
     Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
 
-    Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');
-});
 
+});
+Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');
 
 Route::middleware([
     'shipper'
@@ -99,6 +99,18 @@ Route::middleware([
     Route::get('/admin',[\App\Http\Controllers\AdminController::class,'allSP'])->name('admin_all');
     Route::get('/admin/chitiet/{id}',[\App\Http\Controllers\AdminController::class,'duyetSP'])->name('duyet_sp');
     Route::get('/admin/duyet/{id}',[\App\Http\Controllers\AdminController::class,'confimDuyet'])->name('duyet_confim');
+    Route::get('/admin/all_sp',[\App\Http\Controllers\AdminController::class,'SP'])->name('all_sp_admin');
+    Route::get('/admin/chitiet_user/{id}',[\App\Http\Controllers\AdminController::class,'chiTiet'])->name('chiTiet_user');
+    Route::get('/admin/all_users',[\App\Http\Controllers\AdminController::class,'all_user'])->name('all_users_admin');
+    Route::post('/admin/update_user/{id}',[\App\Http\Controllers\AdminController::class,'updateUser'])->name('update_users_admin');
+    Route::get('/admin/delete_user/{id}',[\App\Http\Controllers\AdminController::class,'deleteUser'])->name('delete_user_admin');
+    Route::get('/admin/create_user',[\App\Http\Controllers\AdminController::class,'createUser'])->name('create_user_admin');
+    Route::post('/admin/store_user',[\App\Http\Controllers\AdminController::class,'storeUser'])->name('store_user_admin');
+    Route::get('/admin/all_vanchuyen',[\App\Http\Controllers\AdminController::class,'adminVanchuyen'])->name('adminVanchuyen');
+    Route::post('/admin/them_vanchuyen',[\App\Http\Controllers\AdminController::class,'themVC'])->name('themVC');
+    Route::get('/admin/xoa_vanchuyen/{id}',[\App\Http\Controllers\AdminController::class,'xoaVC'])->name('xoaVC');
+    Route::post('/admin/update_vanchuyen/{id}',[\App\Http\Controllers\AdminController::class,'updateVC'])->name('updateVC');
+
 });
 
 

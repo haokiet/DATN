@@ -31,3 +31,24 @@ ipnFileElement.addEventListener('change', function(e) {
 
 //show sp
 
+//them user
+const pass = document.getElementById('pass');
+const repass = document.getElementById('repass');
+const showpass = document.getElementById('showpass');
+const showpass2 = document.getElementById('showpass2');
+const s1 = document.getElementById('s1');
+const s2 = document.getElementById('s2');
+s2.style.display='none';
+showpass.addEventListener('click', () => {
+    repass.setAttribute('type','text')
+    pass.setAttribute('type','text')
+    s1.style.display='none';
+    s2.style.display='block';
+});
+showpass2.addEventListener('click', () => {
+    repass.setAttribute('type','password')
+    pass.setAttribute('type','password')
+    s2.style.display='none';
+    s1.style.display='block';
+
+});

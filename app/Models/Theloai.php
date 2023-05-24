@@ -9,4 +9,5 @@ class Theloai extends Model
 {
     use HasFactory;
     protected $table='theloai';
+    protected $fillable=['tenloai'];
 }

@@ -35,7 +35,10 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="{{route('admin_all')}}">tất cả sản phẩm</a>
+                        <a href="{{route('all_sp_admin')}}">Tất cả sản phẩm</a>
+                    </li>
+                    <li class="li_header">
+                        <a href="{{route('admin_all')}}">Chờ duyệt</a>
                     </li>
                 </ul>
             </li>
@@ -45,8 +48,33 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="{{route('admin_all')}}">tất cả người dùng</a>
+                        <a href="{{route('all_users_admin')}}">Tất cả người dùng</a>
                     </li>
+                    <li class="li_header">
+                        <a href="{{route('create_user_admin')}}">Thêm người dùng</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="li_h">
+                <div>
+                    <span>Quản lý Vận chuyển</span>
+                </div>
+                <ul>
+                    <li class="li_header">
+                        <a href="{{route('adminVanchuyen')}}">Tất cả Vận chuyển</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="li_h">
+                <div>
+                    <span>Quản lý loại sản phẩm</span>
+                </div>
+                <ul>
+                    <li class="li_header">
+                        <a href="{{route('admin_all')}}">Tất cả loại sản phẩm</a>
+                    </li>
+
                 </ul>
             </li>
         </ul>
@@ -54,7 +82,10 @@
     <div class="sell-col scroll-right">
         @yield('admin_duyet')
         @yield('admin_all')
-
+        @yield('admin_all_user')
+        @yield('chitiet_user')
+        @yield('create_user')
+        @yield('all_vanchuyen')
     </div>
 </div>
 

@@ -215,8 +215,16 @@ h1{
 }
 .show-lr{
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 45% 55%;
 
+}
+#box{
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12),
+    0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12),
+    0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
 }
 table{
     text-align: center;
@@ -758,8 +766,18 @@ label.star2:before {
 }
 .pading-am{
     margin-top: -35px;
-}
 
+}
+.admin_vanchuyen{
+    display: grid;
+    grid-template-columns: 35% 35% 30%;
+}
+.input-vanchuyen{
+    max-width: 130px;
+}
+.corso{
+    cursor: pointer;
+}
 .sell-chitiet-order{
     display: grid;
     grid-template-columns: 10% 30% 30% 15% 15%;
@@ -775,7 +793,18 @@ label.star2:before {
 }
 .btn-sell{
     width: 105px;
+    margin-left: 5px;
+}
+.text-phai{
+    text-align: right;
 }
 .float-right{
     float: right;
+}
+.div-vanchuyen{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.padding-top{
+    padding-top: 10px;
 }

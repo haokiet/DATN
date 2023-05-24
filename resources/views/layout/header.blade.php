@@ -16,9 +16,9 @@
 
                    <div class="dropdown">
                        @if ($user->image!==null)
-                       <a  href="#"><img class="img-header2" src="{{$user->image}}">{{$user->username}}</a>
+                       <a  href="{{route('profile_user')}}"><img class="img-header2" src="{{$user->image}}">{{$user->username}}</a>
                        @else
-                           <a class="dropbtn" href="#"><img class="img-header2" src="{{asset('images/user.png')}}">{{$user->username}}</a>
+                           <a class="dropbtn" href="{{route('profile_user')}}"><img class="img-header2" src="{{asset('images/user.png')}}">{{$user->username}}</a>
                        @endif
                        <div class="dropdown-content">
                            <a href="{{route('logout')}}">đăng xuất</a>
