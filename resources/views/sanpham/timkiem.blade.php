@@ -3,7 +3,7 @@
 
     <div >
         <div class="body-home">
-            <h2 class="kttk">Kết quả tìm kiếm</h2>
+            <h2 class="kttk">Kết quả tìm kiếm cho " {{$kq}} " </h2>
             <div class="tk_1 body-home">
                 <h3>Sản phẩm</h3>
                 <div>
@@ -70,7 +70,7 @@
         </div>
     </div>
     <div>
-        <h2 class="body-home">tất cả sản phẩm</h2>
+        <h2 class="body-home">Tất cả sản phẩm</h2>
         @include('sanpham.index')
     </div>
 </div>

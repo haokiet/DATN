@@ -1,5 +1,6 @@
 @extends('layout.header_profile')
 @section('order_user')
+    @if($hh !==null)
 <div class="div-xacnhan">
     <div><p class="chudam text-giua">Thông tin hóa đơn</p></div>
     <div><p class="chudam text-giua">Số lượng</p></div>
@@ -56,9 +57,11 @@
     <div><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p></div>
         <?php $i++; ?>
 @endforeach
-
+    @endif
 <h2>Theo dõi hóa đơn đã xác nhận</h2>
 <?php  $j=0 ?>
+
+    @if($hh2 !==null)
 @foreach($hh2 as $value)
     <div>
         <div class="div-xacnhan2">
@@ -104,6 +107,8 @@
                     <p class="session-status">Đang giao</p>
                 @elseif($value[0]->trang_thai == 4)
                     <p class="session-status">Đã giao</p>
+                @elseif($value[0]->trang_thai == 5)
+                    <p class="session-status">Hoàn tiền</p>
                 @endif
             </div>
         </div>
@@ -111,6 +116,7 @@
     <div><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p></div>
         <?php $j++; ?>
 @endforeach
+    @endif
 
 {{--            <table class="sell_table">--}}
 {{--                <tr>--}}

@@ -39,14 +39,14 @@
 
                     </li>
                     <li>
-                        <input type="number" id="so_luong" name="so_luong" required value="{{$sp->so_luong}}"> rập
+                        <input type="number" id="so_luong" name="so_luong" min="0" required value="{{$sp->so_luong}}"> rập
 
                     </li>
                     <li>
-                        <input type="number" id="so_luong" name="gia_goc" required value="{{$sp->gia_goc}}"> vnd
+                        <input type="number" id="so_luong" name="gia_goc" min="1" required value="{{$sp->gia_goc}}"> vnd
                     </li>
                     <li>
-                        <input type="number" id="so_luong" value="{{$sp->khuyen_mai}}" name="khuyen_mai"> vnd
+                        <input type="number" id="so_luong" min="0" value="{{$sp->khuyen_mai}}" name="khuyen_mai"> vnd
                     </li>
                     <li>
                         <input type="date" class="input-user2"  value="{{$sp->ngay_km}}"  name="ngay_km">

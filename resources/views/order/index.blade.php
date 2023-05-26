@@ -6,19 +6,19 @@
             <input type="checkbox" class="check-all">
         </div>
         <div class="cart-item">
-            san pham
+            Sản phẩm
         </div>
         <div class="cart-item">
-            don gia
+            Đơn giá
         </div>
         <div class="cart-item">
-            so luong
+            Số lượng
         </div>
         <div class="cart-item">
-            so tien
+            Số tiền
         </div>
         <div class="cart-item">
-            thao tac
+            Thao tác
         </div>
 
     </div>

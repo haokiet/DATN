@@ -79,7 +79,7 @@ Route::middleware([
     Route::post('/up_user',[NguoidungController::class,'updateUser'])->name('up_user');
 
     Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
-
+    Route::post('thanhtoan/momo',[ThanhtoanController::class,'momo'])->name('momo');
 
 });
 Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');
@@ -110,6 +110,10 @@ Route::middleware([
     Route::post('/admin/them_vanchuyen',[\App\Http\Controllers\AdminController::class,'themVC'])->name('themVC');
     Route::get('/admin/xoa_vanchuyen/{id}',[\App\Http\Controllers\AdminController::class,'xoaVC'])->name('xoaVC');
     Route::post('/admin/update_vanchuyen/{id}',[\App\Http\Controllers\AdminController::class,'updateVC'])->name('updateVC');
+    Route::get('/admin/all_theloai',[\App\Http\Controllers\AdminController::class,'adminTheloai'])->name('adminTheloai');
+    Route::post('/admin/them_theloai',[\App\Http\Controllers\AdminController::class,'themTL'])->name('themTL');
+    Route::get('/admin/xoa_theloai/{id}',[\App\Http\Controllers\AdminController::class,'xoaTL'])->name('xoaTL');
+    Route::post('/admin/update_theloai/{id}',[\App\Http\Controllers\AdminController::class,'updateTL'])->name('updateTL');
 
 });
 
@@ -134,3 +138,5 @@ Route::get('/Timkiem',[SanphamController::class,'timKiem'])->name('timkiem');
 
 
 Route::view('/kkkk','kkk');
+
+

@@ -113,22 +113,15 @@ class SanphamController extends Controller
 //            Cloudder::upload($urlImage, 'DATN/' . $request->anh_sp);
 
             $uploadedFileUrl = cloudinary()->upload($request->file('anh_sp')->getRealPath())->getSecurePath();
-
-
-        }
-        else{
-            $uploadedFileUrl=null;
-        }
-        $sp = Sanpham::create([
-            'ten_sp' => $request->input('ten_sp'),
-            'anh_sp' => $uploadedFileUrl,
-            'mo_ta' => $request->input('mo_ta'),
-            'ma_nguoidung' => $idND,
-            'so_luong'=>$request->input('so_luong'),
-            'gia_goc'=>$request->input('gia_goc'),
-            'ma_theloai'=>$request->input('theloai'),
-        ]);
-
+            $sp = Sanpham::create([
+                'ten_sp' => $request->input('ten_sp'),
+                'anh_sp' => $uploadedFileUrl,
+                'mo_ta' => $request->input('mo_ta'),
+                'ma_nguoidung' => $idND,
+                'so_luong'=>$request->input('so_luong'),
+                'gia_goc'=>$request->input('gia_goc'),
+                'ma_theloai'=>$request->input('theloai'),
+            ]);
             if ($request->file('url') !==null)
             {
                 foreach($request->file('url') as $value){
@@ -140,7 +133,15 @@ class SanphamController extends Controller
                 }
             }
 
-        return redirect('/sell/all-sp');
+            return redirect('/sell/all-sp');
+
+        }
+        else{
+            return back()->with('thongbao','ảnh sản phẩm không được để tống');
+        }
+
+
+
     }
 
     /**
@@ -148,7 +149,7 @@ class SanphamController extends Controller
      */
     public function show($id)
     {
-       // $user = Auth::user();
+        $user = Auth::user();
        // $isVa = password_verify('123456', $user->password);
         $sp=DB::table('theloai')
             ->join('sanpham','sanpham.ma_theloai','=','theloai.id')
@@ -167,6 +168,20 @@ class SanphamController extends Controller
             ->where('sanpham.id','=',$id)
             ->where('binhluan.is_delete','=',0)
             ->select(['*','binhluan.updated_at'])->get();
+
+       $count = 0;
+       if(Auth::check())
+       {
+           $check = DB::table('ct_hoadon')
+               ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+               ->join('hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+               ->join('thanhtoan','hoadon.id','=','thanhtoan.ma_hoadon')
+               ->where('hoadon.ma_nguoidung','=',$user->id)
+               ->where('sanpham.id','=',$id)
+               ->where('thanhtoan.trang_thai','=',1)
+               ->get();
+           $count = count($check);
+       }
 
         $giaban=$sp[0]->gia_goc - $sp[0]->khuyen_mai;
 
@@ -190,7 +205,7 @@ class SanphamController extends Controller
             $kq = 0;
         }
 
-        return view('sanpham.show',compact('sp','anh','bl','sp2','giaban','kq','nguoidung'));
+        return view('sanpham.show',compact('sp','anh','bl','sp2','giaban','kq','nguoidung','count'));
     }
 
     /**
@@ -239,7 +254,7 @@ class SanphamController extends Controller
 
     public function timKiem(Request $request)
     {
-
+        $kq = $request->value;
         $i = 0;
         $sp1=DB::table('sanpham')
             ->where('trang_thai','=',1)
@@ -312,7 +327,7 @@ class SanphamController extends Controller
             $giaban[$i] = $item->gia_goc - $item->khuyen_mai;
             $i++;
         }
-     return view('sanpham.timkiem',compact('sp3','sp2','users2','giaban'));
+     return view('sanpham.timkiem',compact('sp3','sp2','users2','giaban','kq'));
     }
 }
 

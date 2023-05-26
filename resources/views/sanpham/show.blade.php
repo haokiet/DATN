@@ -113,7 +113,7 @@
                     </td>
                     <td>
                         <div class="display_flex">
-                            <p>sẵn có:</p><p><input class="tong_so" value="{{$sp[0]->so_luong}}" id="tong_so" readonly>sản phẩm</p>
+                            <p>sẵn có:</p><input class="tong_so float-lefttt" value="{{$sp[0]->so_luong}}" id="tong_so" readonly><p>sản phẩm</p>
                         </div>
                     </td>
                 </tr>
@@ -143,7 +143,7 @@
             <h2>Đánh giá</h2>
             <div class="nd_bl">
                 <?php $ur = \Illuminate\Support\Facades\Auth::user();  ?>
-               @if(\Illuminate\Support\Facades\Auth::check())
+               @if(\Illuminate\Support\Facades\Auth::check() && $count >0)
                     <div>
                         @if($ur->image !=null)
                             <img class="img_bl" src="{{$ur->image}}">

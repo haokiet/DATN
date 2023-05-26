@@ -19,6 +19,7 @@
 
            </div>
            <?php $idhd = 0; $tong = 0; $tong2=0 ?>
+{{--           <form action="{{route('thanhtoan-sknh')}}" method="post">--}}
            <form action="{{route('thanhtoan-sknh')}}" method="post">
                @csrf
            @foreach($ct_hdd as $item)
@@ -73,7 +74,7 @@
                </tr>
                <tr>
                    <td colspan="2"> @foreach($phuongthuc as $t)
-                           <input required type="radio" name="pt" value="{{$t->id}}">{{$t->ten_pt}}
+                           <input required type="radio" name="pt" checked value="{{$t->id}}">{{$t->ten_pt}}
                    @endforeach
                </tr>
                <tr>
@@ -97,7 +98,10 @@
     <div id="x" class="bottom-thanhtoan">
         <div  class="div-tong">
            <div> Tổng tiền: <input id="tong-tien" name="tong_tien" value="{{$tong}}" readonly> vnd</div>
-            <div><button class="button-cart" type="submit" name="submit" >đặt hàng</button></div>
+            <div>
+                <button class="button-cart" type="submit" name="payUrl" >đặt hàng</button>
+{{--                <button class="button-cart" type="submit" name="submit" >đặt hàng</button>--}}
+            </div>
 
 {{--            <button class="button-cart" type="submit" name="submit" >đặt hàng</button>--}}
         </div>

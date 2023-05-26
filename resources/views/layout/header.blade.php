@@ -7,7 +7,7 @@
    <div class="header">
        <div class="header-content-1">
            <div>
-               <a href="{{route('sell_home')}}">trở thành người bán</a>
+               <a href="{{route('sell_home')}}">Trở thành người bán</a>
            </div>
            <div>
                @if(\Illuminate\Support\Facades\Auth::check())
@@ -21,15 +21,15 @@
                            <a class="dropbtn" href="{{route('profile_user')}}"><img class="img-header2" src="{{asset('images/user.png')}}">{{$user->username}}</a>
                        @endif
                        <div class="dropdown-content">
-                           <a href="{{route('logout')}}">đăng xuất</a>
-                           <a href="{{route('profile_user')}}">hồ sơ</a>
-                           <a href="{{route('buy_show-wait')}}">hóa đơn</a>
+                           <a href="{{route('logout')}}">Đăng xuất</a>
+                           <a href="{{route('profile_user')}}">Hồ sơ</a>
+                           <a href="{{route('buy_show-wait')}}">Hóa đơn</a>
                        </div>
                    </div>
 
                @else
-                       <a href="{{route('login')}}">đăng nhập</a>|
-                       <a href="{{route('nguoidung.create')}}">đăng ký</a>
+                       <a href="{{route('login')}}">Đăng nhập</a>|
+                       <a href="{{route('nguoidung.create')}}">Đăng ký</a>
                @endif
            </div>
        </div>

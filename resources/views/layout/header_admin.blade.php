@@ -72,7 +72,18 @@
                 </div>
                 <ul>
                     <li class="li_header">
-                        <a href="{{route('admin_all')}}">Tất cả loại sản phẩm</a>
+                        <a href="{{route('adminTheloai')}}">Tất cả loại sản phẩm</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="li_h">
+                <div>
+                    <span>Dữ liệu</span>
+                </div>
+                <ul>
+                    <li class="li_header">
+                        <a href="{{route('adminTheloai')}}">Thống kê</a>
                     </li>
 
                 </ul>
@@ -86,6 +97,7 @@
         @yield('chitiet_user')
         @yield('create_user')
         @yield('all_vanchuyen')
+        @yield('all_theloai')
     </div>
 </div>
 

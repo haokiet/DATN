@@ -1,6 +1,10 @@
 @extends('layout.header_sell')
 @section('them_sp')
-
+@if(session('thongbao'))
+    <div class="text-giua session-status">
+        {{session('thongbao')}}
+    </div>
+@endif
     <form action="{{route('store')}}" method="post" enctype="multipart/form-data">
     @csrf
         <div>
@@ -39,11 +43,11 @@
 
                         </li>
                         <li>
-                            <input type="number" id="so_luong" name="so_luong" required> rập
+                            <input type="number" id="so_luong" min="1" name="so_luong" required> rập
 
                         </li>
                         <li>
-                            <input type="number" id="so_luong" name="gia_goc" required> vnd
+                            <input type="number" id="so_luong" min="0" name="gia_goc" required> vnd
                         </li>
                         <li>
                             <select id="so_luong" name="theloai"  required>

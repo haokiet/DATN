@@ -2,7 +2,7 @@
 
 @section('sell-order-all')
     <div>
-        <h2>tat ca hoa don: {{$count}}</h2>
+        <h2>Tất cả hóa đơn: {{$count}}</h2>
         <table class="sell_table">
             <tr>
                 <td><p class="chudam">Tên sản phẩm</p></td>

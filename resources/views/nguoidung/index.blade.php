@@ -37,6 +37,8 @@
                 <tr class="regis_tr">
                     <td colspan="2">
 
+                        <input type="checkbox" name="remember" value="1">
+                        <label for="remember">Nhớ tài khoản</label>
                     </td>
                 </tr>
             </table>

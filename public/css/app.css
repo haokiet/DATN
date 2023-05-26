@@ -337,7 +337,7 @@ p{
     bottom: 0;
 }
 .scroll-left{
-    width: 210px;
+    width: 250px;
     float: left;
     position: fixed;
     left: 40px;
@@ -571,6 +571,11 @@ color: red;
     grid-template-columns: 70% 30%;
     margin-top: 100px;
 }
+.content-thanhtoan2{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-top: 30px;
+}
 .right-thanhtoan{
     position: fixed;
     right: 0;
@@ -732,7 +737,16 @@ label.star2:before {
 .display_flex{
     display: flex;
 }
+.float-lefttt{
+    float: left;
+}
+.kkk{
+    width: 100%;
+    display: flex;
+}
+svg{
 
+}
 .preview-img {min-width: 150px;min-height: 150px; max-width: 150px; max-height: 150px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
 .preview-img2 {min-width: 50px;min-height: 50px; max-width: 50px; max-height: 50px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
 
@@ -774,6 +788,7 @@ label.star2:before {
 }
 .input-vanchuyen{
     max-width: 130px;
+    height: 30px;
 }
 .corso{
     cursor: pointer;
@@ -808,3 +823,4 @@ label.star2:before {
 .padding-top{
     padding-top: 10px;
 }
+

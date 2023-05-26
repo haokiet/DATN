@@ -4,6 +4,7 @@
         <div class="session-status">{{session('thongbao')}}</div>
     @endif
     <form action="{{route('store_user_admin')}}" method="post" enctype="multipart/form-data">
+        <div><h2 class="text-giua">Thêm nguời dùng</h2></div>
         <div class="div-content-user">
             <div>
                 <ul class="ul-user">
@@ -47,7 +48,7 @@
                         <input name="ngay_sinh" class="input-user" type="date" value="" required>
                     </li>
                     <li>
-                        <input name="so_dt_nd" class="input-user" type="text" value="" required>
+                        <input name="so_dt_nd" class="input-user" maxlength="11" type="text" value="" required>
                     </li>
                     <li>
                         <div class="display_flex">

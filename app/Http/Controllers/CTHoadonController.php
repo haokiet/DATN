@@ -60,73 +60,81 @@ class CTHoadonController extends Controller
             ->where('trang_thai','=',0)
             ->where('ma_nguoidung','=',$user->id)->get();
         $sp=Sanpham::find($id);
+
         $dem=count($hd);
 
 
-            if ($dem ===0)
+            if ($request->so_luong <= $sp->so_luong )
             {
-                Hoadon::create([
-                    'ma_nguoidung'=>$user->id,
-                    'dia_chi_nhan'=>$user->dia_chi,
-                    'ten_nhan'=>$user->username,
-                    'so_dt_nhan'=>$user->so_dt,
-                    'ma_van_chuyen'=>1
-                ]);
-            }
-
-        $hd2 = DB::table('hoadon')
-            ->where('trang_thai','=',0)
-            ->where('ma_nguoidung','=',$user->id)->select('id')->get();
-
-            $count_hd = count($hd2);
-            $ct_hd = DB::table('ct_hoadon')
-                ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
-                ->where('ma_hoadon','=',$hd2[0]->id)->get();
-            $count_ct_hd = count($ct_hd);
-
-            if($count_hd ===1)
-            {
-                if ($count_ct_hd===0)
+                if ($dem ===0)
                 {
-                    CT_Hoadon::create([
-                        'ma_hoadon' => $hd2[0]->id,
-                        'ma_sp' => $sp->id,
-                        'so_luong_mua' => $request->so_luong
+                    Hoadon::create([
+                        'ma_nguoidung'=>$user->id,
+                        'dia_chi_nhan'=>$user->dia_chi,
+                        'ten_nhan'=>$user->username,
+                        'so_dt_nhan'=>$user->so_dt,
+                        'ma_van_chuyen'=>1
                     ]);
-                    return back()->with('thongbao', 'đã thêm vào giỏ hàng');
                 }
-                else
-                {
-                    foreach ($ct_hd as $n) {
-                        if ($n->ma_hoadon ===$hd2[0]->id)
-                        {
-                            if($n->ma_sp == $sp->id )
-                            {
 
-                                DB::table('ct_hoadon')
-                                    ->where('ma_hoadon','=',$hd2[0]->id)
-                                    ->where('ma_sp','=',$sp->id)
-                                    ->update(['so_luong_mua'=>($n->so_luong_mua + $request->so_luong)]);
-                                return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                $hd2 = DB::table('hoadon')
+                    ->where('trang_thai','=',0)
+                    ->where('ma_nguoidung','=',$user->id)->select('id')->get();
+
+                $count_hd = count($hd2);
+                $ct_hd = DB::table('ct_hoadon')
+                    ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                    ->where('ma_hoadon','=',$hd2[0]->id)->get();
+                $count_ct_hd = count($ct_hd);
+
+                if($count_hd ===1)
+                {
+                    if ($count_ct_hd===0)
+                    {
+                        CT_Hoadon::create([
+                            'ma_hoadon' => $hd2[0]->id,
+                            'ma_sp' => $sp->id,
+                            'so_luong_mua' => $request->so_luong
+                        ]);
+                        return back()->with('thongbao', 'đã thêm vào giỏ hàng');
+                    }
+                    else
+                    {
+                        foreach ($ct_hd as $n) {
+                            if ($n->ma_hoadon ===$hd2[0]->id)
+                            {
+                                if($n->ma_sp == $sp->id )
+                                {
+
+                                    DB::table('ct_hoadon')
+                                        ->where('ma_hoadon','=',$hd2[0]->id)
+                                        ->where('ma_sp','=',$sp->id)
+                                        ->update(['so_luong_mua'=>($n->so_luong_mua + $request->so_luong)]);
+                                    return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                                }
+                                else
+                                {
+                                    CT_Hoadon::create([
+                                        'ma_hoadon' => $hd2[0]->id,
+                                        'ma_sp' => $sp->id,
+                                        'so_luong_mua' => $request->so_luong
+                                    ]);
+                                    return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                                }
                             }
                             else
                             {
-                                CT_Hoadon::create([
-                                    'ma_hoadon' => $hd2[0]->id,
-                                    'ma_sp' => $sp->id,
-                                    'so_luong_mua' => $request->so_luong
-                                ]);
-                                return back()->with('thongbao', 'đã thêm '. $request->so_luong. ' vào giỏ hàng');
+                                return back();
                             }
-                        }
-                        else
-                        {
-                            return back();
-                        }
 
+                        }
                     }
-                }
 
+                }
+            }
+            else
+            {
+                return back()->with('thongbao','không thể thêm vào giỏ hàng, số lượng không lớn hơn tổng sản phẩm hiện có');
             }
     }
 

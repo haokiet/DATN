@@ -123,23 +123,53 @@ class NguoidungController extends Controller
     }
     public function register( Request $request)
     {
-        $token = strtoupper(Str::random(10));
 
-        $data=$request->only('username','email','password','token');
-        if($request->password === $request->Re_password){
-            $password_h= bcrypt($request->password);
-            $data['password'] = $password_h;
-            $data['token']=$token;
-            if ($user=User::create($data)){
-                Mail::send('emails.active_account',compact('user'),function($email) use ($user) {
-                    $email->subject('xac nhan tai khoan');
-                    $email->to($user->email,$user->username);
-                });
-                return back()->with('thongbao','đã đăng ký. Bạn hãy kiểm tra gmail của bạn để xác nhận tài khoản');
+
+        $user  = User::all();
+
+        foreach ($user as $item)
+        {
+            if ($request->email == $item->email && $item->is_delete == 0)
+            {
+                $check  =0;
+                break;
+            }
+            elseif ($request->email == $item->email && $item->is_delete == 1)
+            {
+                $check = 1;
+                break;
+            }
+            else{
+                $check = 2;
             }
         }
+        if($check == 2)
+        {
+            $token = strtoupper(Str::random(10));
+
+            $data=$request->only('username','email','password','token');
+            if($request->password === $request->Re_password){
+                $password_h= bcrypt($request->password);
+                $data['password'] = $password_h;
+                $data['token']=$token;
+                if ($user=User::create($data)){
+                    Mail::send('emails.active_account',compact('user'),function($email) use ($user) {
+                        $email->subject('xac nhan tai khoan');
+                        $email->to($user->email,$user->username);
+                    });
+                    return back()->with('thongbao','đã đăng ký. Bạn hãy kiểm tra gmail của bạn để xác nhận tài khoản');
+                }
+            }
+            else{
+                return back()->with('thongbao','mật khẩu nhập lại không khớp');
+            }
+        }
+        elseif ($check == 0)
+        {
+            return back()->with('thongbao','tài khoản đã đăng ký trước đó và chờ xác nhận');
+        }
         else{
-            return back()->with('thongbao','mật khẩu nhập lại không khớp');
+            return back()->with('thongbao','tài khoản đã tồn tại');
         }
     }
     public function active (User $user, $token){
@@ -206,8 +236,9 @@ $giaban[0]=0;
     public function check_login(Request $request)
     {
 
-        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1])) {
-           $user = Auth::user();
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1],$request->remember)) {
+
+            $user = Auth::user();
             if ($user->role ===1)
             {
                 return redirect('/shipper');
@@ -229,6 +260,11 @@ $giaban[0]=0;
     public function sell_regis (){
         return
             \view('nguoiban.index',);
+    }
+
+    public function chanePass()
+    {
+
     }
 
     public function logout(Request $request)

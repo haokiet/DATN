@@ -40,13 +40,13 @@
                     <div class="div-vanchuyen margin-top">
                         <div class="chudam text-phai">Tên vận chuyển:</div>
                         <div>
-                            <input type="text" name="ten_vc" required placeholder="tên vận chuyển">
+                            <input type="text" name="ten_vc" class="input-vanchuyen" required placeholder="tên vận chuyển">
                         </div>
                     </div>
                     <div class="div-vanchuyen margin-top">
                         <div class="chudam text-phai ">Đơn giá vận chuyển:</div>
                         <div>
-                            <input type="number" min="5000" name="don_gia_vc" value="5000" required placeholder="đơn giá vận chuyển">vnd
+                            <input type="number" min="5000" name="don_gia_vc" value="5000"  class="input-vanchuyen" required placeholder="đơn giá vận chuyển">vnd
                         </div>
                     </div>
                     <div class="margin-top text-giua">

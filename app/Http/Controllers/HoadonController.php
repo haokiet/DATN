@@ -367,14 +367,16 @@ class HoadonController extends Controller
             $i++;
         }
         $m = 0; $n = 1; $k =0; $s=array(); $s[0]=0; $tong=array();
+        $vc =0;
         foreach ($hh as $t)
         {
             foreach ($t as $v)
             {
-                $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua);
+                $vc = $v->don_gia_vc;
                 $m++; $n++;
             }
-            $tong[$k]=$s[$n-1];
+            $tong[$k]=$s[$n-1] + $vc;
             $k++;
             $m = 0; $n = 1; $s[0]=0;
         }
@@ -423,14 +425,16 @@ class HoadonController extends Controller
             $j++;
         }
         $m1 = 0; $n1 = 1; $k1 =0; $s1=array(); $s1[0]=0; $tong1=array();
+        $vc1 = 0;
         foreach ($hh2 as $t)
         {
             foreach ($t as $v)
             {
-                $s1[$n1] = $s1[$m1] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                $s1[$n1] = $s1[$m1] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua);
+                $vc1 = $v->don_gia_vc;
                 $m1++; $n1++;
             }
-            $tong1[$k1]=$s1[$n1-1];
+            $tong1[$k1]=$s1[$n1-1] + $vc1;
             $k1++;
             $m1 = 0; $n1 = 1; $s1[0]=0;
         }

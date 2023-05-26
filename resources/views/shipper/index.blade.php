@@ -1,5 +1,6 @@
 @include('layout.header_shipper')
 <div class="body-home">
+    <div class="margin-top"><h2>Tất cả hóa đơn sẵn sàng giao</h2></div>
     <div class="margin-top">
         @if (session('ketqua'))
             <div class="session-status">

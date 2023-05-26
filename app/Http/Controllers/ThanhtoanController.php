@@ -118,41 +118,117 @@ class ThanhtoanController extends Controller
         //
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      */
+
+   public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
+
     public function sauKhiNhanHang(Request $request)
     {
         $user =Auth::user();
-        $hd = Hoadon::create([
-            'ma_nguoidung'=>$user->id,
-            'ma_vanchuyen'=>$request->idvc,
-            'dia_chi_nhan'=>$request->dia_chi_nhan,
-            'ten_nhan'=>$request->ten_nhan,
-            'trang_thai'=>1,
-            'so_dt_nhan'=>$request->so_dt_nhan
-        ]);
-        $i=0;
-        foreach ($request->idsp as $item)
+
+        if ($request->pt ==1)
         {
-            CT_Hoadon::create([
-                'ma_hoadon'=>$hd->id,
-                'ma_sp'=>$item,
-                'so_luong_mua'=>$request->slm[$i]
+            $hd = Hoadon::create([
+                'ma_nguoidung'=>$user->id,
+                'ma_vanchuyen'=>$request->idvc,
+                'dia_chi_nhan'=>$request->dia_chi_nhan,
+                'ten_nhan'=>$request->ten_nhan,
+                'trang_thai'=>1,
+                'so_dt_nhan'=>$request->so_dt_nhan
             ]);
-            $db = DB::table('ct_hoadon')
-                ->join('hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
-                ->where('hoadon.id','=',$request->idhd)
-                ->where('ct_hoadon.ma_sp','=',$item)
-                ->delete();
-            $i++;
+            $i=0;
+            foreach ($request->idsp as $item)
+            {
+                CT_Hoadon::create([
+                    'ma_hoadon'=>$hd->id,
+                    'ma_sp'=>$item,
+                    'so_luong_mua'=>$request->slm[$i]
+                ]);
+                $db = DB::table('ct_hoadon')
+                    ->join('hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                    ->where('hoadon.id','=',$request->idhd)
+                    ->where('ct_hoadon.ma_sp','=',$item)
+                    ->delete();
+                $i++;
+            }
+            Thanhtoan::create([
+                'ma_hoadon'=>$hd->id,
+                'ma_phuongthuc'=>$request->pt,
+                'tong_tien'=>$request->tong_tien
+            ]);
+            return redirect('/order/deatil_wait_buy');
+
         }
-        Thanhtoan::create([
-            'ma_hoadon'=>$hd->id,
-            'ma_phuongthuc'=>$request->pt,
-            'tong_tien'=>$request->tong_tien
-        ]);
-        return redirect('/');
+
+        else
+        {
+
+            $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+
+            $partnerCode = 'MOMOBKUN20180529';
+            $accessKey = 'klm05TvNBzhg7h7j';
+            $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+            $orderInfo = "Thanh toán qua MoMo";
+            $amount = $request->tong_tien;
+            $orderId = time() ."";
+            $redirectUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
+            $ipnUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
+            $extraData = "";
+
+
+                $requestId = time() . "";
+                $requestType = "payWithATM";
+//                $requestType = "captureMoMoWallet";
+//                $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+                //before sign HMAC SHA256 signature
+                $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+                $signature = hash_hmac("sha256", $rawHash, $secretKey);
+                $data = array('partnerCode' => $partnerCode,
+                    'partnerName' => "Test",
+                    "storeId" => "MomoTestStore",
+                    'requestId' => $requestId,
+                    'amount' => $amount,
+                    'orderId' => $orderId,
+                    'orderInfo' => $orderInfo,
+                    'redirectUrl' => $redirectUrl,
+                    'ipnUrl' => $ipnUrl,
+                    'lang' => 'vi',
+                    'extraData' => $extraData,
+                    'requestType' => $requestType,
+                    'signature' => $signature);
+                $result = $this->execPostRequest($endpoint, json_encode($data));
+                $jsonResult = json_decode($result, true);
+
+                return redirect()->to($jsonResult['payUrl']);
+//                header('Location: ' . $jsonResult['payUrl']);
+        }
+    }
+
+
+    public function momo(Request $request){
+
     }
     public function store(Request $request)
     {

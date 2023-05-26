@@ -29,7 +29,7 @@
                         <input class="input-user" type="text" value="{{$user->email}}" readonly>
                     </li>
                     <li>
-                        <input name="so_dt_nd" class="input-user" type="text" value="{{$user->so_dt_nd}}">
+                        <input name="so_dt_nd" class="input-user" maxlength="11" type="text" value="{{$user->so_dt_nd}}">
                     </li>
                     <li>
                         <input name="dia_chi" class="input-user" type="text" value="{{$user->dia_chi}}">

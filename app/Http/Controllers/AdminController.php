@@ -64,7 +64,11 @@ class AdminController extends Controller
 
     public function all_user()
     {
-        $users = DB::table('users')->where('is_delete','=',1)->get();
+        $users = DB::table('users')
+            ->where('is_delete','=',1)
+            ->orderByDesc('role')
+            ->simplePaginate(10);
+
         return view('admin.all_users',compact('users'));
 
     }
@@ -103,7 +107,6 @@ class AdminController extends Controller
     }
     public function storeUser(Request $request){
 
-        $data=$request->only('username','email','password','dia_chi','gioi_tinh','ngay_sinh','role','so_dt_nd');
         if($request->password === $request->repassword){
             if($request->file('anh_nd') != null){
 
@@ -126,7 +129,8 @@ class AdminController extends Controller
                 'ngay_sinh'=>$request->ngay_sinh,
                 'role'=>$request->role,
                 'so_dt_nd'=>$request->so_dt_nd,
-                'image'=>$uploadedFileUrl
+                'image'=>$uploadedFileUrl,
+                'is_delete'=>1
             ]);
 
             return back()->with('thongbao','Đã thêm thành công');
@@ -161,5 +165,29 @@ class AdminController extends Controller
                 'don_gia_vc'=>$request->don_gia_vc
             ]);
         return back()->with('thongbao','đã cập nhật vận chuyển');
+    }
+
+    public function adminTheloai(){
+        $tl = Theloai::all();
+        return view('admin.all_theloai',compact('tl'));
+    }
+    public function themTL(Request $request){
+        Theloai::create([
+            'tenloai'=>$request->tenloai,
+        ]);
+        return back()->with('thongbao','đã thêm Thể loại');
+    }
+
+    public function xoaTL($id){
+        $tl = Theloai::find($id);
+        $tl->delete();
+        return back()->with('thongbao','đã xóa Thể loại');
+    }
+    public function updateTL(Request $request,$id){
+        DB::table('theloai')->where('id','=',$id)
+            ->update([
+                'tenloai'=>$request->tenloai,
+            ]);
+        return back()->with('thongbao','đã cập nhật Thể loại');
     }
 }
