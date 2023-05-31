@@ -258,13 +258,64 @@ $giaban[0]=0;
 
     }
     public function sell_regis (){
-        return
-            \view('nguoiban.index',);
+        $user = Auth::user();
+        // sp đang bán
+        $sp = DB::table('sanpham')
+            ->where('trang_thai','=',1)
+            ->where('ma_nguoidung','=',$user->id)
+            ->get();
+        $count1 = count($sp);
+        // sp chờ duyệt
+        $sp2 = DB::table('sanpham')
+            ->where('trang_thai','=',0)
+            ->where('ma_nguoidung','=',$user->id)
+            ->get();
+        $count2 = count($sp2);
+
+        //hoadon đã bán
+        $hd1 = DB::table('sanpham')
+            ->join('ct_hoadon','ct_hoadon.ma_sp','=','sanpham.id')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=','4')
+            ->get();
+        $count3=count($hd1);
+
+        //hoadon đã trả hàng/ hoàn tiền
+        $hd2 = DB::table('sanpham')
+            ->join('ct_hoadon','ct_hoadon.ma_sp','=','sanpham.id')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=','5')
+            ->get();
+        $count4=count($hd2);
+
+        //doanh thu
+        $tong = 0;
+        foreach ($hd1 as $item)
+        {
+            $tong = $tong + ($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua;
+        }
+
+        return view('nguoiban.index',compact('count1','count2','count3','count4','tong'));
     }
 
-    public function chanePass()
+    public function chanePass(Request $request)
     {
+        if ($request->newpass === $request->renewpass)
+        {
+            $user=Auth::user();
+            $p = bcrypt($request->newpass);
+            $user->update(['password'=>$p]);
 
+            return redirect('/changepass')->with('thongbao','Cập nhật mật khẩu thành công');
+        }
+        else
+        {
+            return back()->with('thongbao','Mật khẩu nhập lại không đúng');
+        }
     }
 
     public function logout(Request $request)

@@ -26,7 +26,7 @@
                         <a href="{{route('buy_show-wait')}}">đơn mua hàng</a>
                     </li>
                     <li>
-                        <a>đổi mật khẩu</a>
+                        <a href="{{route('chane')}}">đổi mật khẩu</a>
                     </li>
                 </ul>
             </div>
@@ -34,6 +34,8 @@
         <div class="sell-col scroll-right ri">
             @yield('profile_user')
             @yield('order_user')
+            @yield('chanpass')
+
         </div>
     </div>
 @endsection

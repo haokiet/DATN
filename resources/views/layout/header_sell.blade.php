@@ -8,7 +8,7 @@
     <div class="header">
         <div class="header-content-1">
             <div>
-                <a href="{{route('home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">kênh người bán</span></h1> </a>
+                <a href="{{route('sell_home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">kênh người bán</span></h1> </a>
             </div>
             <div class="sell-img">
                 <div class="dropdown">
@@ -82,10 +82,10 @@
                     </div>
                     <ul>
                         <li class="li_header">
-                            <a href="#">Phân tích bán hàng</a>
+                            <a href="{{route('sell_home')}}">Phân tích bán hàng</a>
                         </li>
                         <li class="li_header">
-                            <a href="#">Hiệu quả hoạt động</a>
+                            <a href="{{route('sell_home')}}">Hiệu quả hoạt động</a>
                         </li>
                     </ul>
                 </li>

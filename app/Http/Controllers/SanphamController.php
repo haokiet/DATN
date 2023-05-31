@@ -329,5 +329,10 @@ class SanphamController extends Controller
         }
      return view('sanpham.timkiem',compact('sp3','sp2','users2','giaban','kq'));
     }
+
+    public function thongKebanhang()
+    {
+
+    }
 }
 

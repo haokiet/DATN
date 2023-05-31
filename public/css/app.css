@@ -744,9 +744,15 @@ label.star2:before {
     width: 100%;
     display: flex;
 }
-svg{
-
+.check{
+    outline: none;
+    border: none;
+    text-align: center;
 }
+.text-lon{
+    font-size: 50px;
+}
+
 .preview-img {min-width: 150px;min-height: 150px; max-width: 150px; max-height: 150px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
 .preview-img2 {min-width: 50px;min-height: 50px; max-width: 50px; max-height: 50px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
 

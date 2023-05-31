@@ -81,6 +81,9 @@ Route::middleware([
     Route::get('/danhgia',[\App\Http\Controllers\BinhluanController::class,'index'])->name('danhgia');
     Route::post('thanhtoan/momo',[ThanhtoanController::class,'momo'])->name('momo');
 
+    Route::view('/changepass','nguoidung.chanepass')->name('chane');
+    Route::post('/change',[NguoidungController::class,'chanePass'])->name('chanePass');
+
 });
 Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');
 
