@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         @else
-                        chưa có đánh giá
+                        Chưa có đánh giá
                         @endif
                     </td>
                     <td>
@@ -84,27 +84,27 @@
                 </tr>
                 <tr>
                     <td>
-                        giá:
-                    </td>
-                    <td>
-                        <p class="gia_show">{{$sp[0]->gia_goc}} đ</p> -
-                        <p class="gia_show"> {{$sp[0]->khuyen_mai}} đ</p>
+                        Giá:
                     </td>
                     <td>
 
-                        <p class="giaban_show">{{$giaban}} đ</p>
+                        <p class="gia_show">{{number_format($sp[0]->gia_goc, 0, '', ',')."đ"}} - {{number_format($sp[0]->khuyen_mai, 0, '', ',')."đ" }}</p>
+                    </td>
+                    <td>
+
+                        <p class="giaban_show">{{number_format($giaban, 0, '', ',')."đ" }}</p>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>số lượng</td>
+                    <td>Số lượng</td>
                     <td>
                         <ul class="ul-show">
                             <li>
                                 <input id="tru" class="btn-show" type="button" value="-">
                             </li>
                             <li>
-                                <input  id="s_l" name="so_luong" type="number" required min="0" value="1">
+                                <input  id="s_l" name="so_luong" type="number" required min="1" value="1">
                             </li>
                             <li>
                                 <input id="cong" class="btn-show" type="button" value="+">
@@ -113,7 +113,7 @@
                     </td>
                     <td>
                         <div class="display_flex">
-                            <p>sẵn có:</p><input class="tong_so float-lefttt" value="{{$sp[0]->so_luong}}" id="tong_so" readonly><p>sản phẩm</p>
+                            <p>Sẵn có:</p><input class="tong_so float-lefttt" value="{{$sp[0]->so_luong}}" id="tong_so" readonly><p>sản phẩm</p>
                         </div>
                     </td>
                 </tr>
@@ -225,11 +225,10 @@
                 <p>giá bán: <?php echo $giaban ; ?> đ</p>
             </div>
             <?php }?>
-
+            </a>
             <?php endforeach;?>
 
 
-            </a>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 @extends('layout.header_sell')
 @section('sell-order-money_away')
     <div>
-        <h2>tra hang/ hoan tien: {{$count}}</h2>
+        <h2> Trả hàng/Hoàn tiền: {{$count}}</h2>
         <table class="sell_table">
             <tr>
 

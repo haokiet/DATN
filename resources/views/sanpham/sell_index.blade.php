@@ -5,7 +5,7 @@
         <div class="sell_div1">
 
                 <h2>{{count($sp_all2)}} sản phẩm</h2>
-            <div class="create_sell"><button><a href="{{route('sell_create_sp')}}">thêm mới sản phẩm</a></button></div>
+            <div class="width-50"><button class="border-none float-right"><a class="chudam" href="{{route('sell_create_sp')}}"><p class="fa fa-plus"> Thêm mới</a></button></div>
         </div>
         <table class="sell_table">
             <tr>
@@ -24,7 +24,10 @@
 
 
                         <td>
-                            {{$item->ten_sp}}
+                          <div class="display_flex">
+                              <img class="cart-img" src="{{$item->anh_sp}}">
+                              {{$item->ten_sp}}
+                          </div>
                         </td>
                         <td>
                             {{$item->gia_goc}}
@@ -36,7 +39,7 @@
                             {{$item->created_at}}
                         </td>
                         <td>
-                            <a href="{{route('edit_sell_sp',$item->id)}}"><i class='fa fa-edit'></i></a> | <a href="{{route('delet',$item->id)}}"><i class="fa fa-trash-o"></i></a>
+                            <a href="{{route('edit_sell_sp',$item->id)}}" title="chỉnh sửa"><i class='fa fa-edit'></i></a> | <a href="{{route('delet',$item->id)}}" title="xóa"><i class="fa fa-trash-o"></i></a>
                         </td>
 
             </tr>

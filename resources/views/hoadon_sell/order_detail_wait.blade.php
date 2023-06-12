@@ -12,7 +12,7 @@
         </div>
         @foreach($hd as $item)
         <div class="sell-chitiet-order">
-            <div class="text-giua">{{$item->ma_hoadon}}</div>
+            <div class="text-giua">HD {{$item->ma_hoadon}}</div>
             <div class="chia_cot_table text-giua">
                 <div>
                     <img class="cart-img"  src="{{$item->anh_sp}}">

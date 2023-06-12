@@ -7,8 +7,13 @@
 
 }
 body{
-    width: 1300px;
     margin: auto;
+    max-width: 1300px;
+}
+@media   (max-width: 1300px) {
+    body {
+
+    }
 }
 .header-content-1{
     display: grid;
@@ -36,8 +41,8 @@ body{
     position: fixed;
     /*background-color: #718096;*/
     background-color: var(--mau--tim);
-    width: 100%;
-    height: 80px;
+    max-width: 100%;
+    min-width: 100%;
     top:0;
     left: 0;
 
@@ -52,7 +57,7 @@ body{
     text-align: center;
 }
 .header{
-    width: 1300px;
+   max-width: 1300px;
     margin: auto;
 
 }
@@ -71,11 +76,12 @@ a{
 }
 .search{
 
-width: 100%;
+max-width: 100%;
 }
 
 .icon-search{
     height: 26px;
+    max-width: 6%;
     margin-left: -5px;
     border: none;
     background-color: white;
@@ -120,6 +126,8 @@ h1{
 }
 .form-control{
     height: 30px;
+    width: 100%;
+    border-radius: 10px;
 }
 .body-home{
     width: 90%;
@@ -294,15 +302,14 @@ p{
 }
 .main_register{
 
-    background-color: blanchedalmond;
-
+    background-image: url("https://th.bing.com/th/id/OIP.khnlZ9tcdnkqOmwg8kZ39AHaHR?pid=ImgDet&rs=1");
     margin: auto;
     margin-top: 5%;
     height: 100vh;
 }
 
 .register_left{
-    width: 60%;
+    width: 59%;
     float: left;
 
 }
@@ -565,6 +572,7 @@ color: red;
     grid-template-columns: 55% 15% 15% 15%;
     /*margin-top: 100px;*/
     margin-bottom: 30px;
+    border-bottom: solid 1px black;
 }
 .content-thanhtoan{
     display: grid;
@@ -740,6 +748,9 @@ label.star2:before {
 .float-lefttt{
     float: left;
 }
+.width-50{
+    width: 50%;
+}
 .kkk{
     width: 100%;
     display: flex;
@@ -807,10 +818,10 @@ label.star2:before {
 .bor{
     box-sizing: border-box;
     box-shadow: 1px 1px 1px rgba(1, 0, 0, 0.12),
+    1px 1px 1px rgba(0, 0, 0, 0.12),
     2px 2px 2px rgba(0, 0, 0, 0.12),
-    4px 4px 4px rgba(0, 0, 0, 0.12),
-    8px 8px 8px rgba(0, 0, 0, 0.12),
-    16px 16px 16px rgba(0, 0, 0, 0.12);
+    3px 3px 3px rgba(0, 0, 0, 0.12),
+    4px 4px 4px rgba(0, 0, 0, 0.12);
 }
 .btn-sell{
     width: 105px;
@@ -830,3 +841,50 @@ label.star2:before {
     padding-top: 10px;
 }
 
+.boder{
+    border-radius: 10px;
+    border-collapse: collapse;
+    border: 2px white solid;
+    box-shadow: 0 6px 43px 0 rgba(0, 0, 0, 0.4);
+}
+.margin-sl{
+    margin-top: 15px;
+}
+.bottom-tt{
+    margin-bottom: 30px;
+}
+.tong_ct{
+    font-size: 20px;
+    color: red;
+    border: none;
+}
+.input-tt{
+    width: 100px;
+}
+.border-none{
+    border: none;
+}
+a {
+    text-decoration: none;
+
+    color: black;
+    transition: box-shadow .4s, color .3s;
+}
+
+a:hover {
+    color: orangered;
+    box-shadow: 0 3px yellow;
+}
+.main_giua{
+width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+background-image:url("https://scr.vn/wp-content/uploads/2020/07/H%C3%ACnh-n%E1%BB%81n-hoa-tinh-t%E1%BA%BF-th%E1%BA%ADt-%C4%91%E1%BA%B9p.jpg");
+}
+.child{
+   width: 35%;
+    height: 50%;
+    margin: auto;
+}

@@ -4,16 +4,16 @@
     <div class="sell_header_main">
         <ul class="sell_all_ul">
             <li>
-                <a href="{{route('sell-index-all')}}">sản phẩm đang bán</a>
+                <a href="{{route('sell-index-all')}}">Sản phẩm đang bán</a>
             </li>
             <li>
-                <a href="{{route('sell-index-notduyet')}}">sản phẩm chờ duyệt</a>
+                <a href="{{route('sell-index-notduyet')}}">Sản phẩm chờ duyệt</a>
             </li>
             <li>
-                <a href="{{route('sell-index-hethang')}}">sản phẩm hết hàng</a>
+                <a href="{{route('sell-index-hethang')}}">Sản phẩm hết hàng</a>
             </li>
             <li>
-                <a href="{{route('sell-index-delete')}}">sản phẩm vi phạm</a>
+                <a href="{{route('sell-index-delete')}}">Sản phẩm vi phạm</a>
             </li>
         </ul>
     </div>

@@ -1,23 +1,23 @@
 @include('layout.header')
 
 
-    <div class="cart body-home">
-        <div class="cart-item">
+    <div class="cart body-home margin-top">
+        <div class="cart-item ">
             <input type="checkbox" class="check-all">
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             Sản phẩm
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             Đơn giá
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             Số lượng
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             Số tiền
         </div>
-        <div class="cart-item">
+        <div class="cart-item text-giua">
             Thao tác
         </div>
 
@@ -46,13 +46,20 @@
            </div>
         </div>
         <div class="cart-item text-giua">
-            {{$value->gia_goc - $value->khuyen_mai}}
+
+            <p>
+                {{
+                  number_format($value->gia_goc - $value->khuyen_mai, 0, '', ',')
+                }}
+                <span> VNĐ</span>
+            </p>
         </div>
         <div class="cart-item text-giua">
             {{$value->so_luong_mua}}
         </div>
         <div class="cart-item text-giua">
-            <input class="tien-item tong_so" name="tien-item[]" type="text" readonly value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}">vnd
+            <input name="tien-item[]" hidden value="{{$tien = $value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai)}}">
+            <input class="tien-item tong_so"  type="text" readonly value="{{number_format($value->so_luong_mua * ($value->gia_goc - $value->khuyen_mai), 0, '', ',')}} ">vnd
         </div>
         <div class="cart-item text-giua">
             <a href="{{route('delete-giohang',$value->ma_sp)}}">xóa</a>
@@ -64,10 +71,14 @@
 
     <div id="divtongtien" class="bottom-cart">
         <div id="x" class="bottom-thanhtoan">
-           <div  class="div-tong2">
-               <div></div>
-               <div> Tổng tiền: <input id="tong-tien" name="tong_tien" readonly> vnd</div>
-                <div><button class="button-cart" type="submit" name="submit" >mua hàng</button></div>
+           <div  class="div-tong2 ">
+               <div class="session-status">
+                   @if(session('thongbao'))
+                       {{session('thongbao')}}
+                       @endif
+               </div>
+               <div> Tổng tiền: <input id="tong-tien" name="tong_tien" readonly></div>
+                <div><button class="button-cart corso" type="submit" name="submit" >mua hàng</button></div>
             </div>
 
         </div>
@@ -80,6 +91,10 @@
             var checkbox = document.getElementsByName('checkbox[]');
             var tien = document.getElementsByName('tien-item[]');
             var divtong = document.getElementById("div-tongtien");
+            var formatter = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            });
 
                 $(function (){
 
@@ -104,7 +119,7 @@
                         resuilt = resuilt + parseInt( tien[i].value);
                     }
                 }
-                document.getElementById("tong-tien").value =resuilt;
+                document.getElementById("tong-tien").value =  formatter.format(resuilt);
 
             }
             // In ra kết quả

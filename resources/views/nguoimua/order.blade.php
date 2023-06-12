@@ -1,6 +1,7 @@
 @extends('layout.header_profile')
 @section('order_user')
     @if($hh !==null)
+        <h2>Theo dõi hóa đơn</h2>
 <div class="div-xacnhan">
     <div><p class="chudam text-giua">Thông tin hóa đơn</p></div>
     <div><p class="chudam text-giua">Số lượng</p></div>
@@ -34,13 +35,24 @@
                             {{$item->so_luong_mua}}
                         </div>
                         <div class="text-giua">
-                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}
+{{--                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}--}}
+                            <p>
+                                {{
+                                  number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',')
+                                }}
+                                <span> VNĐ</span>
+                            </p>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div  class="text-giua">
-                <p>{{$tong[$i]}}</p>
+                <p>
+                    {{
+                      number_format($tong[$i], 0, '', ',')
+                    }}
+                    <span> VNĐ</span>
+                </p>
 
             </div>
             <div>
@@ -58,7 +70,7 @@
         <?php $i++; ?>
 @endforeach
     @endif
-<h2>Theo dõi hóa đơn đã xác nhận</h2>
+
 <?php  $j=0 ?>
 
     @if($hh2 !==null)
@@ -86,13 +98,24 @@
                             {{$item->so_luong_mua}}
                         </div>
                         <div class="text-giua">
-                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}
+                            <p>
+                                {{
+                                  number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',')
+                                }}
+                                <span> VNĐ</span>
+                            </p>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div  class="text-giua">
-                <p>{{$tong1[$j]}}</p>
+
+                <p>
+                    {{
+                      number_format($tong1[$j], 0, '', ',')
+                    }}
+                    <span> VNĐ</span>
+                </p>
 
             </div>
             <div>

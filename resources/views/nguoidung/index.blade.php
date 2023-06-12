@@ -1,11 +1,7 @@
 @include('layout.header2')
 
-<div class=" main_register">
-    <div class="register_left body-home">
-        <?php $img = 'img_register.png'; ?>
-        <img class="img_register" src="{{asset('images/'.$img)}}">
-    </div>
-    <div class="register_right body-home">
+<div class="text-giua main_giua">
+    <div class="child body-home boder">
         <form action="{{route('check_login')}}" method="post" enctype="multipart/form-data">
             @csrf
             <h2>ĐĂNG NHẬP</h2>
@@ -19,7 +15,7 @@
                     <td>
                         <span style="font-size: 20px">Email</span>
                     </td>
-                    <td>
+                    <td colspan="5">
                         <input class="form-control" type="text" required name="email" placeholder="email">
                     </td>
 
@@ -29,7 +25,7 @@
                     <td>
                         <span style="font-size: 20px">Mật khẩu</span>
                     </td>
-                    <td>
+                    <td colspan="5">
                         <input class="form-control" id="password" type="password" required name="password" placeholder="mật khẩu">
                     </td>
 
@@ -42,7 +38,7 @@
                     </td>
                 </tr>
             </table>
-            <div><button class="btn btn-primary" type="submit">Đăng nhập</button>
+            <div class="text-giua"><button class="btn btn-primary" type="submit">Đăng nhập</button>
                 <button  class="btn btn-primary"> <a href="{{route('home')}}">Trở về</a></button></div>
         </form>
 

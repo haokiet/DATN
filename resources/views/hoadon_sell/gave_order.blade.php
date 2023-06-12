@@ -2,7 +2,7 @@
 @section('sell-order-gave')
     <div>
         <h2></h2>
-        <h2>san pham da giao: {{$count}}</h2>
+        <h2>Sản phẩm đã giao: {{$count}}</h2>
         <table class="sell_table">
             <tr>
 

@@ -1,9 +1,10 @@
 @extends('layout.header_admin')
 @section('admin_all')
+    <h2>Tất cả sản phẩm</h2>
     <table class="sell_table">
         <tr>
             <td>
-                <p class="chudam">Tên sản phẩm</p>
+                <p class="chudam">Sản phẩm</p>
             </td>
             <td>
                 <p class="chudam">Giá gốc</p>
@@ -21,7 +22,11 @@
             @foreach($sp as $item)
                 <tr>
                     <td>
-                        {{$item->ten_sp}}
+                        <div class="display_flex">
+                            <img class="cart-img" src="{{$item->anh_sp}}">
+                            {{$item->ten_sp}}
+                        </div>
+
                     </td>
                     <td>
                         {{$item->gia_goc}}
@@ -36,7 +41,7 @@
                         @if($item->trang_thai ===0)
                             <a href="{{route('duyet_sp',$item->id)}}">Duyệt</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
                         @else
-                            <a href="{{route('duyet_sp',$item->id)}}">Chi tiết</a> | <a href="{{route('delet',$item->id)}}">Xóa</a>
+                            <a title="chi tiết" href="{{route('duyet_sp',$item->id)}}"><p class="fa fa-eye"></p></a> | <a title="xóa" href="{{route('delet',$item->id)}}"><p class="fa fa-trash-o"></p></a>
                         @endif
                     </td>
                 </tr>

@@ -4,16 +4,16 @@
     <div class="sell_header_main">
         <ul class="sell_all_ul">
             <li>
-                <a href="{{route('order_sell_all')}}">tất cả hóa đơn</a>
+                <a href="{{route('order_sell_all')}}">Tất cả hóa đơn</a>
             </li>
             <li>
-                <a href="{{route('order_sell_wait')}}">chờ xác nhận</a>
+                <a href="{{route('order_sell_wait')}}">Chờ xác nhận</a>
             </li>
             <li>
-                <a href="{{route('order_sell_giving')}}">chờ lấy hàng</a>
+                <a href="{{route('order_sell_giving')}}">Chờ lấy hàng</a>
             </li>
             <li>
-                <a href="{{route('order_sell_gave')}}">đã giao</a>
+                <a href="{{route('order_sell_gave')}}">Đã giao</a>
             </li>
         </ul>
     </div>

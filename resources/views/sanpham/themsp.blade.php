@@ -18,9 +18,9 @@
                     <li>Ảnh chi tiết</li>
                     <li>Tên sản phẩm</li>
                     <li>Thông tin sản phẩm</li>
-                    <li>số lượng</li>
-                    <li>đơn giá</li>
-                    <li>loại sản phẩm</li>
+                    <li>Số lượng</li>
+                    <li>Đơn giá</li>
+                    <li>Loại sản phẩm</li>
                 </ul>
             </div>
             <div>

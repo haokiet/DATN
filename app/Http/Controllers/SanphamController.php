@@ -187,8 +187,7 @@ class SanphamController extends Controller
 
         $sp2=DB::table('theloai')
             ->join('sanpham','sanpham.ma_theloai','=','theloai.id')
-        ->where('sanpham.trang_thai','=',1)->get() ;
-
+        ->where('sanpham.trang_thai','=',1)->get();
 
         $dg = DB::table('binhluan')->where('ma_sp','=',$id)->get();
         $tb = count($dg);

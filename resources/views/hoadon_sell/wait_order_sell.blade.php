@@ -2,7 +2,7 @@
 @section('sell-order-wait')
     <div>
         <h2></h2>
-        <h2>hoa don cho xac nhan: {{$count}}</h2>
+        <h2>Hóa đơn chờ xác nhận: {{$count}}</h2>
         <table class="sell_table">
             <tr>
 

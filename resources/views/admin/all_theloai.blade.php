@@ -23,8 +23,8 @@
                             <input class="input-vanchuyen" required  type="text" name="tenloai" value="{{$item->tenloai}}">
                         </div>
                         <div class="text-giua">
-                            <input type="submit" value="Cập nhật">
-                            <button type="button"><a href="{{route('xoaTL',$item->id)}}">Xóa</a></button>
+                            <button class="corso" title="cập nhật" type="submit"><p class="fa fa-save"></p></button>
+                            <button class="corso" title="xóa" type="button"><a href="{{route('xoaTL',$item->id)}}"><p class="fa fa-trash-o"></p></a></button>
                         </div>
                     </div>
                 </form>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="margin-top text-giua">
-                    <input type="submit" class="pading-am btn-sell" value="Thêm">
+                    <button type="submit" class="pading-am btn-sell corso"><p class="fa fa-plus"> Thêm mới</p></button>
                 </div>
             </form>
         </div>

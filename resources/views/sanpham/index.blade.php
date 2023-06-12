@@ -1,4 +1,8 @@
-<div>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+/>
+<div class="margin-top">
        @include('layout.header')
 @if(session('yes'))
     <script>window.alert('Đã xác nhận tài khoản thành công')</script>
@@ -19,7 +23,8 @@
                    <a href="{{route('sanpham.show',$item->id)}}"><?php echo $item->ten_sp;?></a>
                </div>
                <div  class="gb">
-                   <p>giá bán: <?php echo $giaban[$i]." "."đ"; }?></p>
+                   <p>giá bán: <?php echo number_format($giaban[$i], 0, '', ',')."đ"; }?></p>
+
                </div>
 
            </div>

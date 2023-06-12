@@ -47,7 +47,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{route('chiTiet_user',$item->id)}}">Chi tiết</a>
+                    <a title="chi tiết" href="{{route('chiTiet_user',$item->id)}}"><p class="fa fa-eye"></p></a>
                 </td>
             </tr>
         @endforeach

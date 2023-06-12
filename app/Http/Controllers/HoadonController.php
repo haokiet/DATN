@@ -58,7 +58,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=','2')
+            ->where('hoadon.trang_thai','=','1')
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')->groupBy('ct_hoadon.ma_sp')
             ->paginate(9);
         $dem=0;
@@ -73,7 +73,7 @@ class HoadonController extends Controller
                 ->join('users','users.id','=','sanpham.ma_nguoidung')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->where('users.id','=',$user->id)
-                ->where('hoadon.trang_thai','=',2)
+                ->where('hoadon.trang_thai','=',1)
                 ->where('ct_hoadon.ma_sp','=',$item->id)
                 ->get();
 
@@ -257,11 +257,28 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.trang_thai','=',2)
+            ->where('hoadon.trang_thai','=',1)
             ->where('ct_hoadon.ma_sp','=',$id)
             ->get();
         $check = 0;
         return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
+    }
+    // sell-wait detail
+    public function sellShowWait($id)
+    {
+        $user = Auth::user();
+
+        $hd = DB::table('hoadon')
+            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=',1)
+            ->where('ct_hoadon.ma_sp','=',$id)
+            ->get();
+        $check = 0;
+        return view('hoadon_sell.sell_order_detail_wait',compact('user','hd','check'));
     }
     public function showGiving($id)
     {

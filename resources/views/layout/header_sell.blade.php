@@ -7,8 +7,9 @@
 <nav class="nav">
     <div class="header">
         <div class="header-content-1">
+
             <div>
-                <a href="{{route('sell_home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">kênh người bán</span></h1> </a>
+                <a href="{{route('home')}}"> <h1 class="search" >Rập may <span style="font-size: 60%">Kênh người bán</span></h1> </a>
             </div>
             <div class="sell-img">
                 <div class="dropdown">
@@ -18,7 +19,7 @@
                         <a class="dropbtn" href="#"><img class="img-header" src="{{asset('images/user.png')}}">{{$user->username}}</a>
                     @endif
                     <div class="dropdown-content">
-                        <a href="{{route('logout')}}">đăng xuất</a>
+                        <a href="{{route('logout')}}">Đăng xuất</a>
                     </div>
                 </div>
 
@@ -33,57 +34,57 @@
             <ul>
                 <li class="li_h">
                     <div>
-                        <spa>Quản lý sản phẩm</spa>
+                        <p class='fa fa-book'></p> <span>Quản lý sản phẩm</span>
                     </div>
                     <ul>
                         <li class="li_header">
-                            <a href="{{route('sell-index-all')}}">tất cả sản phẩm</a>
+                            <a href="{{route('sell-index-all')}}">Tất cả sản phẩm</a>
                         </li>
                         <li class="li_header">
-                            <a href="{{route('sell_create_sp')}}">thêm sản phẩm</a>
+                            <a href="{{route('sell_create_sp')}}">Thêm sản phẩm</a>
                         </li>
                         <li class="li_header">
-                            <a href="{{route('sell-index-delete')}}">sản phẩm vi phạm</a>
+                            <a href="{{route('sell-index-delete')}}">Sản phẩm vi phạm</a>
                         </li>
                     </ul>
                 </li>
                 <li class="li_h">
                     <div>
-                        <spa>Quản lý đơn hàng</spa>
+                        <p class='fa fa-shopping-cart'></p>  <span>Quản lý đơn hàng</span>
                     </div>
                     <ul>
                         <li class="li_header">
-                            <a href="{{route('order_sell_all')}}">tất cả đơn hàng</a>
+                            <a href="{{route('order_sell_all')}}">Tất cả đơn hàng</a>
                         </li>
 {{--                        <li class="li_header">--}}
 {{--                            <a href="{{route('order_sell_delete')}}">đơn hủy</a>--}}
 {{--                        </li>--}}
                         <li class="li_header">
-                            <a href="{{route('order_sell_money_away')}}">trả hàng/hoàn tiền</a>
+                            <a href="{{route('order_sell_money_away')}}">Trả hàng/hoàn tiền</a>
                         </li>
                     </ul>
                 </li>
                 <li class="li_h">
                     <div>
-                        <spa>Thiết lập shop</spa>
+                        <p class='fa fa-bank'></p> <spa>Thiết lập shop</spa>
                     </div>
                     <ul>
                         <li class="li_header">
-                            <a href="{{route('up')}}">hồ sơ shop</a>
+                            <a href="{{route('up')}}">Hồ sơ shop</a>
                         </li>
                         <li class="li_header">
-                            <a href="{{route('logout')}}">đăng xuất</a>
+                            <a href="{{route('logout')}}">Đăng xuất</a>
                         </li>
                     </ul>
                 </li>
                 <li class="li_h">
                     <div>
-                        <span>Dữ liệu</span>
+                        <p class='fa fa-database'></p>  <span>Dữ liệu</span>
                     </div>
                     <ul>
-                        <li class="li_header">
-                            <a href="{{route('sell_home')}}">Phân tích bán hàng</a>
-                        </li>
+{{--                        <li class="li_header">--}}
+{{--                            <a href="{{route('sell_home')}}">Phân tích bán hàng</a>--}}
+{{--                        </li>--}}
                         <li class="li_header">
                             <a href="{{route('sell_home')}}">Hiệu quả hoạt động</a>
                         </li>

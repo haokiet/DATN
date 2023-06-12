@@ -31,7 +31,7 @@
         <ul>
             <li class="li_h">
                 <div>
-                    <span>Quản lý sản phẩm</span>
+                  <p class="fa fa-book"></p>  <span>Quản lý sản phẩm</span>
                 </div>
                 <ul>
                     <li class="li_header">
@@ -44,7 +44,7 @@
             </li>
             <li class="li_h">
                 <div>
-                    <span>Quản lý người dùng</span>
+                 <p class="fa fa-user"></p>   <span>Quản lý người dùng</span>
                 </div>
                 <ul>
                     <li class="li_header">
@@ -57,7 +57,7 @@
             </li>
             <li class="li_h">
                 <div>
-                    <span>Quản lý Vận chuyển</span>
+                  <p class="fa fa-ambulance"></p>  <span>Quản lý Vận chuyển</span>
                 </div>
                 <ul>
                     <li class="li_header">
@@ -68,7 +68,7 @@
             </li>
             <li class="li_h">
                 <div>
-                    <span>Quản lý loại sản phẩm</span>
+                  <p class="fa fa-cube"></p>  <span>Quản lý loại sản phẩm</span>
                 </div>
                 <ul>
                     <li class="li_header">
@@ -79,7 +79,7 @@
             </li>
             <li class="li_h">
                 <div>
-                    <span>Dữ liệu</span>
+                 <p class="fa fa-database"></p> <span>Dữ liệu</span>
                 </div>
                 <ul>
                     <li class="li_header">
