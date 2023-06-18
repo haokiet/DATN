@@ -121,10 +121,11 @@
                 <button type="submit" class="show_sp_giohang">Thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
             </form>
            <div class="pading-am">
-               <form method="post" action="{{route('thanhtoan-index')}}" >
+               <form method="post" action="{{route('thanhtoan-index1')}}" >
                    @csrf
                    <input hidden id="s_l2" name="so_luong" type="number" value="1">
                    <input hidden name="id_sp" type="number" value="{{$sp[0]->id}}">
+
                    <button type="submit" class="show_sp_giohang">Mua ngay</button>
                </form>
            </div>
@@ -207,10 +208,10 @@
     </div>
     <div class="show_right2">
         <div class="sp_cungloai">
-            <h2 class="h2-cungloai">sản phẩm cùng thời trang</h2>
+            <h2 class="h2-cungloai">Sản phẩm cùng thời trang</h2>
 
             <?php foreach ($sp2 as $item ): ?>
-            <a href="{{route('sanpham.show',$item->id)}}">
+            <a class="corso" href="{{route('sanpham.show',$item->id)}}">
                 <?php if(($item->id !==$sp[0]->id) & ($item->ma_theloai === $sp[0]->ma_theloai)){?>
             <div class="td-sp cungloai">
                     <?php $giaban = $item->gia_goc - $item->khuyen_mai;?>

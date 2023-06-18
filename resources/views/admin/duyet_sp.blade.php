@@ -50,20 +50,29 @@
                 </tr>
                 <tr>
                     <td>
-                        giá:
+                        Giá:
                     </td>
                     <td>
-                        <p class="gia_show">{{$sp[0]->gia_goc}} đ</p> -
-                        <p class="gia_show"> {{$sp[0]->khuyen_mai}} đ</p>
-                    </td>
-                    <td>
+                        <p  class="gia_show">
+                            {{
+                             number_format($sp[0]->gia_goc, 0, '', ',')
+                         }} -
+                            {{
+                                 number_format($sp[0]->khuyen_mai, 0, '', ',')
+                             }}
+                        </p>
 
-                        <p class="giaban_show">{{$giaban}} đ</p>
+                    </td>
+
+                    <td>
+                        <p class="giaban_show">{{
+                                 number_format($giaban, 0, '', ',')
+                             }} đ</p>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>số lượng</td>
+                    <td>Số lượng</td>
                     <td colspan="2">
                         <div class="display_flex">
                             <p>{{$sp[0]->so_luong}} sản phẩm</p>

@@ -65,6 +65,8 @@ Route::middleware([
     Route::get('/giohang',[CTHoadonController::class,'index'])->name('index_giohang');
     Route::get('/delete/{id}',[CTHoadonController::class,'delete_giohang'])->name('delete-giohang');
     Route::post('/thanhtoan/view',[ThanhtoanController::class,'view'])->name('thanhtoan-index');
+    Route::post('/thanhtoan/view1',[ThanhtoanController::class,'thanhtoan1'])->name('thanhtoan-index1');
+
     Route::post('/thanhtoan/saukhinhanhang',[ThanhtoanController::class,'sauKhiNhanHang'])->name('thanhtoan-sknh');
     Route::get('/order/deatil_wait/{id}',[HoadonController::class,'showWait'])->name('show-wait');
     Route::get('/order/deatil_giving/{id}',[HoadonController::class,'showGiving'])->name('show-giving');
@@ -83,6 +85,11 @@ Route::middleware([
 
     Route::view('/changepass','nguoidung.chanepass')->name('chane');
     Route::post('/change',[NguoidungController::class,'chanePass'])->name('chanePass');
+
+    Route::get('/sell/giaohang',[HoadonController::class,'Giaohang'])->name('giaohang');
+    Route::get('/sell/detail-giaohang/{id}',[HoadonController::class,'detailGiaohang'])->name('detail-giaohang');
+
+    Route::get('/confimGiaohang/{id}',[HoadonController::class,'confimGiaohang'])->name('confgiaohang');
 
 });
 Route::get('/show_user/{id}',[NguoidungController::class,'showUser'])->name('show_user');

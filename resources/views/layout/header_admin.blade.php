@@ -7,7 +7,7 @@
     <div class="header">
         <div class="header-content-1">
             <div>
-                <a href="{{route('home')}}"> <h1 class="search" >Rap may <span style="font-size: 60%">Admin</span></h1> </a>
+                <a href="{{route('admin_all')}}"> <h1 class="search" >Rập may <span style="font-size: 60%">Admin</span></h1> </a>
             </div>
             <div class="sell-img">
                 <div class="dropdown">

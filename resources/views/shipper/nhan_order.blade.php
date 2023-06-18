@@ -18,13 +18,15 @@
                    </div>
                        <?php  $i=0 ?>
                    @foreach($hh as $value)
-                       <div>
+                       <div class="bor">
                            <div class="div-xacnhan2">
                                <div>
+                                   HD-{{$value[0]->ma_hoadon}}
                                    @foreach($value as $item)
                                        <div class="div-xacnhan3">
                                            <div class="chia_cot_table">
                                                <div>
+
                                                    @if($item->anh_sp !==null)
                                                        <img class="cart-img" src="{{$item->anh_sp}}">
                                                    @else
@@ -41,26 +43,39 @@
                                                {{$item->so_luong_mua}}
                                            </div>
                                            <div class="text-giua">
-                                               {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}
+                                               {{
+                                                     number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',').'đ'
+                                                 }}
+
                                            </div>
                                        </div>
                                    @endforeach
                                </div>
                                <div  class="text-giua">
-                                   <p>{{$tong[$i]}}</p>
+                                   {{
+                                       number_format($tong[$i], 0, '', ',').'đ'
+                                       }}
+
 
                                </div>
                                <div class="text-giua">
-                                   <p>tên: {{$value[0]->ten_nhan}}</p>
-                                   <p>số dt: {{$value[0]->so_dt_nhan}}</p>
-                                   <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
+                                   <p>Tên: {{$value[0]->ten_nhan}}</p>
+                                   <p>Số điện thoại: {{$value[0]->so_dt_nhan}}</p>
+                                   <p>Địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
                                </div>
                                <div class="text-giua">
                                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('shipper-confimresive-order',$value[0]->ma_hoadon)}}">Gửi hàng</a></button>
                                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('trahang',$value[0]->ma_hoadon)}}">Trả hàng</a></button>
                                </div>
                            </div>
-                           <div> <p>{{$item->ten_vc}} - {{$item->don_gia_vc}}</p></div>
+                           <div> <p>{{$item->ten_vc}} - {{$item->don_gia_vc}} đ</p></div>
+                           <div class="session-status">
+                               @if($value[0]->thanhtoan == 0)
+                                   <p>Chưa thanh toán</p>
+                               @else
+                                   <p >Đã thanh toán</p>
+                               @endif
+                           </div>
                        </div>
 
                            <?php $i++; ?>

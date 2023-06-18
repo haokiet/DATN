@@ -2,7 +2,7 @@
 @section('sell-index')
 
     <div class="sell_header_main">
-        <ul class="sell_all_ul">
+        <ul class="sell_all_ul chudam">
             <li>
                 <a href="{{route('sell-index-all')}}">Sản phẩm đang bán</a>
             </li>

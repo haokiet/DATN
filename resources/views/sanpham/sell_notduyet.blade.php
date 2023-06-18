@@ -4,7 +4,7 @@
         <div class="sell_div1">
 
                 <h2>{{count($sp_zero2)}} sản phẩm</h2>
-            <div class="width-50"><button class="border-none float-right"><a class="chudam" href="{{route('sell_create_sp')}}"><p class="fa fa-plus"> Thêm mới</a></button></div>
+            <div class="width-50"><a class="chudam" href="{{route('sell_create_sp')}}"><button class="border-none float-right corso"><p class="fa fa-plus"></p> Thêm mới</button></a></div>
         </div>
         <table class="sell_table">
             <tr>

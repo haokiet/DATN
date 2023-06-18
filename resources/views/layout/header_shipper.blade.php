@@ -7,7 +7,7 @@
     <div class="header">
         <div class="header-content-3">
             <div>
-                <a href="{{route('shipper-all-order')}}"><h1>Rap may <span style="font-size: 60%">shipper</span></h1></a>
+                <a href="{{route('shipper-all-order')}}"><h1>Rập may <span style="font-size: 60%">shipper</span></h1></a>
             </div>
             <div class="giohang">
                 <a href="{{route('shipper-all-order')}}">Tất cả hóa đơn</a>

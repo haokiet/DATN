@@ -13,10 +13,10 @@
             <table class="register_table">
                 <tr class="regis_tr">
                     <td>
-                        <span style="font-size: 20px">Email</span>
+                        <span style="font-size: 20px">Tên đăng nhập</span>
                     </td>
                     <td colspan="5">
-                        <input class="form-control" type="text" required name="email" placeholder="email">
+                        <input class="form-control" type="text" required name="email" placeholder="email/tên đăng nhập">
                     </td>
 
                 </tr>

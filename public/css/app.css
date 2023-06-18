@@ -204,8 +204,11 @@ h1{
     height: 311px;
 }
 .ct_photos:hover{
-    position: center;
-    transform: scale(3);
+    position: absolute;
+    top:30%;
+    left: 500px;
+    transform: scale(2);
+    z-index: 1000;
 }
 .ct_photos{
     width: 30%;
@@ -289,7 +292,7 @@ width: 90%;
 }
 .show_right2{
 float: right;
-    width: 15%;
+    width: 17%;
 }
 p{
     font-size: 100%;
@@ -413,7 +416,8 @@ ul{
 .sell_all_ul li{
 
     display: inline;
-    margin-left: 10%;
+    margin-left: 7%;
+    font-size: 17px;
 }
 .sell_table{
     width: 100%;
@@ -783,12 +787,7 @@ label.star2:before {
 .div-xacnhan2{
     display: grid;
     grid-template-columns: 55% 15% 18% 12%;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 1px rgba(1, 0, 0, 0.12),
-    2px 2px 2px rgba(0, 0, 0, 0.12),
-    4px 4px 4px rgba(0, 0, 0, 0.12),
-    8px 8px 8px rgba(0, 0, 0, 0.12),
-    16px 16px 16px rgba(0, 0, 0, 0.12);
+
     margin-top: 10px;
 }
 .div-xacnhan3{
@@ -887,4 +886,30 @@ background-image:url("https://scr.vn/wp-content/uploads/2020/07/H%C3%ACnh-n%E1%B
    width: 35%;
     height: 50%;
     margin: auto;
+}
+.giaohang{
+    display: grid;
+    grid-template-columns: 10% 20% 40% 30%;
+}
+.grid-50{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.width-100{
+    width: 100%;
+}
+.border-bottom{
+    border-bottom: 1px solid;
+    border-radius: 10px;
+}
+.border-radius-10{
+    border-radius: 10px;
+}
+.div-giaohang{
+    display: grid;
+    grid-template-columns: 50% 20% 30%;
+}
+.grid-70-30{
+    display: grid;
+    grid-template-columns: 70% 30%;
 }

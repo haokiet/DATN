@@ -18,13 +18,15 @@
                 </div>
                     <?php  $i=0 ?>
                 @foreach($hh as $value)
-                    <div>
+                    <div class="bor">
                         <div class="div-xacnhan2">
                             <div>
+                                HD-{{$value[0]->ma_hoadon}}
                                 @foreach($value as $item)
                                     <div class="div-xacnhan3">
                                         <div class="chia_cot_table">
                                             <div>
+
                                                 @if($item->anh_sp !==null)
                                                     <img class="cart-img" src="{{$item->anh_sp}}">
                                                 @else
@@ -41,13 +43,19 @@
                                             {{$item->so_luong_mua}}
                                         </div>
                                         <div class="text-giua">
-                                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}
+                                            {{
+                              number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',').'đ'
+                            }}
+
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                             <div  class="text-giua">
-                                {{$tong[$i]}}
+                                {{
+                            number_format($tong[$i], 0, '', ',').'đ'
+                          }}
+
 
                             </div>
                             <div class="text-giua">
@@ -60,6 +68,13 @@
                             </div>
                         </div>
                         <div>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</div>
+                        <div class="session-status">
+                            @if($value[0]->thanhtoan == 0)
+                                <p>Chưa thanh toán</p>
+                            @else
+                                <p >Đã thanh toán</p>
+                            @endif
+                        </div>
                     </div>
                         <?php $i++; ?>
                 @endforeach

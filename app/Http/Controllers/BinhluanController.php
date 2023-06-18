@@ -13,7 +13,7 @@ class BinhluanController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->all());
+
         $user = Auth::user();
         Binhluan::create([
             'ma_nguoidung'=>$user->id,

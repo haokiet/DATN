@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
 use function GuzzleHttp\Promise\all;
 
 class ThanhtoanController extends Controller
@@ -20,8 +21,41 @@ class ThanhtoanController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function thanhtoan1(Request $request)
+    {
+        $user = Auth::user();
+        $check = 1;
+        if ($request->id_sp !==null)
+        {
+
+            $hdd = DB::table('hoadon')
+                ->where('ma_nguoidung','=',$user->id)
+                ->where('trang_thai','=','0')
+                ->get();
+
+            CT_Hoadon::create([
+                'ma_hoadon'=>$hdd[0]->id,
+                'ma_sp'=>$request->id_sp,
+                'so_luong_mua'=>$request->so_luong
+            ]);
+
+            $ct_hdd2= DB::table('ct_hoadon')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->join('users','users.id','=','sanpham.ma_nguoidung')
+                ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                ->where('ct_hoadon.ma_sp','=',$request->id_sp)
+                ->where('ct_hoadon.ma_hoadon','=',$hdd[0]->id)
+                ->where('hoadon.trang_thai','=',0)
+                ->get();
+        }
+        $vanchuyen = Vanchuyen::all();
+        $phuongthuc = Phuongthuc::all();
+        return view('thanhtoan.index',compact('ct_hdd2','vanchuyen','phuongthuc','user','check'));
+    }
+
     public function view(Request $request)
     {
+        $check=0;
 
        if ($request->tong_tien !==null)
        {
@@ -123,7 +157,7 @@ class ThanhtoanController extends Controller
 //            $tong = $tong + (($value->gia_goc - $value->khuyen_mai)*$value->so_luong_mua);
 //        }
 //        $tong_all = $tong + $vanchuyen->don_gia_vc;
-           return view('thanhtoan.index',compact('ct_hdd','vanchuyen','phuongthuc','user','v'));
+           return view('thanhtoan.index',compact('ct_hdd','vanchuyen','phuongthuc','user','v','check'));
        }
        else
        {
@@ -134,11 +168,6 @@ class ThanhtoanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
 
 
     /**
@@ -147,6 +176,7 @@ class ThanhtoanController extends Controller
 
    public function execPostRequest($url, $data)
     {
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -166,7 +196,6 @@ class ThanhtoanController extends Controller
 
     public function sauKhiNhanHang(Request $request)
     {
-
         $user =Auth::user();
 
         if ($request->pt ==1)
@@ -220,15 +249,61 @@ class ThanhtoanController extends Controller
         else
         {
 
+
+
+            $k = "";
+            foreach ($request->email as $_email)
+            {
+                $tong = 0;
+                $hd = Hoadon::create([
+                    'ma_nguoidung'=>$user->id,
+                    'ma_vanchuyen'=>$request->idvc,
+                    'dia_chi_nhan'=>$request->dia_chi_nhan,
+                    'ten_nhan'=>$request->ten_nhan,
+                    'trang_thai'=>1,
+                    'so_dt_nhan'=>$request->so_dt_nhan
+                ]);
+                foreach ($request->idsp as $_idsp) {
+                    $ct_hd = DB::table('ct_hoadon')
+                        ->where('ma_hoadon','=',$request->idhd)
+                        ->where('ma_sp','=',$_idsp)
+                        ->get();
+                    $sp = Sanpham::find($_idsp);
+                    $seller = User::find($sp->ma_nguoidung);
+                    if ($_email == $seller->email)
+                    {
+                        CT_Hoadon::create([
+                            'ma_hoadon'=>$hd->id,
+                            'ma_sp'=>$_idsp,
+                            'so_luong_mua'=>$ct_hd[0]->so_luong_mua
+                        ]);
+                        $db = DB::table('ct_hoadon')
+                            ->join('hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                            ->where('hoadon.id','=',$request->idhd)
+                            ->where('ct_hoadon.ma_sp','=',$_idsp)
+                            ->delete();
+
+                        $tong = $tong + (($sp->gia_goc - $sp->khuyen_mai) * $ct_hd[0]->so_luong_mua );
+
+                    }
+                }
+                Thanhtoan::create([
+                    'ma_hoadon'=>$hd->id,
+                    'ma_phuongthuc'=>$request->pt,
+                    'tong_tien'=>$tong + $request->gtvc,
+                    'trang_thai'=>1
+                ]);
+                $k =$hd->id."+".$k;
+            }
+
+
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-
-
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-            $orderInfo = "Thanh toán qua MoMo";
+            $orderInfo = $k."Thanh toán qua MoMo";
             $amount = $request->tong_tien;
-            $orderId = time() ."";
+            $orderId = time();
             $redirectUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
             $ipnUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
             $extraData = "";
@@ -258,48 +333,9 @@ class ThanhtoanController extends Controller
                 $jsonResult = json_decode($result, true);
 
                 return redirect()->to($jsonResult['payUrl']);
+
 //                header('Location: ' . $jsonResult['payUrl']);
         }
     }
 
-
-    public function momo(Request $request){
-
-    }
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Thanhtoan $thanhtoan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Thanhtoan $thanhtoan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Thanhtoan $thanhtoan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Thanhtoan $thanhtoan)
-    {
-        //
-    }
 }

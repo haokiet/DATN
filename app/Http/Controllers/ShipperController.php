@@ -21,11 +21,13 @@ class ShipperController extends Controller
             ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('hoadon.trang_thai','=',2)
+            ->where('hoadon.is_delete','=',0)
             ->get();
         $hh = null; $tong = 0;
         $i=0;
         $hd2 = DB::table('hoadon')
             ->where('hoadon.trang_thai','=',2)
+            ->where('hoadon.is_delete','=',0)
             ->get();
 
         foreach ($hd2 as $item)
@@ -35,8 +37,10 @@ class ShipperController extends Controller
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
                 ->join('users','sanpham.ma_nguoidung','=','users.id')
+                ->join('thanhtoan','hoadon.id','=','thanhtoan.ma_hoadon')
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',2)
+                ->where('hoadon.is_delete','=',0)
                 ->select([
                     'ten_vc',
                     'don_gia_vc',
@@ -44,7 +48,7 @@ class ShipperController extends Controller
                     'dia_chi_nhan',
                     'ten_nhan',
                     'so_dt_nhan',
-                    'ma_hoadon',
+                    'thanhtoan.ma_hoadon',
                     'sanpham.ma_nguoidung',
                     'hoadon.trang_thai',
                     'so_luong_mua',
@@ -54,7 +58,8 @@ class ShipperController extends Controller
                     'gia_goc',
                     'khuyen_mai',
                     'ma_sp',
-                    'username'
+                    'username',
+                    'thanhtoan.trang_thai as thanhtoan'
 
                 ])
                 ->get();
@@ -117,6 +122,7 @@ class ShipperController extends Controller
                 ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
                 ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+                ->join('thanhtoan','hoadon.id','=','thanhtoan.ma_hoadon')
                 ->join('users','sanpham.ma_nguoidung','=','users.id')
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',3)
@@ -127,7 +133,7 @@ class ShipperController extends Controller
                     'dia_chi_nhan',
                     'ten_nhan',
                     'so_dt_nhan',
-                    'ma_hoadon',
+                    'thanhtoan.ma_hoadon',
                     'sanpham.ma_nguoidung',
                     'hoadon.trang_thai',
                     'so_luong_mua',
@@ -137,7 +143,8 @@ class ShipperController extends Controller
                     'gia_goc',
                     'khuyen_mai',
                     'ma_sp',
-                    'username'
+                    'username',
+                    'thanhtoan.trang_thai as thanhtoan'
 
                 ])
                 ->get();

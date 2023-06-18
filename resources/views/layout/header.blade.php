@@ -9,7 +9,7 @@
            <div>
                <a href="{{route('sell_home')}}">Trở thành người bán</a>
            </div>
-           <div>
+           <div class="border-radius-10">
                @if(\Illuminate\Support\Facades\Auth::check())
                        <?php $user=\Illuminate\Support\Facades\Auth::user();?>
 
@@ -35,7 +35,7 @@
        </div>
        <div class="header-content-2">
            <div>
-               <a href="{{route('home')}}"> <h1>Rap may</h1></a>
+               <a href="{{route('home')}}"> <h1>Rập may</h1></a>
            </div>
 
            <div id="search">

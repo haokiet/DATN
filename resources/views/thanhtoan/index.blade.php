@@ -21,14 +21,69 @@
            <?php $idhd = 0; $tong = 0; $tong2=0; ?>
            <form action="{{route('thanhtoan-sknh')}}" method="post">
                @csrf
-               @foreach($v as $_v)
-                   <input hidden name="email[]" value="{{$_v}}">
-                   <?php $tong_ct=0; ?>
-               <div class=" boder bottom-tt">
+
+               @if($check==1)
+
+                   <div class=" boder bottom-tt">
 
                        <div class="div-thanhtoan">
-                                   @foreach($ct_hdd as $item)
-                               @if($item[0]->email == $_v)
+                           @foreach($ct_hdd2 as $item)
+                               <input hidden name="email[]" value="{{$item->email}}">
+                                   <div>
+                                       <input type="hidden" name="idsp[]" value="{{$item->ma_sp}}">
+                                           <?php $idhd =$item->ma_hoadon;?>
+                                       <div class="img-l">
+                                           @if($item->anh_sp !==null)
+                                               <img class="cart-img" src="{{$item->anh_sp}}">
+                                           @else
+                                               <img class="cart-img" src="{{asset('images/user.png')}}">
+                                           @endif
+                                       </div>
+                                       <p>{{$item->ten_sp}}</p>
+                                   </div>
+                                   <div>
+
+                                       <p>
+                                           {{
+                                             number_format(($item->gia_goc - $item->khuyen_mai), 0, '', ',')
+                                           }}
+                                           <span> VNĐ</span>
+                                       </p>
+                                   </div>
+                                   <div>
+                                       <input class="tong_so margin-sl" name="slm[]" value="{{$item->so_luong_mua}}">
+                                   </div>
+                                   <div>
+                                       <p>
+                                           {{
+                                             number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',')
+                                           }}
+                                           <span> VNĐ</span>
+                                       </p>
+                                   </div>
+                                       <?php $tong = $tong + ($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua;  ?>
+
+                           @endforeach
+                               <?php $i = 0;?>
+                       </div>
+                       <div class="display_flex">
+                           <div class="width-50">
+
+                           </div>
+                           <div class=" width-50">
+                               <p class="float-right">Tổng: <input class="tong_ct" id="tong_ct" name="tong_ct" type="text" readonly value="{{number_format($tong, 0, '', ',')}} vnd"></p>
+                           </div>
+                       </div>
+                   </div>
+                   @else
+                   @foreach($v as $_v)
+                       <input hidden name="email[]" value="{{$_v}}">
+                           <?php $tong_ct=0; ?>
+                       <div class=" boder bottom-tt">
+
+                           <div class="div-thanhtoan">
+                               @foreach($ct_hdd as $item)
+                                   @if($item[0]->email == $_v)
 
                                        <div>
                                            <input type="hidden" name="idsp[]" value="{{$item[0]->ma_sp}}">
@@ -63,23 +118,25 @@
                                                <span> VNĐ</span>
                                            </p>
                                        </div>
-                                       <?php $tong = $tong + ($item[0]->gia_goc - $item[0]->khuyen_mai)*$item[0]->so_luong_mua; $tong_ct = $tong_ct + ($item[0]->gia_goc - $item[0]->khuyen_mai)*$item[0]->so_luong_mua; ?>
+                                           <?php $tong = $tong + ($item[0]->gia_goc - $item[0]->khuyen_mai)*$item[0]->so_luong_mua; $tong_ct = $tong_ct + ($item[0]->gia_goc - $item[0]->khuyen_mai)*$item[0]->so_luong_mua; ?>
 
-                                 @endif
+                                   @endif
 
-                       @endforeach
-                           <?php $i = 0;?>
-                       </div>
-                   <div class="display_flex">
-                       <div class="width-50">
+                               @endforeach
+                                   <?php $i = 0;?>
+                           </div>
+                           <div class="display_flex">
+                               <div class="width-50">
 
+                               </div>
+                               <div class=" width-50">
+                                   <p class="float-right">Tổng: <input class="tong_ct" id="tong_ct" name="tong_ct" type="text" readonly value="{{number_format($tong_ct, 0, '', ',')}} vnd"></p>
+                               </div>
+                           </div>
                        </div>
-                       <div class=" width-50">
-                           <p class="float-right">Tổng: <input class="tong_ct" id="tong_ct" name="tong_ct" type="text" readonly value="{{number_format($tong_ct, 0, '', ',')}} vnd"></p>
-                       </div>
-                   </div>
-               </div>
-               @endforeach
+           @endforeach
+           @endif
+
 
        </div>
 
@@ -96,7 +153,7 @@
                </tr>
                <tr>
                    <td>số điện thoại:</td>
-                   <td><input class="input-diachi" required name="so_dt_nhan" value="{{$user->so_dt_nd}}"></td>
+                   <td><input class="input-diachi" type="int" required name="so_dt_nhan" value="{{$user->so_dt_nd}}"></td>
                </tr>
                <tr>
                    <td colspan="2"><h4>phương thức thanh toán</h4></td>

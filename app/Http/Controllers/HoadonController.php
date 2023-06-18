@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CT_Hoadon;
 use App\Models\Hoadon;
 use App\Models\Sanpham;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\PDF;
+
 
 class HoadonController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -357,6 +361,7 @@ class HoadonController extends Controller
                 ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
                 ->join('users','sanpham.ma_nguoidung','=','users.id')
+                ->join('thanhtoan','thanhtoan.ma_hoadon','=','hoadon.id')
                 ->where('hoadon.ma_nguoidung','=',$user->id)
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',1)
@@ -367,7 +372,7 @@ class HoadonController extends Controller
                     'dia_chi_nhan',
                     'ten_nhan',
                     'so_dt_nhan',
-                    'ma_hoadon',
+                    'thanhtoan.ma_hoadon',
                     'sanpham.ma_nguoidung',
                     'hoadon.trang_thai',
                     'so_luong_mua',
@@ -377,12 +382,14 @@ class HoadonController extends Controller
                     'gia_goc',
                     'khuyen_mai',
                     'ma_sp',
-                    'username'
+                    'username',
+                    'thanhtoan.trang_thai as thanhtoan'
 
                 ])
                 ->get();
             $i++;
         }
+
         $m = 0; $n = 1; $k =0; $s=array(); $s[0]=0; $tong=array();
         $vc =0;
         foreach ($hh as $t)
@@ -435,7 +442,7 @@ class HoadonController extends Controller
                     'gia_goc',
                     'khuyen_mai',
                     'ma_sp',
-                    'username'
+                    'username',
 
                 ])
                 ->get();
@@ -456,13 +463,45 @@ class HoadonController extends Controller
             $m1 = 0; $n1 = 1; $s1[0]=0;
         }
 
+
+        if(isset($_GET['message']))
+        {
+            if($_GET['message']!=="Successful.")
+            {
+                $hd0 = DB::table('hoadon')->where('ma_nguoidung','=',$user->id)
+                    ->where('trang_thai','=',0)->get();
+                $orderid = explode("+", $_GET['orderInfo']);
+                $cou = count($orderid);
+                for ($dem =0; $dem< $cou - 1;$dem++)
+                {
+                    $h7 = DB::table('hoadon')
+                        ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+                        ->where('hoadon.id','=',$orderid[$dem])
+                        ->get();
+                   foreach ($h7 as $_h7)
+                   {
+                       CT_Hoadon::create([
+                           'ma_hoadon'=>$hd0[0]->id,
+                           'ma_sp'=>$_h7->ma_sp,
+                           'so_luong_mua'=>$_h7->so_luong_mua
+                       ]);
+                   }
+                }
+                for ($dem =0; $dem< $cou - 1;$dem++)
+                {
+                    $order = Hoadon::find($orderid[$dem]);
+                    $order->delete();
+                }
+            }
+        }
         return view('nguoimua.order',compact('user','hd','hd2','hh','tong','tong1','hh2'));
     }
     public  function confimWait($id)
     {
         $user = Auth::user();
         $hd = DB::table('hoadon')->where('id','=',$id)->update([
-            'trang_thai'=>2
+            'trang_thai'=>2,
+            'is_delete'=>1
         ]);
 
         $cthd = DB::table('ct_hoadon')
@@ -495,50 +534,88 @@ class HoadonController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show.
      */
-    public function create()
-    {
-        //
+
+    //hiển thị hóa đơn cần giao
+    function Giaohang(){
+        $user = Auth::user();
+        $hd = null; $i=0;
+        $ct_hd = DB::table('hoadon')
+            ->join('ct_hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->join('thanhtoan','hoadon.id','=','thanhtoan.ma_hoadon')
+            ->where('hoadon.is_delete','=',1)
+            ->where('hoadon.trang_thai','=',2)
+            ->where('sanpham.ma_nguoidung','=',$user->id)
+            ->select([
+                'ten_vc',
+                'don_gia_vc',
+                'ma_vanchuyen',
+                'dia_chi_nhan',
+                'ten_nhan',
+                'so_dt_nhan',
+                'thanhtoan.ma_hoadon',
+                'sanpham.ma_nguoidung',
+                'hoadon.trang_thai',
+                'so_luong_mua',
+                'anh_sp',
+                'ten_sp',
+                'so_luong',
+                'gia_goc',
+                'khuyen_mai',
+                'ma_sp',
+                'thanhtoan.trang_thai as thanhtoan'
+
+            ])
+            ->get();
+        foreach ($ct_hd as $item)
+        {
+            $hd[$i] = $item->ma_hoadon;
+            $i++;
+        }
+
+        return view('hoadon_sell.giaohang',compact('user','hd','ct_hd'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    function detailGiaohang( $id)
     {
-        //
+        $idhd = $id;
+        $user = Auth::user();
+        $ct_hd = DB::table('ct_hoadon')
+            ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+            ->join('vanchuyen','vanchuyen.id','=','hoadon.ma_vanchuyen')
+            ->where('hoadon.id','=',$id)
+            ->get();
+
+        return view('hoadon_sell.detail_giaohang',compact('idhd','user','ct_hd'));
+    }
+    function confimGiaohang( $id)
+    {
+       $hd= Hoadon::find($id);
+        $hd->is_delete = 0;
+        $hd->save();
+
+//        $user = Auth::user();
+//        $ct_hd = DB::table('ct_hoadon')
+//            ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+//            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+//            ->join('vanchuyen','vanchuyen.id','=','hoadon.ma_vanchuyen')
+//            ->where('hoadon.id','=',$id)
+//            ->get();
+//        $data = [
+//            'title' => 'Chào mừng bạn đến với Shop Rập may',
+//            'date' => date('m/d/Y'),
+//           'ct_hd'=>$ct_hd
+//        ];
+//
+//        $pdf = PDF::loadView('myPDF', $data);
+//
+//        $pdf->download('itsolutionstuff.pdf');
+
+        return redirect('/sell/giaohang')->with('thongbao','Đã chuyển hàng');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Hoadon $hoadon)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Hoadon $hoadon)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Hoadon $hoadon)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Hoadon $hoadon)
-    {
-        //
-    }
 }

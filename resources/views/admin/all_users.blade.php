@@ -1,5 +1,6 @@
 @extends('layout.header_admin')
 @section('admin_all_user')
+    <h2>Tất cả người dùng</h2>
     <table class="sell_table">
         <tr>
 
@@ -47,7 +48,7 @@
                     @endif
                 </td>
                 <td>
-                    <a title="chi tiết" href="{{route('chiTiet_user',$item->id)}}"><p class="fa fa-eye"></p></a>
+                   <a title="chi tiết" href="{{route('chiTiet_user',$item->id)}}"> <button class="btn-sell corso"><p class="fa fa-eye" aria-hidden="true"></p></button></a>
                 </td>
             </tr>
         @endforeach

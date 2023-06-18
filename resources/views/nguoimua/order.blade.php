@@ -1,5 +1,6 @@
 @extends('layout.header_profile')
 @section('order_user')
+
     @if($hh !==null)
         <h2>Theo dõi hóa đơn</h2>
 <div class="div-xacnhan">
@@ -12,62 +13,75 @@
 </div>
 <?php  $i=0 ?>
 @foreach($hh as $value)
-    <div>
-        <div class="div-xacnhan2">
-            <div>
-                @foreach($value as $item)
-                    <div class="div-xacnhan3">
-                        <div class="chia_cot_table">
-                            <div >
-                                @if($item->anh_sp !==null)
-                                    <img class="cart-img" src="{{$item->anh_sp}}">
-                                @else
-                                    <img class="cart-img" src="{{asset('images/user.png')}}">
-                                @endif
+        <div class="bor">
+            <div class="div-xacnhan2">
+                <div>
+                    @foreach($value as $item)
+                        <div class="div-xacnhan3">
+                            <div class="chia_cot_table">
+                                <div >
+                                    @if($item->anh_sp !==null)
+                                        <img class="cart-img" src="{{$item->anh_sp}}">
+                                    @else
+                                        <img class="cart-img" src="{{asset('images/user.png')}}">
+                                    @endif
+                                </div>
+                                <div class="text-giua">
+                                    <a href="{{route('sanpham.show',$item->ma_sp)}}">{{$item->ten_sp}}</a>
+                                    <br>
+                                    <a href="{{route('show_user',$item->ma_nguoidung)}}">shop: {{$item->username}}</a>
+                                </div>
                             </div>
                             <div class="text-giua">
-                                <a href="{{route('sanpham.show',$item->ma_sp)}}">{{$item->ten_sp}}</a>
-                                <br>
-                                <a href="{{route('show_user',$item->ma_nguoidung)}}">shop: {{$item->username}}</a>
+                                {{$item->so_luong_mua}}
+                            </div>
+                            <div class="text-giua">
+                                {{--                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}--}}
+                                <p>
+                                    {{
+                                      number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',')
+                                    }}
+                                    <span> VNĐ</span>
+                                </p>
                             </div>
                         </div>
-                        <div class="text-giua">
-                            {{$item->so_luong_mua}}
-                        </div>
-                        <div class="text-giua">
-{{--                            {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}--}}
-                            <p>
-                                {{
-                                  number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',')
-                                }}
-                                <span> VNĐ</span>
-                            </p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div  class="text-giua">
-                <p>
-                    {{
-                      number_format($tong[$i], 0, '', ',')
-                    }}
-                    <span> VNĐ</span>
-                </p>
+                    @endforeach
+                </div>
+                <div  class="text-giua">
+                    <p>
+                        {{
+                          number_format($tong[$i], 0, '', ',')
+                        }}
+                        <span> VNĐ</span>
+                    </p>
 
+                </div>
+                <div>
+                    <p>tên: {{$value[0]->ten_nhan}}</p>
+                    <p>số dt: {{$value[0]->so_dt_nhan}}</p>
+                    <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
+                </div>
+                <div class="text-giua">
+                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">xác nhận</a></button>
+                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('huy_xacnhan',$value[0]->ma_hoadon)}}">hủy</a></button>
+                </div>
             </div>
-            <div>
-                <p>tên: {{$value[0]->ten_nhan}}</p>
-                <p>số dt: {{$value[0]->so_dt_nhan}}</p>
-                <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
-            </div>
-            <div class="text-giua">
-                <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">xác nhận</a></button>
-                <button class="button-cart" type="submit" name="submit" ><a href="{{route('huy_xacnhan',$value[0]->ma_hoadon)}}">hủy</a></button>
+            <div class="grid-50">
+                <div class="text-giua"><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p>
+                </div>
+                <div class="text-giua session-status">
+                    @if($value[0]->thanhtoan ==0)
+                        <p>Chưa thanh toán</p>
+                    @else
+                        <p >Đã thanh toán</p>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-    <div><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p></div>
-        <?php $i++; ?>
+
+            <?php $i++; ?>
+
+
 @endforeach
     @endif
 
@@ -75,7 +89,8 @@
 
     @if($hh2 !==null)
 @foreach($hh2 as $value)
-    <div>
+
+    <div class="bor">
         <div class="div-xacnhan2">
             <div>
                 @foreach($value as $item)
@@ -135,9 +150,12 @@
                 @endif
             </div>
         </div>
+        <div><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p></div>
+            <?php $j++; ?>
     </div>
-    <div><p>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</p></div>
-        <?php $j++; ?>
+
+
+
 @endforeach
     @endif
 
