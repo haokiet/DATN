@@ -26,7 +26,7 @@
                         {{$num[$i]}}
                     </td>
                     <td>
-                        <a href="{{route('show-giving',$item->id)}}">chi tiết</a>
+                        <a title="xem chi tiết" href="{{route('show-giving',$item->id)}}"><p class='fa fa-eye'> Chi tiết</p></a>
                     </td>
 
                 </tr>

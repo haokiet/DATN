@@ -6,9 +6,9 @@
             <li>
                 <a href="{{route('order_sell_all')}}">Tất cả hóa đơn</a>
             </li>
-            <li>
-                <a href="{{route('order_sell_wait')}}">Chờ xác nhận</a>
-            </li>
+{{--            <li>--}}
+{{--                <a href="{{route('order_sell_wait')}}">Chờ xác nhận</a>--}}
+{{--            </li>--}}
             <li>
                 <a href="{{route('giaohang')}}">Giao hàng</a>
             </li>
@@ -18,7 +18,9 @@
             <li>
                 <a href="{{route('order_sell_gave')}}">Đã giao</a>
             </li>
-
+            <li>
+                <a href="{{route('order_sell_delete')}}">Đơn hủy</a>
+            </li>
         </ul>
     </div>
     <div class="sell-y">
@@ -28,5 +30,6 @@
         @yield('sell-order-gave')
         @yield('giaohang')
         @yield('detail_giaohang')
+        @yield('sell-order-delete')
     </div>
 @endsection

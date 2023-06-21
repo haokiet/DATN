@@ -85,6 +85,7 @@
 <div class="margin-top float-right">
 
     @if($sp[0]->trang_thai ===0)
+        <button class="btn-sell"><a href="{{route('vipham',$sp[0]->id)}}">Vi phạm</a>
         <button class="btn-sell"><a href="{{route('duyet_confim',$sp[0]->id)}}">Duyệt</a>
     @endif
         <button class="btn-sell"><a href="javascript:window.history.back(-1);">Trở về</a></button>

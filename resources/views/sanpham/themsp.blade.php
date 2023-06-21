@@ -14,9 +14,8 @@
             <?php $user = \Illuminate\Support\Facades\Auth::user() ?>
             <div>
                 <ul class="ul-user">
-                    <li>Ảnh sản phẩm</li>
-                    <li>Ảnh chi tiết</li>
-                    <li>Tên sản phẩm</li>
+                    <li class="bottom-tt">Ảnh sản phẩm</li>
+                    <li >Tên sản phẩm</li>
                     <li>Thông tin sản phẩm</li>
                     <li>Số lượng</li>
                     <li>Đơn giá</li>
@@ -26,15 +25,21 @@
             <div>
                     @csrf
                     <ul  class="ul-user">
-                        <li>
-                            <div class="display_flex">
-                                <img src="" class="preview preview-img2" id="preview">
-                                <input type="file" class="input" name="anh_sp" >
-                            </div>
-                        </li>
-                        <li>
-                            <input type="file" class="file" name="url[]" multiple="multiple">
-                        </li>
+                       <div class="display_flex bottom-tt">
+                           <li>
+                               <div class="display_flex">
+                                   <label class="corso" for="anh_sp"><img src="" class="preview preview-img2" id="preview"></label>
+                                   <input accept=".jpg, .png" hidden type="file" class="input" name="anh_sp" id="anh_sp" >
+                               </div>
+                           </li>
+                           <li>
+                               <div class="display_flex" align="left">
+                                   <input accept=".jpg, .png" type="file" id="files" name="url[]" max="3" multiple />
+                               </div>
+
+                           </li>
+                       </div>
+
                         <li>
                             <input type="text" class="text input-user" REQUIRED name="ten_sp">
                         </li>
@@ -65,4 +70,43 @@
             </div>
         </form>
     <script src="../../script/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            if (window.File && window.FileList && window.FileReader) {
+                $("#files").on("change", function(e) {
+                    var files = e.target.files,
+                        filesLength = files.length;
+                    if(filesLength >3)
+                    {
+                        window.alert('không được thêm quá 3 ảnh chi tiết')
+                        $("#files").val(null);
+                    }
+                    else
+                    {
+                        for (var i = 0; i < filesLength; i++) {
+                            var f = files[i]
+                            var fileReader = new FileReader();
+                            fileReader.onload = (function(e) {
+                                var file = e.target;
+                                $("<span class=\"pip\">" +
+                                    "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                                    "<br/><span class=\"remove\">xóa ảnh</span>" +
+                                    "</span>").insertAfter("#files");
+                                $(".remove").click(function(){
+                                    $(this).parent(".pip").remove();
+
+                                });
+
+                            });
+                            fileReader.readAsDataURL(f);
+                        }
+                    }
+                });
+            } else {
+                alert("Your browser doesn't support to File API")
+            }
+        });
+    </script>
     @endsection

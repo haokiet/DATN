@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hoadon;
 use App\Models\Nguoidung;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
@@ -24,11 +25,7 @@ class NguoidungController extends Controller
     use AuthorizesRequests, ValidatesRequests;
     /**
      * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -157,27 +154,27 @@ class NguoidungController extends Controller
                         $email->subject('xac nhan tai khoan');
                         $email->to($user->email,$user->username);
                     });
-                    return back()->with('thongbao','đã đăng ký. Bạn hãy kiểm tra gmail của bạn để xác nhận tài khoản');
+                    return back()->with('thongbao','Đã đăng ký. Bạn hãy kiểm tra gmail của bạn để xác nhận tài khoản');
                 }
             }
             else{
-                return back()->with('thongbao','mật khẩu nhập lại không khớp');
+                return back()->with('thongbao','Mật khẩu nhập lại không khớp');
             }
         }
         elseif ($check == 0)
         {
-            return back()->with('thongbao','tài khoản đã đăng ký trước đó và chờ xác nhận');
+            return back()->with('thongbao','Tài khoản đã đăng ký trước đó và chờ xác nhận');
         }
         else{
-            return back()->with('thongbao','tài khoản đã tồn tại');
+            return back()->with('thongbao','Tài khoản đã tồn tại');
         }
     }
     public function active (User $user, $token){
         if ($user->token === $token ){
             $user->update(['is_delete'=>1,'token'=>null]);
-            return redirect()->route('home')->with('yes','xac nhan tai khoan thanh cong');
+            return redirect()->route('home')->with('yes','Xác nhận tài khoản thành công');
         } else{
-            return redirect()->route('home')->with('yes','xacs nhan khong hop le');
+            return redirect()->route('home')->with('yes','Xác nhận thâ bại');
         }
     }
 
@@ -235,6 +232,10 @@ $giaban[0]=0;
     }
     public function check_login(Request $request)
     {
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>0],$request->remember))
+        {
+            return back()->with('thongbao','Bạn chưa xác nhận kích hoạt tài khoản');
+        }
 
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_delete'=>1],$request->remember)) {
 
@@ -253,10 +254,11 @@ $giaban[0]=0;
            }
         }
         else{
-            return redirect('/login')->with('thongbao','tên đăng nhập hoặc mật khẩu không đúng');
+            return redirect('/login')->with('thongbao','Tên đăng nhập hoặc mật khẩu không đúng');
         }
 
     }
+    ///thống kê bán hàng
     public function sell_regis (){
         $user = Auth::user();
         // sp đang bán
@@ -299,7 +301,20 @@ $giaban[0]=0;
             $tong = $tong + ($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua;
         }
 
-        return view('nguoiban.index',compact('count1','count2','count3','count4','tong'));
+
+
+        $sales = DB::table('hoadon')
+            ->join('ct_hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->join('sanpham','ct_hoadon.ma_sp','=','sanpham.id')
+            ->where('sanpham.ma_nguoidung','=',$user->id)
+            ->where('hoadon.trang_thai','=',4)
+            ->selectRaw('YEAR(hoadon.created_at) as year, MONTH(hoadon.created_at) as month, SUM((sanpham.gia_goc - sanpham.khuyen_mai)*ct_hoadon.so_luong_mua) as total_amount')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+//        dd($sales);
+        return view('nguoiban.index',compact('count1','count2','count3','count4','tong','sales'));
     }
 
     public function chanePass(Request $request)

@@ -15,6 +15,7 @@ class HomeController extends Controller
         $sp=DB::table('sanpham')
             ->where('trang_thai','=',1)
             ->where('so_luong','>',0)
+            ->where('is_delete','=',0)
             ->get();
         $j = 0;
         $sp2 ="";
@@ -26,6 +27,7 @@ class HomeController extends Controller
                 ->join('sanpham','sanpham.ma_nguoidung','=','users.id')
                 ->where('users.is_delete','=',1)
                 ->where('trang_thai','=',1)
+                ->where('sanpham.is_delete','=',0)
                 ->where('so_luong','>',0)
                 ->get();
             $sp2= $u;

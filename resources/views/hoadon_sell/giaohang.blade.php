@@ -7,8 +7,8 @@
         {{session('thongbao')}}
     </div>
 @endif
-  @if($hd !==null)
-      <h2>Giao Hàng: {{count($hd)}} hóa đơn</h2>
+  @if($hd2 !==null)
+      <h2>Giao Hàng: {{count($hd2)}} hóa đơn</h2>
       <div class="giaohang text-giua bottom-tt">
           <div class="chudam">Mã Hóa đơn</div>
 
@@ -17,7 +17,7 @@
           <div class="chudam">Thao tác</div>
       </div>
 
-      @foreach($hd as $_hd)
+      @foreach($hd2 as $_hd)
               <?php $tong = 0; ?>
           <div>
 

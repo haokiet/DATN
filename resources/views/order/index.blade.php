@@ -3,7 +3,7 @@
 
     <div class="cart body-home margin-top">
         <div class="cart-item ">
-            <input type="checkbox" class="check-all">
+            <p>Sự kiện</p>
         </div>
         <div class="cart-item text-giua">
             Sản phẩm

@@ -9,12 +9,12 @@
             <div class="div-content-user">
                 <div>
                     <ul class="ul-user">
-                        <li>Tên</li>
-                        <li>email</li>
-                        <li>số điện thoại</li>
-                        <li>địa chỉ</li>
-                        <li>giới tính</li>
-                        <li>ngày sinh</li>
+                        <li>Họ tên</li>
+                        <li>Email</li>
+                        <li>Số điện thoại</li>
+                        <li>Địa chỉ</li>
+                        <li>Giới tính</li>
+                        <li>Ngày sinh</li>
                     </ul>
                 </div>
                 <div>
@@ -28,7 +28,7 @@
                             <input class="input-user" type="text" value="{{$user->email}}" readonly>
                         </li>
                         <li>
-                            <input name="so_dt_nd" class="input-user" MAXLENGTH="11" type="text" value="{{$user->so_dt_nd}}">
+                            <input name="so_dt_nd" id="mobile" class="input-user" MAXLENGTH="11" type="text" value="{{$user->so_dt_nd}}">
                         </li>
                         <li>
                             <input name="dia_chi" class="input-user" type="text" value="{{$user->dia_chi}}">
@@ -38,9 +38,9 @@
 
                                     <div class="sell_div1" id="gt">
                                         <input type="radio" id="nam" class="gioitinh" name="gioi_tinh" @if($user->gioi_tinh===0) checked @endif value="0">
-                                        <label for="nam">nam</label><br>
+                                        <label for="nam">Nam</label><br>
                                         <input type="radio" class="gioitinh" id="nu" name="gioi_tinh" @if($user->gioi_tinh===1) checked @endif name="gioi_tinh" value="1">
-                                        <label for="nu">nữ</label><br>
+                                        <label for="nu">Nữ</label><br>
                                     </div>
 
                             </div>
@@ -50,54 +50,42 @@
                         </li>
                     </ul>
                         <div>
-                            <input type="submit" value="Lưu">
+                            <input type="submit" class="btn-sell " value="Lưu">
                         </div>
 
                 </div>
                 <div>
 
-                    @if($user->image !==null)
-                        <img src="{{$user->image}}" class="preview preview-img" id="preview">
-                    @else
-                        <img src="{{asset('images/user.png')}}" class="preview preview-img" id="preview">
-                    @endif
-                    <input  name="anh_nd" type="file" class="input" />
 
+                    <div class="profile-img">
+                        @if($user->image !==null)
+                            <label for="anh_nd" class="corso"><img src="{{$user->image}}" class="preview preview-img" id="preview"></label>
+                        @else
+                            <label for="anh_nd" class="corso"><img src="{{asset('images/user.png')}}" class="preview preview-img" id="preview"></label>
+                        @endif
+                        <input id="anh_nd"  name="anh_nd" hidden type="file" class="input" accept=".jpg, .png"/>
+                    </div>
                 </div>
             </div>
     </form>
         </div>
-
-{{--    <script>--}}
-{{--        // const src  = document.querySelector('.preview')--}}
-{{--        // const ipnFileElement = document.querySelector('.input')--}}
-{{--        // const resultElement = document.querySelector('.preview')--}}
-{{--        // const validImageTypes = ['image/gif', 'image/jpeg', 'image/png']--}}
-{{--        //--}}
-{{--        // ipnFileElement.addEventListener('change', function(e) {--}}
-{{--        //     const files = e.target.files--}}
-{{--        //     const file = files[0]--}}
-{{--        //     const fileType = file['type']--}}
-{{--        //--}}
-{{--        //     if (!validImageTypes.includes(fileType)) {--}}
-{{--        //         resultElement.insertAdjacentHTML(--}}
-{{--        //             'beforeend',--}}
-{{--        //             '<span class="preview-img">Chọn ảnh đi :3</span>'--}}
-{{--        //         )--}}
-{{--        //         return--}}
-{{--        //     }--}}
-{{--        //--}}
-{{--        //     const fileReader = new FileReader()--}}
-{{--        //     fileReader.readAsDataURL(file)--}}
-{{--        //--}}
-{{--        //     fileReader.onload = function() {--}}
-{{--        //         const url = fileReader.result--}}
-{{--        //--}}
-{{--        //         src.setAttribute("src",url)--}}
-{{--        //--}}
-{{--        //     }--}}
-{{--        // })--}}
-{{--    </script>--}}
     <script src="../../script/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('body').on('mouseout','#mobile', function() {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $('#mobile').val();
+                if(mobile !==''){
+                    if (vnf_regex.test(mobile) == false)
+                    {
+                        alert('Số điện thoại của bạn không đúng định dạng!');
+                    }
+                }else{
+                    alert('Bạn chưa điền số điện thoại!');
+                }
+            });
+        });
+    </script>
 @endsection
 

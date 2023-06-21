@@ -1,14 +1,13 @@
-@extends('layout.header_sell')
+@extends('layout.header_order')
 @section('sell-order-delete')
     <div>
-        <h2>hoa don bi huy: {{$count}}</h2>
+        <h2>Hóa ơn bị hủy: {{$count}}</h2>
         <table class="sell_table">
             <tr>
 
                 <td><p class="chudam">Tên sản phẩm</p></td>
                 <td><p class="chudam">Tổng đơn hàng</p></td>
                 <td><p class="chudam">Thao tác</p></td>
-
 
             </tr>
         </table>
@@ -26,7 +25,8 @@
                         {{$num[$i]}}
                     </td>
                     <td>
-                        <a>chi tiết</a>
+
+                        <a title="xem chi tiết" href="{{route('show-all',$item->id)}}"><p class='fa fa-eye'> Chi tiết</p></a>
                     </td>
 
                 </tr>

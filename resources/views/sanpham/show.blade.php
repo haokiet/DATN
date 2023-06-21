@@ -5,11 +5,7 @@
 {{--<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>--}}
 
 <div class="show_sp">
-    @if (session('thongbao'))
-        <div class="session-status">
-            {{ session('thongbao') }}
-        </div>
-    @endif
+
     <div class="show-lr">
 
         <div class="khung_sp" >
@@ -118,7 +114,15 @@
                     </td>
                 </tr>
             </table>
-                <button type="submit" class="show_sp_giohang">Thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
+
+                <div class="display_flex">
+                    <button type="submit" class="show_sp_giohang">Thêm vào giỏ hàng <i class="fa fa-shopping-cart icon-cart"></i></button>
+                    @if (session('thongbao'))
+                        <div class="session-status">
+                            {{ session('thongbao') }}
+                        </div>
+                    @endif
+                </div>
             </form>
            <div class="pading-am">
                <form method="post" action="{{route('thanhtoan-index1')}}" >

@@ -56,13 +56,14 @@
 
             </div>
             <div>
-
-                @if($user->image !==null)
-                    <img src="{{$user->image}}" class="preview preview-img" id="preview">
-                @else
-                    <img src="{{asset('images/user.png')}}" class="preview preview-img" id="preview">
-                @endif
-                <input  name="anh_nd" type="file" class="input" />
+                <div class="profile-img">
+                    @if($user->image !==null)
+                        <label for="anh_nd" class="corso"><img src="{{$user->image}}" class="preview preview-img" id="preview"></label>
+                    @else
+                        <label for="anh_nd" class="corso"><img src="{{asset('images/user.png')}}" class="preview preview-img" id="preview"></label>
+                    @endif
+                    <input id="anh_nd"  name="anh_nd" hidden type="file" class="input" accept=".jpg, .png"/>
+                </div>
 
             </div>
         </div>

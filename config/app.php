@@ -202,6 +202,7 @@ return [
         JD\Cloudder\CloudderServiceProvider::class,
 
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -221,6 +222,7 @@ return [
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
 
         'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

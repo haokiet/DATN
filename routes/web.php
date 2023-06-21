@@ -88,6 +88,9 @@ Route::middleware([
 
     Route::get('/sell/giaohang',[HoadonController::class,'Giaohang'])->name('giaohang');
     Route::get('/sell/detail-giaohang/{id}',[HoadonController::class,'detailGiaohang'])->name('detail-giaohang');
+    Route::get('/sell/exportPDF/{id}',[\App\Http\Controllers\PDFControllerphp::class,'exportPDF'])->name('exportPDF');
+
+
 
     Route::get('/confimGiaohang/{id}',[HoadonController::class,'confimGiaohang'])->name('confgiaohang');
 
@@ -124,6 +127,8 @@ Route::middleware([
     Route::post('/admin/them_theloai',[\App\Http\Controllers\AdminController::class,'themTL'])->name('themTL');
     Route::get('/admin/xoa_theloai/{id}',[\App\Http\Controllers\AdminController::class,'xoaTL'])->name('xoaTL');
     Route::post('/admin/update_theloai/{id}',[\App\Http\Controllers\AdminController::class,'updateTL'])->name('updateTL');
+    Route::post('/admin/deleteSP/{id}',[\App\Http\Controllers\AdminController::class,'vipham'])->name('vipham');
+
 
 });
 

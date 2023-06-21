@@ -13,7 +13,7 @@
                         @foreach ($sp3 as $item )
                             @foreach ($item as $value)
                                 <a href="{{route('sanpham.show',$value->id)}}">
-                        <div class="td-sp2">
+                        <div class="td-sp">
                             <div>
                                 @if($value->anh_sp !==null)
                                     <img  class="anh_sp" src="{{$value->anh_sp}}"></img>
@@ -37,36 +37,35 @@
                     @endif
                 </div>
             </div>
+{{--            <div>--}}
+{{--                <h3>Nhà thiết kế</h3>--}}
+{{--                <div class="tk_1 body-home">--}}
+{{--                    @if($users2 !==null)--}}
+{{--                        @foreach ($users2 as $item )--}}
+{{--                            @foreach ($item as $value)--}}
+{{--                                <a href="{{route('show_user',$value->id)}}">--}}
+{{--                                    <div class="td-sp2">--}}
+{{--                                        <div>--}}
+{{--                                            @if($value->image !==null)--}}
+{{--                                                <img  class="anh_sp" src="{{$value->image}}">--}}
+{{--                                            @else--}}
+{{--                                                <img class="anh_sp" src="{{asset('images/user.png')}}">--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
 
-            <div>
-                <h3>Nhà thiết kế</h3>
-                <div class="tk_1 body-home">
-                @if($users2 !==null)
-                        @foreach ($users2 as $item )
-                        @foreach ($item as $value)
-                            <a href="{{route('show_user',$value->id)}}">
-                    <div class="td-sp2">
-                        <div>
-                            @if($value->image !==null)
-                                <img  class="anh_sp" src="{{$value->image}}">
-                            @else
-                                <img class="anh_sp" src="{{asset('images/user.png')}}">
-                            @endif
-                        </div>
+{{--                                        <div class="home_a">--}}
+{{--                                            <a href="{{route('show_user',$value->id)}}"><?php echo $value->username;?></a>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            @endforeach--}}
+{{--                        @endforeach--}}
+{{--                    @else--}}
+{{--                        <h5 class="center">không tìm thấy kết quả</h5>--}}
+{{--                    @endif--}}
 
-                        <div class="home_a">
-                            <a href="{{route('show_user',$value->id)}}"><?php echo $value->username;?></a>
-                        </div>
-                    </div>
-                            </a>
-                            @endforeach
-                            @endforeach
-                    @else
-                        <h5 class="center">không tìm thấy kết quả</h5>
-                @endif
-
-                </div>
-            </div>
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
     <div>

@@ -54,7 +54,7 @@
            </table>
        </div>
    </div>
-    <div class="grid-70-30">
+    <div class="grid-50">
         <div>
             <p>{{$_ct_hd->ten_vc}}: {{
                               number_format($_ct_hd->don_gia_vc, 0, '', ',').'đ'
@@ -62,7 +62,9 @@
         </div>
 
         <div class="display_flex margin-top">
+            <a href="{{route('exportPDF',$idhd)}}"><button class="btn-sell corso">Xuất đơn</button></a>
             <a href="{{route('confgiaohang',$idhd)}}"><button class="btn-sell corso">Giao Hàng</button></a>
+           <a href="{{route('huy_xacnhan',$idhd)}}"> <button class="btn-sell corso">Hủy</button></a>
             <a href="javascript:window.history.back(-1);"><button class="btn-sell corso">Trở về</button></a>
         </div>
     </div>

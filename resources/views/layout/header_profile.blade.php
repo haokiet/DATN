@@ -20,13 +20,13 @@
             <div class="div-left">
                 <ul class="ul-user-left">
                     <li>
-                        <a href="{{route('profile_user')}}">tài khoản của tôi</a>
+                        <a href="{{route('profile_user')}}">Tài khoản của tôi</a>
                     </li>
                     <li>
-                        <a href="{{route('buy_show-wait')}}">đơn mua hàng</a>
+                        <a href="{{route('buy_show-wait')}}">Đơn mua hàng</a>
                     </li>
                     <li>
-                        <a href="{{route('chane')}}">đổi mật khẩu</a>
+                        <a href="{{route('chane')}}">Đổi mật khẩu</a>
                     </li>
                 </ul>
             </div>

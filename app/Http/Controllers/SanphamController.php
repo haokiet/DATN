@@ -25,14 +25,16 @@ class SanphamController extends Controller
     {
         $user = Auth::user();
         $sp_all = DB::table('sanpham')
-            ->where('trang_thai','>','0')
+            ->where('trang_thai','=','1')
+            ->where('is_delete','=',0)
             ->where('so_luong','>','0')
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_all2 = DB::table('sanpham')
-            ->where('trang_thai','>','0')
+            ->where('trang_thai','=','1')
             ->where('so_luong','>','0')
+            ->where('is_delete','=',0)
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
             ->get();
@@ -78,12 +80,12 @@ class SanphamController extends Controller
         $user = Auth::user();
 
         $sp_dele = DB::table('sanpham')
-            ->where('is_delete','=','1')
+            ->where('trang_thai','=','2')
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
             ->simplePaginate(6);
         $sp_dele2 = DB::table('sanpham')
-            ->where('is_delete','=','1')
+            ->where('trang_thai','=','2')
             ->where('ma_nguoidung','=',$user->id)
             ->orderByDesc('created_at')
             ->get();
@@ -103,7 +105,7 @@ class SanphamController extends Controller
      */
     public function store(Request $request)
     {
-
+        dd($request->all());
         $idND = Auth::id();
         if($request->file('anh_sp') != null){
 
@@ -147,6 +149,7 @@ class SanphamController extends Controller
     /**
      * Display the specified resource.
      */
+    /// hiển thị chi tiết sản phẩm
     public function show($id)
     {
         $user = Auth::user();
@@ -210,6 +213,7 @@ class SanphamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    // chỉnh sửa
     public function edit($id)
     {
         $sp = DB::table('sanpham')->find($id);
@@ -220,6 +224,7 @@ class SanphamController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    //cập nhật
     public function update(Request $request, $id)
     {
         $sp=Sanpham::find($id);
@@ -237,18 +242,20 @@ class SanphamController extends Controller
         $sp->ngay_km=$request->ngay_km;
         $sp->ket_thuc_km=$request->ket_thuc_km;
         $sp->save();
-        return redirect('/sell/all-sp');
+        return redirect('/sell/all-sp')->with('thongbao','Đã cập nhật thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    //xóa sản phẩm
     public function destroy($id)
     {
 
         $sp=Sanpham::find($id);
-        $sp->delete();
-        return redirect('/sell/all-sp');
+       $sp->is_delete = 1;
+       $sp->save();
+        return redirect('/sell/all-sp')->with('thongbao','Đã xóa sản phẩm');
     }
 
     public function timKiem(Request $request)

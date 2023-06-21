@@ -73,7 +73,7 @@ class ShipperController extends Controller
             {
                 foreach ($t as $v)
                 {
-                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua);
                     $m++; $n++;
                 }
                 $tong[$k]=$s[$n-1];
@@ -157,7 +157,7 @@ class ShipperController extends Controller
             {
                 foreach ($t as $v)
                 {
-                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua + $v->don_gia_vc);
+                    $s[$n] = $s[$m] + (($v->gia_goc - $v->khuyen_mai)*$v->so_luong_mua);
                     $m++; $n++;
                 }
                 $tong[$k]=$s[$n-1];

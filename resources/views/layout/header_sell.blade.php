@@ -98,7 +98,6 @@
             @yield('them_sp')
             @yield('header_sell_order')
             @yield('edit_sp')
-            @yield('sell-order-delete')
             @yield('sell-order-money_away')
             @yield('up_shop')
 

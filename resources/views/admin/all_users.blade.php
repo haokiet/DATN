@@ -1,6 +1,11 @@
 @extends('layout.header_admin')
 @section('admin_all_user')
     <h2>Tất cả người dùng</h2>
+    @if(session('thongbao'))
+        <div class="session-status">
+            {{session('thongbao')}}
+        </div>
+    @endif
     <table class="sell_table">
         <tr>
 

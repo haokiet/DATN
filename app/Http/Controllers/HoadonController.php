@@ -21,6 +21,7 @@ class HoadonController extends Controller
     {
         //
     }
+    //tất cả hóa đơn phía người bán
     public function order_sell_all()
     {
         $user = Auth::user();
@@ -53,7 +54,7 @@ class HoadonController extends Controller
 
         return view('hoadon_sell.all_order',compact('num','sp','count'));
     }
-    // cho duyet
+    // chờ xác nhận
     public function order_sell_wait()
     {
         $user = Auth::user();
@@ -125,6 +126,7 @@ class HoadonController extends Controller
 
         return view('hoadon_sell.giving_order',compact('num','sp','count'));
     }
+    // đã giao
     public function order_sell_gave()
     {
         $user = Auth::user();
@@ -206,7 +208,7 @@ class HoadonController extends Controller
             ->join('users','users.id','=','sanpham.ma_nguoidung')
             ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
             ->where('users.id','=',$user->id)
-            ->where('hoadon.is_delete','=','1')
+            ->where('hoadon.is_delete','=',1)
             ->select('ct_hoadon.ma_sp','sanpham.ten_sp','sanpham.id')
             ->groupBy('ct_hoadon.ma_sp')
             ->paginate(10);
@@ -250,7 +252,7 @@ class HoadonController extends Controller
         $check = 1;
         return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
     }
-
+//chi tiết hóa đơn bán
     public function showWait($id)
     {
         $user = Auth::user();
@@ -284,6 +286,7 @@ class HoadonController extends Controller
         $check = 0;
         return view('hoadon_sell.sell_order_detail_wait',compact('user','hd','check'));
     }
+    //chi tiết hóa đơn
     public function showGiving($id)
     {
         $user = Auth::user();
@@ -299,7 +302,7 @@ class HoadonController extends Controller
         $check = 0;
         return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
     }
-
+//chi tiết hóa đơn
     public function showGave($id)
     {
         $user = Auth::user();
@@ -316,7 +319,7 @@ class HoadonController extends Controller
         $check = 0;
         return view('hoadon_sell.order_detail_wait',compact('user','hd','check'));
     }
-
+//chi tiết hóa đơn
     public function showAway($id)
     {
         $user = Auth::user();
@@ -344,6 +347,7 @@ class HoadonController extends Controller
             ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->where('hoadon.ma_nguoidung','=',$user->id)
+            ->where('hoadon.is_delete','=',0)
             ->where('hoadon.trang_thai','=',1)
             ->get();
         $hh = array();
@@ -352,6 +356,7 @@ class HoadonController extends Controller
         $hd2 = DB::table('hoadon')
             ->where('hoadon.ma_nguoidung','=',$user->id)
             ->where('hoadon.trang_thai','=',1)
+            ->where('hoadon.is_delete','=',0)
             ->get();
 
         foreach ($hd2 as $item)
@@ -363,6 +368,7 @@ class HoadonController extends Controller
                 ->join('users','sanpham.ma_nguoidung','=','users.id')
                 ->join('thanhtoan','thanhtoan.ma_hoadon','=','hoadon.id')
                 ->where('hoadon.ma_nguoidung','=',$user->id)
+                ->where('hoadon.is_delete','=',0)
                 ->where('hoadon.id','=',$item->id)
                 ->where('hoadon.trang_thai','=',1)
                 ->select([
@@ -443,6 +449,7 @@ class HoadonController extends Controller
                     'khuyen_mai',
                     'ma_sp',
                     'username',
+                    'hoadon.is_delete'
 
                 ])
                 ->get();
@@ -496,12 +503,12 @@ class HoadonController extends Controller
         }
         return view('nguoimua.order',compact('user','hd','hd2','hh','tong','tong1','hh2'));
     }
+    //xác nhận hóa đơn bên mua
     public  function confimWait($id)
     {
         $user = Auth::user();
         $hd = DB::table('hoadon')->where('id','=',$id)->update([
             'trang_thai'=>2,
-            'is_delete'=>1
         ]);
 
         $cthd = DB::table('ct_hoadon')
@@ -525,12 +532,14 @@ class HoadonController extends Controller
 
         return back();
     }
+    // hủy xác nhận
     public  function deleteWait($id)
     {
         $sp=Hoadon::find($id);
-        $sp->delete();
+        $sp->is_delete=1;
+        $sp->save();
 
-        return back();
+        return back()->with('thongbao','Đã hủy hóa đơn');
     }
 
     /**
@@ -546,8 +555,7 @@ class HoadonController extends Controller
             ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
             ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
             ->join('thanhtoan','hoadon.id','=','thanhtoan.ma_hoadon')
-            ->where('hoadon.is_delete','=',1)
-            ->where('hoadon.trang_thai','=',2)
+            ->where('hoadon.trang_thai','=',1)
             ->where('sanpham.ma_nguoidung','=',$user->id)
             ->select([
                 'ten_vc',
@@ -570,13 +578,18 @@ class HoadonController extends Controller
 
             ])
             ->get();
-        foreach ($ct_hd as $item)
-        {
-            $hd[$i] = $item->ma_hoadon;
-            $i++;
-        }
-
-        return view('hoadon_sell.giaohang',compact('user','hd','ct_hd'));
+        $cound = count($ct_hd);
+        $hd2 = null;
+       if ($cound >0)
+       {
+           foreach ($ct_hd as $item)
+           {
+               $hd[$i] = $item->ma_hoadon;
+               $i++;
+           }
+           $hd2 = array_unique($hd);
+       }
+        return view('hoadon_sell.giaohang',compact('user','hd2','ct_hd'));
     }
 
     function detailGiaohang( $id)
@@ -592,10 +605,11 @@ class HoadonController extends Controller
 
         return view('hoadon_sell.detail_giaohang',compact('idhd','user','ct_hd'));
     }
+    //xác nhận giao hàng
     function confimGiaohang( $id)
     {
        $hd= Hoadon::find($id);
-        $hd->is_delete = 0;
+        $hd->trang_thai = 2;
         $hd->save();
 
 //        $user = Auth::user();

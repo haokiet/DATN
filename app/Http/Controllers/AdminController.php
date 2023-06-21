@@ -19,6 +19,7 @@ class AdminController extends Controller
             ->get();
         return view('admin.all_sp',compact('sp'));
     }
+    //duyet sp
     public function allSP(){
         $sp=DB::table('sanpham')
             ->where('trang_thai','=','0')
@@ -47,16 +48,16 @@ class AdminController extends Controller
         $sp=Sanpham::find($id);
         $sp->trang_thai=1;
         $sp->save();
-        return redirect('/admin');
+        return redirect('/admin')->with('thongbao','Đã duyệt'." ".$sp->ten_sp);
     }
 
 
-    public function vipham($id)
+    public function vipham(Request $request,$id)
     {
         $sp =Sanpham::find($id);
         $sp->is_delete = 1;
         $sp->save();
-        return view('admin.all_sp')->with('thongbao','báo cáo thành công');
+        return view('admin.all_sp')->with('thongbao','Báo cáo thành công');
     }
 
 
@@ -136,7 +137,7 @@ class AdminController extends Controller
             return back()->with('thongbao','Đã thêm thành công');
         }
         else{
-            return back()->with('thongbao','mật khẩu nhập lại không khớp');
+            return back()->with('thongbao','Mật khẩu nhập lại không khớp');
         }
     }
 
@@ -150,13 +151,13 @@ class AdminController extends Controller
             'ten_vc'=>$request->ten_vc,
             'don_gia_vc'=>$request->don_gia_vc
         ]);
-        return back()->with('thongbao','đã thêm vận chuyển');
+        return back()->with('thongbao','Đã thêm vận chuyển');
     }
 
     public function xoaVC($id){
         $vc = Vanchuyen::find($id);
         $vc->delete();
-        return back()->with('thongbao','đã xóa vận chuyển');
+        return back()->with('thongbao','Đã xóa vận chuyển');
     }
     public function updateVC(Request $request,$id){
         DB::table('vanchuyen')->where('id','=',$id)
@@ -164,7 +165,7 @@ class AdminController extends Controller
                 'ten_vc'=>$request->ten_vc,
                 'don_gia_vc'=>$request->don_gia_vc
             ]);
-        return back()->with('thongbao','đã cập nhật vận chuyển');
+        return back()->with('thongbao','Đã cập nhật vận chuyển');
     }
 
     public function adminTheloai(){
@@ -175,19 +176,19 @@ class AdminController extends Controller
         Theloai::create([
             'tenloai'=>$request->tenloai,
         ]);
-        return back()->with('thongbao','đã thêm Thể loại');
+        return back()->with('thongbao','Đã thêm Thể loại');
     }
 
     public function xoaTL($id){
         $tl = Theloai::find($id);
         $tl->delete();
-        return back()->with('thongbao','đã xóa Thể loại');
+        return back()->with('thongbao','Đã xóa Thể loại');
     }
     public function updateTL(Request $request,$id){
         DB::table('theloai')->where('id','=',$id)
             ->update([
                 'tenloai'=>$request->tenloai,
             ]);
-        return back()->with('thongbao','đã cập nhật Thể loại');
+        return back()->with('thongbao','Đã cập nhật Thể loại');
     }
 }

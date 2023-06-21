@@ -41,9 +41,9 @@
            <div id="search">
                <form method="get" action="{{route('timkiem')}}">
                    @csrf
-                   <input class="s1" type="text" name="value" placeholder="tim kiem">
+                   <input class="s1" id="timkiem" type="text" value="" name="value" placeholder="tim kiem">
 
-                   <button type="button" class="icon-search"><i class="fa fa-search"></i></button>
+                   <button type="submit"  id="icon" class="icon-search corso"><i class="fa fa-search"></i></button>
                </form>
 
            </div>
@@ -60,3 +60,20 @@
 </nav>
 @yield('header_profile_user')
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.querySelector("#icon").setAttribute("disabled", true);
+        var timkiem = document.getElementById("timkiem");
+        $('body').on('mouseout','#timkiem', function() {
+            if(timkiem.value  !==''){
+
+                document.querySelector("#icon").removeAttribute("disabled");
+            }
+            else {
+                document.querySelector("#icon").setAttribute("disabled", true);
+            }
+        });
+
+    });
+</script>

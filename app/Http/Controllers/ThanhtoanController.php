@@ -28,16 +28,33 @@ class ThanhtoanController extends Controller
         if ($request->id_sp !==null)
         {
 
+
             $hdd = DB::table('hoadon')
                 ->where('ma_nguoidung','=',$user->id)
                 ->where('trang_thai','=','0')
                 ->get();
 
-            CT_Hoadon::create([
-                'ma_hoadon'=>$hdd[0]->id,
-                'ma_sp'=>$request->id_sp,
-                'so_luong_mua'=>$request->so_luong
-            ]);
+            $ct_hd = DB::table('ct_hoadon')
+                ->where('ma_hoadon','=',$hdd[0]->id)
+                ->where('ma_sp','=',$request->id_sp)
+                ->get();
+            $dem = count($ct_hd);
+            if ($dem ==0)
+            {
+                CT_Hoadon::create([
+                    'ma_hoadon'=>$hdd[0]->id,
+                    'ma_sp'=>$request->id_sp,
+                    'so_luong_mua'=>$request->so_luong
+                ]);
+            }
+            else
+            {
+                DB::table('ct_hoadon')
+                    ->where('ma_hoadon','=',$hdd[0]->id)
+                    ->where('ma_sp','=',$request->id_sp)
+                    ->update(['so_luong_mua'=>($ct_hd[0]->so_luong_mua + $request->so_luong)]);
+            }
+
 
             $ct_hdd2= DB::table('ct_hoadon')
                 ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
@@ -303,7 +320,7 @@ class ThanhtoanController extends Controller
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
             $orderInfo = $k."Thanh toán qua MoMo";
             $amount = $request->tong_tien;
-            $orderId = time();
+            $orderId = time() ."";
             $redirectUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
             $ipnUrl = "http://127.0.0.1:8000/order/deatil_wait_buy";
             $extraData = "";

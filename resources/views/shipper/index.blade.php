@@ -16,7 +16,7 @@
                     <div><p class="chudam text-giua">Thông tin người nhận</p></div>
                     <div><p class="chudam text-giua">Thao tác</p></div>
                 </div>
-                    <?php  $i=0 ?>
+                    <?php  $i=0 ; $thanhtien=0;?>
                 @foreach($hh as $value)
                     <div class="bor">
                         <div class="div-xacnhan2">
@@ -43,6 +43,7 @@
                                             {{$item->so_luong_mua}}
                                         </div>
                                         <div class="text-giua">
+
                                             {{
                               number_format(($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua, 0, '', ',').'đ'
                             }}
@@ -53,7 +54,7 @@
                             </div>
                             <div  class="text-giua">
                                 {{
-                            number_format($tong[$i], 0, '', ',').'đ'
+                            number_format($tong[$i] + $value[0]->don_gia_vc, 0, '', ',').'đ'
                           }}
 
 

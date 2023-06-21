@@ -62,8 +62,7 @@
                     <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
                 </div>
                 <div class="text-giua">
-                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">xác nhận</a></button>
-                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('huy_xacnhan',$value[0]->ma_hoadon)}}">hủy</a></button>
+                    <button class="button-cart" type="submit" name="submit" ><a href="{{route('huy_xacnhan',$value[0]->ma_hoadon)}}">Hủy</a></button>
                 </div>
             </div>
             <div class="grid-50">
@@ -139,7 +138,9 @@
                 <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
             </div>
             <div class="text-giua">
-                @if($value[0]->trang_thai == 2)
+                @if($value[0]->is_delete ==1)
+                    <p class="session-status">Đã hủy</p>
+                @elseif($value[0]->trang_thai == 2)
                     <p class="session-status">Chờ Xác nhận </p>
                 @elseif($value[0]->trang_thai == 3)
                     <p class="session-status">Đang giao</p>
@@ -159,72 +160,6 @@
 @endforeach
     @endif
 
-{{--            <table class="sell_table">--}}
-{{--                <tr>--}}
-
-
-{{--                    <td>thông tin hóa đơn</td>--}}
-{{--                    <td>số lượng</td>--}}
-{{--                    <td>đơn giá</td>--}}
-{{--                    <td>thành tiền</td>--}}
-{{--                    <td>thông tin người nhận</td>--}}
-{{--                    <td>thao tác</td>--}}
-
-{{--                </tr>--}}
-{{--            </table>--}}
-{{--            <table class="sell_table">--}}
-{{--                @foreach($hh as $value)--}}
-{{--                @foreach($value as $item)--}}
-
-{{--                        <tr class="tr">--}}
-{{--                            <td>--}}
-{{--                                <div class="chia_cot_table">--}}
-{{--                                    <div>--}}
-{{--                                        @if($item->anh_sp !==null)--}}
-{{--                                            <img class="cart-img" src="{{$item->anh_sp}}">--}}
-{{--                                        @else--}}
-{{--                                            <img class="cart-img" src="{{asset('images/user.png')}}">--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-{{--                                    <div>--}}
-{{--                                        {{$item->ten_sp}}--}}
-{{--                                        <p>{{$item->ten_vc}} - {{$item->don_gia_vc}}</p>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </td>--}}
-{{--                            <td>--}}
-{{--                                {{$item->so_luong_mua}}--}}
-{{--                            </td>--}}
-{{--                            <td>--}}
-{{--                                {{($item->gia_goc - $item->khuyen_mai)*$item->so_luong_mua}}--}}
-
-{{--                            </td>--}}
-
-{{--                               @endforeach--}}
-{{--                            <td>--}}
-{{--                                {{$tong[$i]}}--}}
-{{--                            </td>--}}
-{{--                            <td>--}}
-{{--                                <p>tên: {{$value[0]->ten_nhan}}</p>--}}
-{{--                                <p>số dt: {{$value[0]->so_dt_nhan}}</p>--}}
-{{--                                <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>--}}
-{{--                            </td>--}}
-
-{{--                            <td>--}}
-{{--                                <button class="button-cart" type="submit" name="submit" ><a href="{{route('confim-wait',$value[0]->ma_hoadon)}}">xác nhận</a></button>--}}
-{{--                                <button class="button-cart" type="submit" name="submit" ><a href="{{route('huy_xacnhan',$value[0]->ma_hoadon)}}">hủy</a></button>--}}
-{{--                             </td>--}}
-
-{{--                        </tr>--}}
-{{--                    <tr>--}}
-{{--                        <td colspan="6">--}}
-{{--                            <div class="tr"></div>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                    <?php $i++; ?>--}}
-{{--                @endforeach--}}
-
-{{--            </table>--}}
 
 
 @endsection

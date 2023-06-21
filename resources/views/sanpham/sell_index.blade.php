@@ -1,9 +1,12 @@
 @extends('layout.header_sell_2')
 @section('sell-index-all')
-
     <div>
+        @if(session("thongbao"))
+            <div class="session-status">
+                {{session("thongbao")}}
+            </div>
+        @endif
         <div class="sell_div1">
-
                 <h2>{{count($sp_all2)}} sản phẩm</h2>
             <div class="width-50"><a class="chudam" href="{{route('sell_create_sp')}}"><button class="border-none float-right corso"><p class="fa fa-plus"></p> Thêm mới</button></a></div>
         </div>

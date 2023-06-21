@@ -21,7 +21,7 @@ class BinhluanController extends Controller
             'danh_gia'=>$request->star,
             'noi_dung'=>$request->nd_bl
         ]);
-        return back();
+        return back()->with('binhluan','Đánh giá thành công');
     }
 
     /**

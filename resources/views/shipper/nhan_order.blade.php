@@ -53,7 +53,7 @@
                                </div>
                                <div  class="text-giua">
                                    {{
-                                       number_format($tong[$i], 0, '', ',').'đ'
+                                       number_format($tong[$i] + $item->don_gia_vc, 0, '', ',').'đ'
                                        }}
 
 
