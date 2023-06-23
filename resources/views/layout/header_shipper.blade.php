@@ -9,13 +9,13 @@
             <div>
                 <a href="{{route('shipper-all-order')}}"><h1>Rập may <span style="font-size: 60%">shipper</span></h1></a>
             </div>
-            <div class="giohang">
+            <div class="giohang text-giua">
                 <a href="{{route('shipper-all-order')}}">Tất cả hóa đơn</a>
             </div>
-            <div class="giohang">
+            <div class="giohang text-giua">
                 <a href="{{route('shipper-resive-order')}}">Hóa đơn đã nhận</a>
             </div>
-            <div class="giohang">
+            <div class="giohang text-giua">
                 @if(\Illuminate\Support\Facades\Auth::check())
                         <?php $user=\Illuminate\Support\Facades\Auth::user();?>
 

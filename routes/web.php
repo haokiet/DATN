@@ -154,4 +154,4 @@ Route::get('/Timkiem',[SanphamController::class,'timKiem'])->name('timkiem');
 
 Route::view('/kkkk','kkk');
 
-
+Route::get('/loinhuan',[HoadonController::class,'tongLoinhuan'])->name('loinhuan');

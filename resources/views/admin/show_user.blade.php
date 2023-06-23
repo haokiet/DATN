@@ -12,6 +12,7 @@
                 <button class="btn-sell" id="trolai">Trở lại</button>
             </div>
         </div>
+            <h2>Chi tiết người dùng</h2>
         <div class="show-lr body-home">
             <div class="khung_sp" >
                 @if($us->image !==null)

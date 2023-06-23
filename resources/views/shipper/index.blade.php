@@ -28,9 +28,9 @@
                                             <div>
 
                                                 @if($item->anh_sp !==null)
-                                                    <img class="cart-img" src="{{$item->anh_sp}}">
+                                                    <img class="shipper-img" src="{{$item->anh_sp}}">
                                                 @else
-                                                    <img class="cart-img" src="{{asset('images/user.png')}}">
+                                                    <img class="shipper-img" src="{{asset('images/user.png')}}">
                                                 @endif
                                             </div>
                                             <div class="text-giua">
@@ -65,7 +65,7 @@
                                 <p>địa chỉ: {{$value[0]->dia_chi_nhan}}</p>
                             </div>
                             <div class="text-giua">
-                                <button class="button-cart" type="submit" name="submit" ><a href="{{route('shipper-confim-order',$value[0]->ma_hoadon)}}">Nhận đơn</a></button>
+                                <button class="button-shipper" type="submit" name="submit" ><a href="{{route('shipper-confim-order',$value[0]->ma_hoadon)}}">Nhận đơn</a></button>
                             </div>
                         </div>
                         <div>{{$value[0]->ten_vc}} - {{$value[0]->don_gia_vc}}</div>

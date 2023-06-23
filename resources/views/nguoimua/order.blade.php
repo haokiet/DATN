@@ -21,9 +21,9 @@
                             <div class="chia_cot_table">
                                 <div >
                                     @if($item->anh_sp !==null)
-                                        <img class="cart-img" src="{{$item->anh_sp}}">
+                                        <img class="shipper-img" src="{{$item->anh_sp}}">
                                     @else
-                                        <img class="cart-img" src="{{asset('images/user.png')}}">
+                                        <img class="shipper-img" src="{{asset('images/user.png')}}">
                                     @endif
                                 </div>
                                 <div class="text-giua">
@@ -97,9 +97,9 @@
                         <div class="chia_cot_table">
                             <div>
                                 @if($item->anh_sp !==null)
-                                    <img class="cart-img" src="{{$item->anh_sp}}">
+                                    <img class="shipper-img" src="{{$item->anh_sp}}">
                                 @else
-                                    <img class="cart-img" src="{{asset('images/user.png')}}">
+                                    <img class="shipper-img" src="{{asset('images/user.png')}}">
                                 @endif
                             </div>
                             <div class="text-giua">

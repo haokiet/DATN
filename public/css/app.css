@@ -544,6 +544,10 @@ ul{
     width: 80px;
     height: 80px;
 }
+.shipper-img{
+    width: 100%;
+    height: 100px
+}
 .bottom-cart{
     width: 100%;
     position: fixed;
@@ -559,6 +563,11 @@ ul{
 .button-cart{
     width: 100px;
     height: 30px;
+    background-color: #fabc03;
+}
+.button-shipper{
+    width: 100%;
+    height: auto;
     background-color: #fabc03;
 }
 .div-tong{
@@ -778,8 +787,8 @@ label.star2:before {
     font-size: 50px;
 }
 
-.preview-img {min-width: 150px;min-height: 150px; max-width: 150px; max-height: 150px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
-.preview-img2 {min-width: 50px;min-height: 50px; max-width: 50px; max-height: 50px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
+.preview-img {max-width: 50%; max-height: 150px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
+.preview-img2 {max-width: 50%; max-height: 50px;margin: 0 1em 1em 0;padding: 0.5em;border: 1px solid #ccc; border-radius: 3px;}
 
 .chia_cot_table{
     display: grid;
@@ -896,8 +905,9 @@ width: 100%;
 background-image:url("https://scr.vn/wp-content/uploads/2020/07/H%C3%ACnh-n%E1%BB%81n-hoa-tinh-t%E1%BA%BF-th%E1%BA%ADt-%C4%91%E1%BA%B9p.jpg");
 }
 .child{
-   width: 35%;
-    height: 50%;
+
+   width: 5git 00px;
+    height: auto;
     margin: auto;
 }
 .giaohang{
@@ -956,5 +966,4 @@ input[type="file"] {
 }
 .remove:hover {
     background: white;
-    color: black;
-}
+    color: black

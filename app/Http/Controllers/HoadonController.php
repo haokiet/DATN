@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CT_Hoadon;
 use App\Models\Hoadon;
 use App\Models\Sanpham;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -630,6 +631,62 @@ class HoadonController extends Controller
 //        $pdf->download('itsolutionstuff.pdf');
 
         return redirect('/sell/giaohang')->with('thongbao','Đã chuyển hàng');
+    }
+
+    public function tongLoinhuan()
+    {
+        $user = Auth::user();
+//        $hoadon = DB::table('hoadon')
+//            ->join('ct_hoadon','ct_hoadon.ma_hoadon','=','hoadon.id')
+//            ->join('vanchuyen','vanchuyen.id','=','hoadon.ma_vanchuyen')
+//            ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+//            ->where('sanpham.ma_nguoidung','=',$user->id)
+//            ->get();
+//        $i=0; $v=null;$k=null;
+//        foreach ($hoadon as $_hoadon)
+//        {
+//            $v[$i] = $_hoadon->ma_hoadon;
+//            $i++;
+//        }
+//        $k = array_unique($v);
+        $hd1 = DB::table('sanpham')
+            ->join('ct_hoadon','ct_hoadon.ma_sp','=','sanpham.id')
+            ->join('users','users.id','=','sanpham.ma_nguoidung')
+            ->join('hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+            ->join('vanchuyen','hoadon.ma_vanchuyen','=','vanchuyen.id')
+            ->where('users.id','=',$user->id)
+            ->where('hoadon.trang_thai','=','4')
+            ->get();
+        $tong = 0; $i=0;$v=null;
+        foreach ($hd1 as $item)
+        {
+            $v[$i] =$item->ma_hoadon;
+            $tong = $tong + ($item->gia_goc)*$item->so_luong_mua;
+            $i++;
+        }
+        $k = array_unique($v);
+        $j=0;
+        foreach ($k as $_k)
+        {
+            $hoadon[$j] = DB::table('hoadon')
+                ->join('ct_hoadon','hoadon.id','=','ct_hoadon.ma_hoadon')
+                ->join('sanpham','sanpham.id','=','ct_hoadon.ma_sp')
+                ->where('hoadon.id','=',$_k)
+                ->get();
+            $j++;
+        }
+        $tong_cuoi = 0;
+        foreach ($hoadon as $_hoadon)
+        {
+            foreach ($_hoadon as $_hd)
+            {
+                $tong_cuoi = $tong_cuoi + $_hd->gia_goc * $_hd->so_luong_mua;
+            }
+        }
+
+        $cc = $tong - $tong_cuoi;
+
+        return view('hoadon_sell.loinhuan',compact('user','cc'));
     }
 
 }
